@@ -2,7 +2,6 @@ package com.ssafy.study_with_us.domain.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -19,17 +18,17 @@ public class Schedule {
 //  N:1
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "study_id")
-    private Study study;
+    private StudyDetail studyDetail;
 
     public Schedule() {
     }
 
-    public Schedule(Long id, LocalDate date, String title, String content, Study study) {
+    public Schedule(Long id, LocalDate date, String title, String content, StudyDetail studyDetail) {
         this.id = id;
         this.date = date;
         this.title = title;
         this.content = content;
-        this.study = study;
+        this.studyDetail = studyDetail;
     }
 
     @Override
@@ -39,7 +38,7 @@ public class Schedule {
                 ", date=" + date +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", study=" + study +
+                ", study=" + studyDetail +
                 '}';
     }
 }

@@ -13,7 +13,7 @@ public class StudyTheme {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "study_id")
-    private Study study;
+    private StudyDetail studyDetail;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "theme_id")
@@ -22,9 +22,9 @@ public class StudyTheme {
     public StudyTheme() {
     }
 
-    public StudyTheme(Long id, Study study, Theme theme) {
+    public StudyTheme(Long id, StudyDetail studyDetail, Theme theme) {
         this.id = id;
-        this.study = study;
+        this.studyDetail = studyDetail;
         this.theme = theme;
     }
 
@@ -32,7 +32,7 @@ public class StudyTheme {
     public String toString() {
         return "StudyTheme{" +
                 "id=" + id +
-                ", study=" + study +
+                ", study=" + studyDetail +
                 ", theme=" + theme +
                 '}';
     }

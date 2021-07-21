@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "member_studyroom")
-public class MemberStudyRoom {
+public class MemberStudyroom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_studyroom_id")
@@ -16,12 +16,12 @@ public class MemberStudyRoom {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Column(name = "studyroom_id")
-    private StudyRoom studyRoom;
+    private Studyroom studyRoom;
 
-    public MemberStudyRoom() {
+    public MemberStudyroom() {
     }
 
-    public MemberStudyRoom(Long id, Member member, StudyRoom studyRoom) {
+    public MemberStudyroom(Long id, Member member, Studyroom studyRoom) {
         this.id = id;
         this.member = member;
         this.studyRoom = studyRoom;

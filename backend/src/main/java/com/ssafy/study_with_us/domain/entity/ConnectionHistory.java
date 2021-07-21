@@ -7,7 +7,7 @@ import static javax.persistence.FetchType.*;
 
 @Entity
 @Table(name = "connectionhistory")
-public class ConnectionHistory {
+public class Connectionhistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "connectionhistory_id")
@@ -18,12 +18,12 @@ public class ConnectionHistory {
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "studyroom_id")
-    private StudyRoom studyRoom;
+    private Studyroom studyRoom;
 
-    public ConnectionHistory() {
+    public Connectionhistory() {
     }
 
-    public ConnectionHistory(Long id, LocalDate lastTime, StudyRoom studyRoom) {
+    public Connectionhistory(Long id, LocalDate lastTime, Studyroom studyRoom) {
         this.id = id;
         this.lastTime = lastTime;
         this.studyRoom = studyRoom;
