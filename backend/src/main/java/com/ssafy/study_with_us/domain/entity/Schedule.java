@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 public class Schedule {
     @Id
@@ -14,8 +16,8 @@ public class Schedule {
     private LocalDate date;
     private String title;
     private String content;
-//  1:1 아니야??
-    @OneToOne
+//  N:1
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "study_id")
     private Study study;
 
