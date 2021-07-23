@@ -1,13 +1,19 @@
 package com.ssafy.study_with_us.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Set;
 
 @Getter
 @Entity
 @Table(name = "member")
+// 객체 상속이랑 many to many 충돌 나는듯
+//@DiscriminatorValue("member")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,43 +33,40 @@ public class Member {
     @Column(length = 30, nullable = false)
     private String nickname;
 
+    @Column
     private Integer age;
 
     @Column(length = 30)
-    private String group;
+    private String department;
 
-//    @Transient
-//    private Set<Authority> authorities;
-//
-//    @Builder
-//    public Member(Long id, String email, String password, String name, String phone, String bday, String gender) {
-//        this(id, email, password, name, phone, bday, gender, true, Collections.singleton(Authority.builder().authorityName("ROLE_USER").build()));
-//    }
-//
-//    @Builder
-//    public Member(Long id, String email, String password, String name, String phone, String bday, String gender, boolean activated, Set<Authority> authorities) {
-//        this.id = id;
-//        this.email = email;
-//        this.password = password;
-//        this.name = name;
-//        this.phone = phone;
-//        this.bday = bday;
-//        this.gender = gender;
-//        this.activated = activated;
-//        this.authorities = authorities;
-//    }
+    @ManyToMany
+    @JoinTable(
+            name = "member_authority",
+            joinColumns = {@JoinColumn(name = "member_id", referencedColumnName = "member_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
 
-    public Member() {
+    @Column
+    private LocalDateTime studytime;
+
+    @Builder
+    public Member(Long id, String email, String password, String name, String nickname, Integer age, String group, LocalDateTime studytime) {
+        this(id, email, password, name, nickname, age, group, studytime, Collections.singleton(Authority.builder().authorityName("ROLE_USER").build()));
     }
 
-    public Member(Long id, String email, String password, String name, String nickname, Integer age, String group) {
+    @Builder
+    public Member(Long id, String email, String password, String name, String nickname, Integer age, String department, LocalDateTime studytime, Set<Authority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
         this.nickname = nickname;
         this.age = age;
-        this.group = group;
+        this.department = department;
+        this.studytime = studytime;
+        this.authorities = authorities;
+    }
+    public Member() {
     }
 
     @Override
@@ -75,7 +78,7 @@ public class Member {
                 ", name='" + name + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", age=" + age +
-                ", group='" + group + '\'' +
+                ", department='" + department + '\'' +
                 '}';
     }
 }

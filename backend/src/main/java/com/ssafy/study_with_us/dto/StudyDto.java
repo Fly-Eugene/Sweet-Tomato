@@ -1,30 +1,21 @@
-package com.ssafy.study_with_us.domain.entity;
+package com.ssafy.study_with_us.dto;
 
 import lombok.Builder;
 
-import javax.persistence.*;
+import javax.persistence.Column;
 
-@Entity
-@DiscriminatorValue("study")
-public class Study extends Profile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "study_id")
+public class StudyDto {
     private Long id;
-
-    @Column(name = "study_name")
     private String studyName;
-    @Column(name = "study_intro", columnDefinition = "TEXT")
     private String studyIntro;
-    @Column(name = "study_leader")
     private Long studyLeader;
-    @Column(name = "security")
     private String security;
 
-    public Study() {
+    public StudyDto() {
     }
+
     @Builder
-    public Study(Long id, String studyName, String studyIntro, Long studyLeader, String security) {
+    public StudyDto(Long id, String studyName, String studyIntro, Long studyLeader, String security) {
         this.id = id;
         this.studyName = studyName;
         this.studyIntro = studyIntro;
@@ -34,7 +25,7 @@ public class Study extends Profile {
 
     @Override
     public String toString() {
-        return "Study{" +
+        return "StudyDto{" +
                 "id=" + id +
                 ", studyName='" + studyName + '\'' +
                 ", studyIntro='" + studyIntro + '\'' +
