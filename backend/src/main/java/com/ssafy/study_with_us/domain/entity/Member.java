@@ -12,7 +12,9 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "member")
-public class Member{
+// 객체 상속이랑 many to many 충돌 나는듯
+//@DiscriminatorValue("member")
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
