@@ -12,7 +12,7 @@ import java.util.Set;
 @Getter
 @Entity
 @Table(name = "member")
-public class Member extends Profile{
+public class Member{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
@@ -54,19 +54,6 @@ public class Member extends Profile{
 
     @Builder
     public Member(Long id, String email, String password, String name, String nickname, Integer age, String department, LocalDateTime studytime, Set<Authority> authorities) {
-        this.id = id;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.nickname = nickname;
-        this.age = age;
-        this.department = department;
-        this.studytime = studytime;
-        this.authorities = authorities;
-    }
-    @Builder
-    public Member(Long id, String email, String password, String name, String nickname, Integer age, String department, LocalDateTime studytime, Set<Authority> authorities, Long profileId, String image, String thumbnail, String path) {
-        super(profileId, image, thumbnail, path);
         this.id = id;
         this.email = email;
         this.password = password;
