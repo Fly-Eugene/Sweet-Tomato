@@ -70,4 +70,11 @@ public class MemberService {
     public Member dtoToEntity(MemberDto memberDto){
         return new Member(memberDto.getId(), memberDto.getEmail(), memberDto.getPassword(), memberDto.getUsername(), memberDto.getAge(), memberDto.getDepartment(), memberDto.getStudytime());
     }
+
+    public Member pwdSearch(MemberDto memberDto, String key){
+        Member member = memberRepository.findByEmail(memberDto.getEmail()).get();
+        member.setPassword(passwordEncoder.encode(key));
+        memberRepository.save(member);
+        return member;
+    }
 }
