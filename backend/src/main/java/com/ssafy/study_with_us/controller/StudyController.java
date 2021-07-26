@@ -1,9 +1,7 @@
 package com.ssafy.study_with_us.controller;
 
-import com.ssafy.study_with_us.domain.entity.Study;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.service.StudyService;
-import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
