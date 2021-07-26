@@ -2,10 +2,12 @@ package com.ssafy.study_with_us.domain.entity;
 
 
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
 public class Profile {

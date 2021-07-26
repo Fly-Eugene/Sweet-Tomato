@@ -53,7 +53,7 @@ public class StudyService {
                 .studyLeader(getMemberId(SecurityUtil.getCurrentUsername()))
                 .security(params.getSecurity())
                 .build());
-        // 4. 매핑 테이블에 저장(만들어진 id 어떻게 받아오는지 찾아보기)
+        // 4. 매핑 테이블에 저장
         for (String theme : params.getThemes()) {
             studyThemeRefRepository.save(StudyThemeRef.builder().study(study).theme(Theme.builder().themeName(theme).build()).build());
         }

@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link :to="{name: 'AccountLogin'}">AccountLogin</router-link>
+    <router-link to="/account/signup">Signup</router-link>
   </div>
   <router-view/>
 </template>
