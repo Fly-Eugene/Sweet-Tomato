@@ -1,0 +1,175 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Dosis:wght@600&display=swap');
+
+body {
+  background: #FFD0BB;
+}
+
+.signup { 
+  // background: #FFFFFF;
+  overflow: hidden;
+
+  .circle {
+    z-index: 1;
+    position: absolute;
+    width: 400px;
+    height: 400px; 
+    left: 12%;
+    border-radius: 70%;
+    background-color: #AE1A1F;
+  }
+
+  .rectangle {
+    z-index: 1;
+    position: absolute;
+    width: 700px;
+    height: 350px;
+    top: 50%;
+    left: 55%;
+    background-color: #AE1A1F;
+    transform: rotate(20deg);
+  }
+  
+  .tomato1 {
+    z-index: 3;
+    top: 45%;
+    left: 13%;
+    width: 300px;
+    height: 300px;
+    transform: rotate(-15deg);
+    position: absolute;
+  }
+
+  .tomato2 {        
+    z-index: 3;
+    top: 60%;
+    left: 25%;
+    width: 270px;
+    height: 270px;
+    transform: rotate(35deg);
+    position: absolute;
+  }
+  .signup_body {
+    padding: 50px;
+    height: 100%;
+    width: 100%;
+    background: #FFD0BB;
+    display: inline-block;
+
+    .signup_card {
+      position: relative;
+      z-index: 2;
+      width: 1270px;
+      height: 700px;
+      background: #FFFFFF;
+      border-radius: 50px;
+      display: inline-block;
+      overflow: hidden;
+
+      .signup_left {
+        float: left;
+        width: 60%;
+        height: 100%;
+        position: relative;
+
+        .signup_left_content {
+          position: absolute;
+          top: 10%;
+          left: 30%;
+
+            h2 {
+            font-size: 60px; 
+            font-family: 'Dosis', sans-serif; 
+            }
+
+            .profile_box {
+              margin: auto;
+              width: 230px;
+              height: 230px; 
+              border-radius: 70%;
+              overflow: hidden;
+              
+              .profile {                    
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+        }         
+      }
+      .signup_right {
+        float: right;
+        width: 40%;
+        height: 100%;
+        padding: 0%;
+        background: rgba(255, 230, 219, 0.4);
+        border-radius: 0px 50px 50px 0px;
+        position: relative;
+
+        .signup_right_content {
+          position: absolute;
+          top: 10%;
+          left: 18%;
+          width: 65%;
+
+          h2 {
+            font-family: 'Dosis', sans-serif; 
+            font-size: 50px;
+            margin: 20px;
+          }
+          span {
+            font-family: 'DM Sans', sans-serif;
+            margin-bottom: 10px;
+          }
+          form {
+            margin-top: 15px;
+            div {
+              input {
+                height: 35px;
+                width: 100%;
+                background: #EDD9D9;
+                border-radius: 50px;
+                margin: 5px 0px;
+                border: none;
+              }
+            }
+            footer {
+              overflow: hidden;
+              .checkbox {
+                width: 10px;
+                height: 11px;
+                border: 1px solid black;
+                display: inline-block;               
+              } 
+              .checkword {
+                font-family: 'DM Sans', sans-serif;
+                padding-left: 8px;
+                display: inline-block;
+              }
+            }
+            button {
+              background: #AE1A1F;
+              border-radius: 50px;
+              width: 160px;
+              height: 45px;
+              padding-left: 12px;
+
+              p {
+                margin: 2px;
+                font-size: 20px;
+                font-family: 'DM Sans', sans-serif;
+                color: #f0f0f0
+              }
+
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+input:focus {
+  background-color: lightblue;
+}

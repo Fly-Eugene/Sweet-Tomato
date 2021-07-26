@@ -15,4 +15,10 @@ public class ProfileDto {
     private String thumbnail;
     private String path;
 
+    public ProfileDto(Long id, String image, String thumbnail, String path){
+        this.id = id;
+        this.image = image;
+        this.thumbnail = thumbnail;
+        this.path = path;
+    }
 }
