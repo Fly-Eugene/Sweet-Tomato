@@ -50,7 +50,7 @@ public class Member {
 //  방향 관계 확실치 않아서 일단 생성자에 추가 안했어요!
     @OneToOne
     @JoinColumn(name = "profile_id")
-    private StudyProfile profile;
+    private MemberProfile profile;
 
     @Builder
     public Member(Long id, String email, String password, String name, String nickname, Integer age, String group, LocalDateTime studytime) {
@@ -73,6 +73,11 @@ public class Member {
     public Member() {
     }
 
+    public Member(Long id, String email, String password, String name, String nickname, Integer age, String group, LocalDateTime studytime, MemberProfile memberProfile){
+        this(id, email, password, name, nickname, age, group, studytime, Collections.singleton(Authority.builder().authorityName("ROLE_USER").build()));
+        this.profile = memberProfile;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
@@ -84,5 +89,11 @@ public class Member {
                 ", age=" + age +
                 ", department='" + department + '\'' +
                 '}';
+    }
+
+    public MemberProfile makeProfile(){
+        MemberProfile memberProfile = new MemberProfile();
+        this.profile = memberProfile;
+        return this.profile;
     }
 }
