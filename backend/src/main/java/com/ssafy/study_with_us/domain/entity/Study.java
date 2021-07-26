@@ -5,8 +5,7 @@ import lombok.Builder;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("study")
-public class Study extends Profile {
+public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "study_id")
@@ -20,6 +19,11 @@ public class Study extends Profile {
     private Long studyLeader;
     @Column(name = "security")
     private String security;
+
+//  얘도 방향관계 확실치 않아서 생성자에 추가 안했어요
+    @OneToOne
+    @JoinColumn(name = "profile_id")
+    private StudyProfile profile;
 
     public Study() {
     }
