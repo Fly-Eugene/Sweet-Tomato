@@ -1,9 +1,9 @@
 package com.ssafy.study_with_us.dto;
 
 import lombok.Builder;
+import lombok.Getter;
 
-import javax.persistence.Column;
-
+@Getter
 public class StudyDto {
     private Long id;
     private String studyName;
