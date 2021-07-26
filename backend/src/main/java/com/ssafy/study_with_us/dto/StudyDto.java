@@ -1,7 +1,11 @@
 package com.ssafy.study_with_us.dto;
 
+import com.ssafy.study_with_us.domain.entity.Theme;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 public class StudyDto {
@@ -10,7 +14,7 @@ public class StudyDto {
     private String studyIntro;
     private Long studyLeader;
     private String security;
-
+    private Set<String> themes = new HashSet<>();
     public StudyDto() {
     }
 

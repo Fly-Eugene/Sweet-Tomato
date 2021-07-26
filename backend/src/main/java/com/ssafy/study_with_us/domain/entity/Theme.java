@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.domain.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -8,26 +9,21 @@ import javax.persistence.*;
 @Entity
 public class Theme {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "theme_id")
-    private Long id;
-
     @Column(name = "theme_name")
     private String themeName;
 
     public Theme() {
     }
 
-    public Theme(Long id, String themeName) {
-        this.id = id;
+    @Builder
+    public Theme(String themeName) {
         this.themeName = themeName;
     }
 
     @Override
     public String toString() {
         return "Theme{" +
-                "id=" + id +
-                ", themeName='" + themeName + '\'' +
+                "themeName='" + themeName + '\'' +
                 '}';
     }
 }

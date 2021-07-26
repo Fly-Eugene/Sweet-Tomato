@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class StudyThemeRef {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "study_id")
+    @Column(name = "study_theme_ref_id")
     private Long id;
 
     @ManyToOne
@@ -19,7 +19,7 @@ public class StudyThemeRef {
     private Study study;
 
     @ManyToOne
-    @JoinColumn(name = "theme_id")
+    @JoinColumn(name = "theme_name")
     private Theme theme;
 
     public StudyThemeRef() {

@@ -22,6 +22,9 @@ public class StudyController {
 
     @PostMapping
     public Object create(@RequestBody StudyDto params) {
+        for (String theme : params.getThemes()) {
+            System.out.println("theme = " + theme);
+        }
 //      create 호출하는 사람, 즉 만드는 사람이 leader
         Map<String, Object> map = new HashMap<>();
         map.put("result", studyService.create(params));
