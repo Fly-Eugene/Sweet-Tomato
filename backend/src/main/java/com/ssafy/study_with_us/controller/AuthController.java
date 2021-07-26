@@ -52,7 +52,7 @@ public class AuthController {
         Member entity = memberRepository.findByEmail(member.getEmail()).get();
         Profile profile = entity.getProfile();
         ProfileDto profileDto = new ProfileDto(profile.getId(), profile.getImage(), profile.getImage(), profile.getPath());
-        MemberDto dto = new MemberDto(entity.getId(), entity.getEmail(), entity.getPassword(), entity.getName(), entity.getNickname(), entity.getAge(), entity.getDepartment(), entity.getStudytime(), profileDto);
+        MemberDto dto = new MemberDto(entity.getId(), entity.getEmail(), entity.getPassword(), entity.getUsername(), entity.getAge(), entity.getDepartment(), entity.getStudytime(), profileDto);
         map.put("member", dto);
         return map;
     }

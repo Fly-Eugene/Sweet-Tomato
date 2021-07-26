@@ -38,21 +38,19 @@ public class MemberService {
         Member member = memberRepository.findByEmail(param.getEmail()).get();
         MemberProfile profile = member.getProfile();
         ProfileDto profileDto = new ProfileDto(profile.getId(), profile.getImage(), profile.getThumbnail(), profile.getPath());
-        return new MemberDto(member.getId(), member.getEmail(), member.getPassword(), member.getName(), member.getNickname(), member.getAge(), member.getDepartment(), member.getStudytime(), profileDto);
+        return new MemberDto(member.getId(), member.getEmail(), member.getPassword(), member.getUsername(), member.getAge(), member.getDepartment(), member.getStudytime(), profileDto);
     }
 
     @Transactional
     public Member updateMember(MemberDto param) {
         Member member = memberRepository.findByEmail(param.getEmail()).get();
-        System.out.println(member.getName());
         // 이거 원래 이렇게 다 체크해줘야함??
         if(param.getId() == null) param.setId(member.getId());
         if(param.getPassword() == null) param.setPassword(member.getPassword());
         else{
             param.setPassword(passwordEncoder.encode(param.getPassword()));
         }
-        if(param.getName() == null) param.setName(member.getName());
-        if(param.getNickname() == null) param.setNickname(member.getNickname());
+        if(param.getUsername() == null) param.setUsername(member.getUsername());
         if(param.getAge() == null) param.setAge(member.getAge());
         if(param.getDepartment() == null) param.setDepartment(member.getDepartment());
         ProfileDto profileDto = param.getProfile();
@@ -62,7 +60,7 @@ public class MemberService {
         profile.setThumbnail(profileDto.getThumbnail());
         profile.setPath(profileDto.getPath());
         profileRepository.save(profile);
-        return memberRepository.save(new Member(param.getId(), param.getEmail(), param.getPassword(), param.getName(), param.getNickname(), param.getAge(), param.getDepartment(), param.getStudytime(), profile));
+        return memberRepository.save(new Member(param.getId(), param.getEmail(), param.getPassword(), param.getUsername(), param.getAge(), param.getDepartment(), param.getStudytime(), profile));
     }
     @Transactional
     public void deleteMember(String email) {
@@ -70,6 +68,6 @@ public class MemberService {
     }
 
     public Member dtoToEntity(MemberDto memberDto){
-        return new Member(memberDto.getId(), memberDto.getEmail(), memberDto.getPassword(), memberDto.getName(), memberDto.getNickname(), memberDto.getAge(), memberDto.getDepartment(), memberDto.getStudytime());
+        return new Member(memberDto.getId(), memberDto.getEmail(), memberDto.getPassword(), memberDto.getUsername(), memberDto.getAge(), memberDto.getDepartment(), memberDto.getStudytime());
     }
 }
