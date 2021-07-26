@@ -60,13 +60,19 @@ export default {
     const { value: ID, errorMessage: IDError } = useField('ID')
     const { value: Password, errorMessage: PasswordError } = useField('Password')
 
-    const credentials = {
-      ID: ID,
-      Password: Password,
-    }
+      const credentials = {
+        email: ID._value,
+        password: Password._value
+      }
+
+      // console.log(credentials)
 
     const onLoginSubmit = handleSubmit(() => {
-      store.dispatch('login', credentials)
+
+      console.log(ID._value, Password._value)
+      store.dispatch('login', { email: ID._value, password: Password._value
+      }) 
+
     })
     
 
@@ -86,6 +92,10 @@ export default {
 </script>
 
 <style>
+  body {
+    background-color: #FFD0BB;
+  }
+
   .accountLogo {
     font-size: 64px;
   }
@@ -121,8 +131,14 @@ export default {
   }
   
   #loginSection {
-    width: 498px;
-    height: 528px;
+    position: absolute;
+    width: 1273px;
+    height: 889px;
+    left: 83px; 
+    top: 68px;
+
+    background: #FFFFFF;
+    border-radius: 50px;
   }
 
   #goSignup {

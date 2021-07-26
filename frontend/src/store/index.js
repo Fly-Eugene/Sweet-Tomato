@@ -24,11 +24,12 @@ export default createStore({
     login: function(context, credentials) {
       axios({
         method: 'post',
-        url: this.state.server_url + 'login/',
+        url: this.state.server_url + 'auth/login',
         data: credentials
       })
       .then(res => {
-        localStorage.setItem('jwt', res.data.token)
+        console.log(res.data)
+        localStorage.setItem('jwt', res.data.Token.token)
         context.commit('CHANGE_ISLOGIN')
       })
       .catch(err => {
