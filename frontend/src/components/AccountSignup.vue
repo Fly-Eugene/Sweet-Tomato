@@ -1,101 +1,158 @@
 <template>
   <section class="signup">
-    <div class="circle"></div>
-    <div class="rectangle"></div>
-    <img class="tomato1" src="../assets/img/tomato.png" alt="">
-    <img class="tomato2" src="../assets/img/tomato.png" alt="">
-    <section class="signup_body">
-      <section class="signup_card">
-        <article class="signup_left">
+    <section class="signup_body">     
+      <div class="circle"></div> 
+      <div class="rectangle"></div>                 
+      <section class="signup_card">      
+        <article class="signup_left">              
+          <div class="toMain">            
+            <router-link :to="{name: 'Home'}">
+              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+              Main         
+            </router-link>    
+          </div>        
           <div class="signup_left_content">              
             <h2>Sweet Tomato</h2>
-            <div class="profile_box">
-              <img class="profile" src="../assets/img/basic_profile.png" alt="">
-            </div>
+            <form enctype="multipart/form-data">                
+              <div class="profile_box">
+                <img v-if="state.profile_image === ''" class="profile" src="../assets/img/basic_profile.png">
+                <div v-else class="profile" :style="`background-image : url(${state.profile_image})`"></div>              
+              </div>
+              <div class="filebox">
+                <label for="file">프로필 변경</label>
+                <input @change="upload" accept="image/*" type="file" id="file" name="profile"/>            
+              </div>
+            </form>
           </div>
         </article>
         <article class="signup_right">
           <div class="signup_right_content">
             <h2>Sign Up</h2>
             <span>Please fill your information for Signup</span>
-            <form class="signup_form" action="#" ref="signupForm" @submit="checkSignupForm">
+            <form class="signup_form" ref="signupForm" @submit="onSignupSubmit">
               <div>
-                <input type="text" v-model="state.form.id" placeholder="     ID">
+                <input type="email" v-model="email" name="email" placeholder="Email">
+                <p>{{ emailError }}</p>
               </div>      
               <div>
-                <input type="text" v-model="state.form.username" placeholder="     Username">
+                <input type="text" v-model="username" name="username" placeholder="Username">
+                <p>{{ usernameError }}</p>
               </div>      
               <div>
-                <input type="text" v-model="state.form.password" placeholder="     Password">
+                <input type="password" v-model="password" name="password" placeholder="Password">
+                <p>{{ passwordError }}</p>
               </div>
               <div>
-                <input type="text" v-model="state.form.passwordConfirmation" placeholder="     Password Confirm">
+                <input type="password" v-model="passwordConfirmation" name="passwordConfirmation" placeholder="Password Confirm">
+                <p>{{ passwordConfirmationError }}</p>
+              </div> 
+              <div>
+                <input type="number" v-model="age" name="age" placeholder="Age">
+                <p>{{ ageError }}</p>
               </div>
               <div>
-                <input type="text" v-model="state.form.email" placeholder="     Email">
-              </div>      
-              <div>
-                <input type="text" v-model="state.form.age" placeholder="     Age">
-              </div>
-              <div>
-                <input type="text" v-model="state.form.group" placeholder="     Group">
+                <input type="text" v-model="group" name="group" placeholder="Group">
+                <p>{{ groupError }}</p>
               </div>
               <footer>
-                <div class="checkbox"></div>
-                <p class="checkword">I Agree with a policy and policy</p>
+                <span class="checkword">I Agree with a policy and policy</span>
               </footer>
-              <button> <p>Sign Up</p> </button>
+              <button> <span class="signupBtn">Sign Up</span> </button>
             </form>        
           </div>          
-        </article>
+        </article>          
       </section>    
+      <img class="tomato1" src="../assets/img/tomato.png" alt="">
+      <img class="tomato2" src="../assets/img/tomato.png" alt="">
     </section>  
   </section>  
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
-import { useStore } from 'vuex' 
+
 import '../assets/style/signup.scss'
-import signupValidation from '../assets/js/signupValidation.js'
+import * as yup from 'yup'
+import { useForm, useField } from 'vee-validate'
+import { computed, reactive } from '@vue/runtime-core'
+import { useStore } from 'vuex' 
 
 export default {
   name: "AccountSignup",
 
-  setup(){
+  setup() {
     const store = useStore()
-    const signupForm = ref(null)
-
     const state = reactive({
-      form: {
-        id: '',
-        username: '',
-        password: '',
-        passwordConfirmation: '',
-        email: '',
-        age: '',
-        group: '',
-      },
-    }) 
-    const checkSignupForm = function(e) {
-      e.preventDefault();
-      if (!signupValidation.checkEmail(state.form.id)) {
-        console.log(signupValidation.checkEmail(state.form.id))
-      }
-      else if (!signupValidation.checkId(state.form.username)) {
-        alert('1')
-      } else if (!signupValidation.checkPassword(state.form.password)) {
-        alert('2')
-      } else if (!signupValidation.checkPasswordConfirmation({ password: state.form.password, passwordConfirmation: state.form.passwordConfirmation })) {
-        alert('3')
-      } else {
-        console.log({id: state.form.id, nickname: state.form.username, password: state.form.password, email: state.form.email, age: state.form.age, department: state.form.group })
-        store.dispatch('requestSignup', { id: state.form.id, username: state.form.username, password: state.form.password, email: state.form.email, age: state.form.age, group: state.form.group })
-      }
-      console.log()
+      selectedFile: null,
+      profile_image: ''
+    })
+    const schema = computed(() => {
+      return yup.object({
+        email: yup.string().email().required(),
+        password: yup
+          .string()
+          .required("Please enter your password")
+          .matches(
+            /^.*(?=.{8,16})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+            "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+          ),
+        passwordConfirmation: yup
+          .string()
+          .required("Please confirm your password")
+          .oneOf([yup.ref('password'), null], "Passwords don't match."),
+        username: yup.string().required().min(4),
+        age: yup.number(),
+        group: yup.string()
+      })
+    });
+
+    const { handleSubmit } = useForm({ validationSchema: schema });
+
+    const { value: email, errorMessage: emailError } = useField('email')
+    const { value: password, errorMessage: passwordError } = useField('password')
+    const { value: passwordConfirmation, errorMessage: passwordConfirmationError } = useField('passwordConfirmation')
+    const { value: username, errorMessage: usernameError } = useField('username')
+    const { value: age, errorMessage: ageError } = useField('age')
+    const { value: group, errorMessage: groupError } = useField('group')
+
+    const onSignupSubmit = handleSubmit(() => {
+      store.dispatch('requestSignup', { email: email._value, password: password._value, username: username._value, age: age._value, group: group._value, profile: state.selectedFile})
+      .then(function () {
+        alert('회원가입에 성공하셨습니다.')
+      })
+      .catch(function (err) {
+        alert(err)
+      })
+    })
+
+    function upload(e) {
+      var file = e.target.files;
+      state.selectedFile = file[0]
+      console.log(file[0])
+      let url = URL.createObjectURL(file[0]);
+      console.log(url);
+      state.profile_image = url;
     }
-      
-    return { store, signupForm, state, checkSignupForm }
+
+    return {
+      store,
+      state,
+
+      email,
+      emailError,
+      password,
+      passwordError,
+      passwordConfirmation,
+      passwordConfirmationError,
+      username,
+      usernameError,
+      age,
+      ageError,
+      group,
+      groupError,
+
+      onSignupSubmit,
+      upload
+    }
   }
 }
 </script>
