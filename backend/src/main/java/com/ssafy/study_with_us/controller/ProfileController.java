@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/profile")
-public class ProflieController {
+public class ProfileController {
     private ProfileService profileService;
 
-    public ProflieController(ProfileService profileService) {
+    public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
     }
 
@@ -21,4 +21,5 @@ public class ProflieController {
     public Object create(@RequestBody ProfileDto params){
         return profileService.create(params);
     }
+
 }

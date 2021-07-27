@@ -2,6 +2,7 @@ package com.ssafy.study_with_us.domain.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.study_with_us.domain.entity.Theme;
+import com.ssafy.study_with_us.dto.StudyDto;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,6 +20,12 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom{
     @Override
     public List<Theme> getThemes() {
         return jpaQueryFactory.selectFrom(theme).from(theme).fetch();
+    }
+
+    @Override
+    public Object update(StudyDto params) {
+//        jpaQueryFactory.update().execute();
+        return null;
     }
 
 }
