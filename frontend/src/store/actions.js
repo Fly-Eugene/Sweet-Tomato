@@ -1,4 +1,5 @@
 import $axios from 'axios'
+import router from '@/router'
 
 export function requestSignup (payload) {
   console.log('hi')
@@ -16,6 +17,7 @@ export function login (context, credentials) {
   .then(res => {
     localStorage.setItem('jwt', res.data.Token.token)
     context.commit('CHANGE_ISLOGIN')
+    router.push({ name : 'Home'})
   })
   .catch(err => {
     alert('로그인 오류입니다')
@@ -31,10 +33,9 @@ export function sendValidateEmail (context, email) {
     data: email
   })
   .then(res => {
-    console.log(res, '이거 actions axios log인데, res 어떻게 처리하지')
+    alert(res.data.msg)
   })
   .catch(err => {
-    alert('인증번호 전송 실패??')
     console.log(err)
   })
 }
