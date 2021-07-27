@@ -102,7 +102,6 @@ export default {
     const { value: Password, errorMessage: PasswordError } = useField('Password')
 
     const onLoginSubmit = handleSubmit(() => {
-      console.log(ID._value, Password._value)
       store.dispatch('login', { email: ID._value, password: Password._value
       }) 
     })
@@ -116,7 +115,7 @@ export default {
     }
 
     const onClickSendValidate = function() {
-      store.dispatch('sendValidateEmail', {email: email_validate})
+      store.dispatch('sendValidateEmail', {email: email_validate.value})
     }
 
     onMounted( function() {
