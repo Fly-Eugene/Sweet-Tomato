@@ -30,4 +30,8 @@ public class StudyController {
         return studyService.update(params);
     }
 
+    @GetMapping
+    public Object read(@RequestParam Long id){
+        return studyService.read(id);
+    }
 }

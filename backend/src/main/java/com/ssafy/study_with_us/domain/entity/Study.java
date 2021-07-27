@@ -29,13 +29,15 @@ public class Study {
 
     public Study() {
     }
+
     @Builder
-    public Study(Long id, String studyName, String studyIntro, Long studyLeader, String security) {
+    public Study(Long id, String studyName, String studyIntro, Long studyLeader, String security, StudyProfile profile) {
         this.id = id;
         this.studyName = studyName;
         this.studyIntro = studyIntro;
         this.studyLeader = studyLeader;
         this.security = security;
+        this.profile = profile;
     }
 
     @Override

@@ -25,11 +25,11 @@ public class Profile {
     public Profile() {
     }
 
-    @Builder
     public Profile(Long id, String image, String thumbnail, String path) {
         this.id = id;
         this.image = image;
         this.thumbnail = thumbnail;
         this.path = path;
     }
+
 }
