@@ -51,7 +51,7 @@ public class AuthController {
         map.put("Token", new TokenDto(jwt));
         Member entity = memberRepository.findByEmail(member.getEmail()).get();
         Profile profile = entity.getProfile();
-        ProfileDto profileDto = new ProfileDto(profile.getId(), profile.getImage(), profile.getImage(), profile.getPath());
+        ProfileDto profileDto = ProfileDto.builder().id(profile.getId()).image(profile.getImage()).thumbnail(profile.getThumbnail()).path(profile.getPath()).build();
         MemberDto dto = new MemberDto(entity.getId(), entity.getEmail(), entity.getPassword(), entity.getUsername(), entity.getAge(), entity.getDepartment(), entity.getStudytime(), profileDto);
         map.put("member", dto);
         return map;

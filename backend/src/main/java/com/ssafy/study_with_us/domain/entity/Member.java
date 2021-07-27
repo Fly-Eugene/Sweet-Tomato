@@ -3,6 +3,7 @@ package com.ssafy.study_with_us.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.Set;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "member")
 public class Member {
