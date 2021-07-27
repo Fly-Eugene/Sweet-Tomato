@@ -10,9 +10,12 @@ import com.ssafy.study_with_us.domain.repository.ThemeRepository;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.parser.Entity;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class StudyService {
@@ -46,10 +49,15 @@ public class StudyService {
         makeThemes(params, study);
         return study;
     }
+
+    @Transactional
     public Object update(StudyDto params){
-        studyRepository.update(params);
         Study study = studyRepository.getById(params.getId());
-        System.out.println("study = " + study);
+        studyRepository.update(StudyDto.builder()
+                .id(params.getId())
+                .studyName(params.getStudyName() == null ? study.getStudyName() : params.getStudyName())
+                .studyIntro(params.getStudyIntro() == null ? study.getStudyIntro() : params.getStudyIntro())
+                .build());
         makeThemes(params, study);
         return studyRepository.update(params);
     }

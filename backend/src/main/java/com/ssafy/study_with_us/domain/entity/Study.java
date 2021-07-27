@@ -1,10 +1,12 @@
 package com.ssafy.study_with_us.domain.entity;
 
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Entity
+@Getter
 public class Study {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
