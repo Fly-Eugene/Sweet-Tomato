@@ -11,6 +11,6 @@ import java.util.List;
 public interface StudyRepositoryCustom {
     List<Theme> getThemes();
     List<StudyThemeRef> getThemes(Long studyId);
-    Study getProfile(Long studyId);
+    StudyProfile getProfile(Long studyId);
     Object update(StudyDto params);
 }

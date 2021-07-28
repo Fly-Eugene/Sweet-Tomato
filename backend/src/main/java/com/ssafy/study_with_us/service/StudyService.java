@@ -70,13 +70,12 @@ public class StudyService {
             themes.add(theme.getTheme().getThemeName());
         }
         // profile 얻어오기
-        Study profile1 = studyRepository.getProfile(id);
-        System.out.println("profile1 = " + profile1);
-//        ProfileDto profile = ProfileDto.builder()
-//                .id(getProfile.getId())
-//                .path(getProfile.getPath())
-//                .image(getProfile.getImage())
-//                .thumbnail(getProfile.getThumbnail()).build();
+        StudyProfile getProfile = studyRepository.getProfile(id);
+        ProfileDto profile = ProfileDto.builder()
+                .id(getProfile.getId())
+                .path(getProfile.getPath())
+                .image(getProfile.getImage())
+                .thumbnail(getProfile.getThumbnail()).build();
         return StudyDto.builder()
                 .id(study.getId())
                 .studyName(study.getStudyName())
@@ -84,7 +83,7 @@ public class StudyService {
                 .studyLeader(study.getStudyLeader())
                 .security(study.getSecurity())
                 .themes(themes)
-//                .profile(profile)
+                .profile(profile)
                 .build();
     }
 

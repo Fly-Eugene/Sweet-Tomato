@@ -30,8 +30,9 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom{
     }
 
     @Override
-    public Study getProfile(Long studyId) {
-        return jpaQueryFactory.select(study).from(study).where(study.id.eq(studyId)).fetchOne();
+    public StudyProfile getProfile(Long studyId) {
+//        return jpaQueryFactory.selectFrom(study).fetchOne();
+        return jpaQueryFactory.select(study.profile).from(study).where(study.id.eq(studyId)).fetchOne();
     }
 
     @Override

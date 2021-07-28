@@ -32,4 +32,13 @@ public class Profile {
         this.path = path;
     }
 
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", path='" + path + '\'' +
+                '}';
+    }
 }
