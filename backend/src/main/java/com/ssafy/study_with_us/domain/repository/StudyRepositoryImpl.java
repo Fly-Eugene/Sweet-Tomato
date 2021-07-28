@@ -25,13 +25,12 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom{
     }
 
     @Override
-    public List<StudyThemeRef> getThemes(Long studyId) {
-        return jpaQueryFactory.selectFrom(studyThemeRef).where(studyThemeRef.study.id.eq(studyId)).fetch();
+    public List<Theme> getThemes(Long studyId) {
+        return jpaQueryFactory.select(studyThemeRef.theme).from(studyThemeRef).where(studyThemeRef.study.id.eq(studyId)).fetch();
     }
 
     @Override
     public StudyProfile getProfile(Long studyId) {
-//        return jpaQueryFactory.selectFrom(study).fetchOne();
         return jpaQueryFactory.select(study.profile).from(study).where(study.id.eq(studyId)).fetchOne();
     }
 

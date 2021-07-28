@@ -64,10 +64,10 @@ public class StudyService {
     public Object read(Long id){
         Study study = studyRepository.getById(id);
         // themes 얻어오기
-        List<StudyThemeRef> getThemes = studyRepository.getThemes(id);
+        List<Theme> getThemes = studyRepository.getThemes(id);
         Set<String> themes = new HashSet<>();
-        for (StudyThemeRef theme : getThemes) {
-            themes.add(theme.getTheme().getThemeName());
+        for (Theme getTheme : getThemes) {
+            themes.add(getTheme.getThemeName());
         }
         // profile 얻어오기
         StudyProfile getProfile = studyRepository.getProfile(id);
