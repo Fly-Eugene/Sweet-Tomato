@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.domain.repository;
 
+import com.querydsl.jpa.impl.JPADeleteClause;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.study_with_us.domain.entity.*;
 import com.ssafy.study_with_us.dto.StudyDto;
@@ -42,6 +43,12 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom{
                 .where(study.id.eq(params.getId()))
                 .execute();
         return null;
+    }
+
+    // 좀 더 효율적으로 가능할듯 후에 수정
+    @Override
+    public void remove(String theme, Long studyID) {
+        jpaQueryFactory.delete(studyThemeRef).where(studyThemeRef.theme.themeName.eq(theme), studyThemeRef.study.id.eq(studyID)).execute();
     }
 
 }
