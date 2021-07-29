@@ -3,7 +3,8 @@
     <router-link to="/">Home</router-link> |
     <router-link :to="{name: 'AccountLogin'}">AccountLogin</router-link> |
     <router-link :to="{name: 'AccountSignup'}">Signup</router-link> |
-    <router-link :to="{name: 'AccountProfile'}">Profile</router-link>
+    <router-link :to="{name: 'AccountProfile'}">Profile</router-link> | 
+    <router-link :to="{name: 'StudyMain'}">StudyMain</router-link>
   </div>
   <router-view/>
 </template>
@@ -23,7 +24,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-    width: 100%;
+  width: 100%;
   height: 100%;
 }
 
