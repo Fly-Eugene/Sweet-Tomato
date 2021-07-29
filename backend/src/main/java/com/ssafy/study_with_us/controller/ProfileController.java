@@ -1,21 +1,15 @@
 package com.ssafy.study_with_us.controller;
 
-import com.ssafy.study_with_us.domain.entity.Profile;
-import com.ssafy.study_with_us.domain.entity.StudyProfileService;
 import com.ssafy.study_with_us.dto.FileDto;
-import com.ssafy.study_with_us.dto.ProfileDto;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
-    private StudyProfileService studyProfileService;
-
-    public ProfileController(StudyProfileService studyProfileService) {
-        this.studyProfileService = studyProfileService;
-    }
 
     
     // 받는거 예시
