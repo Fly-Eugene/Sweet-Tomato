@@ -5,6 +5,7 @@
     <router-link :to="{name: 'AccountSignup'}">Signup</router-link> |
     <router-link :to="{name: 'AccountProfile'}">Profile</router-link> | 
     <router-link :to="{name: 'StudyMain'}">StudyMain</router-link>
+    <router-link :to="{name: 'MakeStudy'}">MakeStudy</router-link> |
   </div>
   <router-view/>
 </template>
@@ -24,12 +25,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
   width: 100%;
   height: 100%;
 }
 
 #nav {
   padding: 0px;
+  /* padding: 30px; */
 }
 
 #nav a {
