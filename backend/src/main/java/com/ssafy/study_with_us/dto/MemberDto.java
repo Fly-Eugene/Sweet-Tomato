@@ -1,13 +1,13 @@
 package com.ssafy.study_with_us.dto;
 
 import com.ssafy.study_with_us.domain.entity.Member;
+import com.ssafy.study_with_us.domain.entity.Profile;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @ToString
 @NoArgsConstructor
 public class MemberDto {
@@ -18,22 +18,10 @@ public class MemberDto {
     private Integer age;
     private String department;
     private LocalDateTime studytime;
-    private ProfileDto profile;
-
-//    public Member toEntity(){
-//        return Member.builder()
-//                .id(id)
-//                .email(email)
-//                .password(password)
-//                .name(name)
-//                .nickname(nickname)
-//                .age(age)
-//                .group(group)
-//                .build();
-//    }
+    private Profile profile;
 
     @Builder
-    public MemberDto(Long id, String email, String password, String username, Integer age, String department, LocalDateTime studytime, ProfileDto profile) {
+    public MemberDto(Long id, String email, String password, String username, Integer age, String department, LocalDateTime studytime, Profile profile) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -51,9 +39,10 @@ public class MemberDto {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", username='" + username + '\'' +
-                ", age='" + age + '\'' +
+                ", age=" + age +
                 ", department='" + department + '\'' +
-                ", studytime='" + studytime + '\'' +
+                ", studytime=" + studytime +
+                ", profile=" + profile +
                 '}';
     }
 }
