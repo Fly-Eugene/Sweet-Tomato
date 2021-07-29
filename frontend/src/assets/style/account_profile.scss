@@ -1,0 +1,136 @@
+.profile { 
+  // background: #FFFFFF;
+  // overflow: hidden;
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  .profile_body {
+    padding: 50px;
+    height: 90%;
+    width: 90%;
+    // width: 95%;
+    background: #FFD0BB;
+    display: inline-block;      
+    // position: absolute;
+  }
+  
+  .profile_card {
+    z-index: 10;
+    width: 90vw;
+    height: 80vh;
+    background: #FFF5F1;
+    border-radius: 50px;
+    position: absolute;
+    top: 80%;
+    // left: 49%;
+    // transform: translate(-50%, -50%);
+
+    header {
+      position: absolute;
+      background: #fff;
+      height: 11%;
+      width: 100%;
+      border: 1px, solid, black;
+      border-radius: 50px 50px 0 0;
+    }
+
+    nav {
+      background: #FF7676;;
+      width: 7%;
+      height: 100%;
+      position: absolute;
+      border-radius: 50px 0 0 50px;
+    }
+
+    .card_left {
+      position: absolute;
+      left: 7%;
+      top: 11%;
+      width: 55%;
+      height: 89%;
+
+      .card_left_top {
+        position: absolute;
+        box-sizing: border-box;
+        top: 2%;
+        left: 2%;
+        width: 96%;
+        height: 30%;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 50px;
+        
+        .profile_picture {
+          background-color: #FF7676;
+          border-radius: 50px;
+          // border: 1px solid black;
+          position: absolute;
+          top: -0.2%;
+          left: -0.2%;
+          height: 100%;
+          width: 40%;
+        }
+      }
+      .card_left_bottom {
+        position: absolute;
+        box-sizing: border-box;
+        left: 2%;
+        width: 96%;
+        height: 64%;
+        top: 34%;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 50px;
+
+        .btn_wrapper {
+          position: absolute;
+          top: -0.1%;
+          width: 10%;
+          height: 100%;
+          border-radius: 50px 0 0 50px;
+          background-color: #FF7676;
+        }
+
+        .card_content {
+          position: absolute;
+          left: 11%;
+          width: 88%;
+          height: 97%;
+          border: 1px solid black;
+        }
+      }
+    }
+
+    .card_right {
+      position: absolute;
+      left: 61%;
+      top: 11%;
+      width: 38%;
+      height: 89%;
+
+      .card_right_top {
+        position: absolute;
+        box-sizing: border-box;
+        top: 2%;
+        left: 2.7%;
+        width: 95.6%;
+        height: 30%;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 50px;
+      }
+      .card_right_bottom {
+        position: absolute;
+        box-sizing: border-box;
+        left: 2.7%;
+        width: 95.6%;
+        height: 64%;
+        top: 34%;
+        padding: 5px;
+        background-color: #fff;
+        border-radius: 50px;
+      }
+    }
+  }
+}

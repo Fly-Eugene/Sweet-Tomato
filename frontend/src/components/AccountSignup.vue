@@ -75,6 +75,7 @@ import * as yup from 'yup'
 import { useForm, useField } from 'vee-validate'
 import { computed, reactive } from '@vue/runtime-core'
 import { useStore } from 'vuex' 
+import $axios from 'axios'
 
 export default {
   name: "AccountSignup",
@@ -114,10 +115,26 @@ export default {
     const { value: age, errorMessage: ageError } = useField('age')
     const { value: group, errorMessage: groupError } = useField('group')
 
+
     const onSignupSubmit = handleSubmit(() => {
-      store.dispatch('requestSignup', { email: email._value, password: password._value, username: username._value, age: age._value, group: group._value, profile: state.selectedFile})
+      store.dispatch('requestSignup', { email: email._value, password: password._value, username: username._value, age: age._value, group: group._value })
       .then(function () {
-        alert('회원가입에 성공하셨습니다.')
+        var frm = new FormData();
+        var photoFile = document.getElementById("file");
+        frm.append("profile", photoFile.files[0]);
+        console.log(photoFile.files[0]);
+        $axios.post('http://localhost:5000/profile', frm, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(function () {
+          alert('회원가입에 성공하셨습니다.')
+        })
+        .catch(function () {
+          alert('shit..')
+        })
+        
       })
       .catch(function (err) {
         alert(err)
@@ -151,7 +168,7 @@ export default {
       groupError,
 
       onSignupSubmit,
-      upload
+      upload,
     }
   }
 }
