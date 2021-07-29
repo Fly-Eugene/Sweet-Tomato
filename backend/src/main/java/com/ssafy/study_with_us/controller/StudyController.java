@@ -40,13 +40,16 @@ public class StudyController {
         JSONObject jObject = new JSONObject(params.getJsonData());
         Set<String> themes = new HashSet<>();
         //themes
-        for (Object theme : jObject.getJSONArray("themes")) {
-            themes.add((String) theme);
+        if (jObject.has("themes")){
+            for (Object theme : jObject.getJSONArray("themes")) {
+                themes.add((String) theme);
+            }
         };
+//        jObject.has("email") ? jObject.getString("email") : null
         StudyDto studyDto = StudyDto.builder()
-                .studyName(jObject.getString("studyName"))
-                .studyIntro(jObject.getString("studyIntro"))
-                .security(jObject.getString("security"))
+                .studyName(jObject.has("studyName") ? jObject.getString("studyName") : null)
+                .studyIntro(jObject.has("studyIntro") ? jObject.getString("studyIntro") : null)
+                .security(jObject.has("security") ? jObject.getString("security") : null)
                 .themes(themes)
                 .profile(profile)
                 .build();
