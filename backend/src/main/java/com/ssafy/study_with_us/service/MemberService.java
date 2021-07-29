@@ -31,9 +31,9 @@ public class MemberService {
         Member member = dtoToEntity(memberDto);
         MemberProfile profile = member.makeProfile();
         ProfileDto profileDto = memberDto.getProfile();
-        profile.setImage(profileDto.getImage());
-        profile.setThumbnail(profileDto.getThumbnail());
-        profile.setPath(profileDto.getPath());
+//        profile.setImage(profileDto.getImage());
+//        profile.setThumbnail(profileDto.getThumbnail());
+//        profile.setPath(profileDto.getPath());
         profileRepository.save(profile);
         return memberRepository.save(member);
     }

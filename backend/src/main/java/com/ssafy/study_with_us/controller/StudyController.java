@@ -1,17 +1,21 @@
 package com.ssafy.study_with_us.controller;
 
+import com.ssafy.study_with_us.domain.entity.Profile;
 import com.ssafy.study_with_us.domain.entity.StudyProfile;
 import com.ssafy.study_with_us.dto.FileDto;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.service.ProfileService;
 import com.ssafy.study_with_us.service.StudyService;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 
 @RestController
@@ -27,31 +31,27 @@ public class StudyController {
 
     @PostMapping
     public Object create(FileDto params) throws IOException {
+        Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성
         if (params.getFiles() != null) {
-            profileService.studyProfileCreate(params.getFiles().get(0));
-        // 없으면 기본 값으로 생성
-        } else {
-
+            profile = profileService.studyProfileCreate(params.getFiles().get(0));
         }
-
-
         // study
-//        JSONObject jObject = new JSONObject(params.getJsonData());
-//        StudyDto studyDto = StudyDto.builder()
-//                .id(jObject.getLong("id"))
-//                .studyName(jObject.getString("studyName"))
-//                .studyIntro(jObject.getString("studyIntro"))
-//                .security(jObject.getString("security"))
-//                .profile()
+        JSONObject jObject = new JSONObject(params.getJsonData());
+        Set<String> themes = new HashSet<>();
+        //themes
+        for (Object theme : jObject.getJSONArray("themes")) {
+            themes.add((String) theme);
+        };
+        StudyDto studyDto = StudyDto.builder()
+                .studyName(jObject.getString("studyName"))
+                .studyIntro(jObject.getString("studyIntro"))
+                .security(jObject.getString("security"))
+                .themes(themes)
+                .profile(profile)
+                .build();
 
-
-//        @RequestBody StudyDto params
-//      create 호출하는 사람, 즉 만드는 사람이 leader
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("result", studyService.create(params));
-//        return map;
-        return null;
+        return studyService.create(studyDto);
     }
 
     @PatchMapping

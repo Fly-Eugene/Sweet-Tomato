@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.service;
 
+import com.ssafy.study_with_us.domain.entity.Profile;
 import com.ssafy.study_with_us.domain.entity.StudyProfile;
 import com.ssafy.study_with_us.domain.entity.StudyProfileRepository;
 import com.ssafy.study_with_us.dto.ProfileDto;
@@ -20,14 +21,14 @@ public class ProfileService {
         this.fileUtil = fileUtil;
     }
 
-    public Object studyProfileCreate(MultipartFile mf) throws IOException {
+    public StudyProfile studyProfileCreate(MultipartFile mf) throws IOException {
         File imageFile = fileUtil.setImage(mf);
-        studyProfileRepository.save(StudyProfile.builder()
+        return studyProfileRepository.save(StudyProfile.builder()
                 .id(null)
+                .imageOrgName(mf.getOriginalFilename())
                 .image(imageFile.getName())
                 .path(imageFile.getPath())
                 .thumbnail(fileUtil.setThumbnail(mf))
                 .build());
-        return null;
     }
 }
