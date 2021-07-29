@@ -4,6 +4,7 @@
 
 body {
   background: #FFD0BB;
+  overflow: hidden;
 }
 
 .signup { 
@@ -82,6 +83,7 @@ body {
         .toMain {
           position: relative;                
           top: 4%;
+          
           a {
             font-family: 'Dosis', sans-serif; 
             text-align: left;
