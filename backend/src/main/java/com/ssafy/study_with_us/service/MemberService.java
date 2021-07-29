@@ -27,14 +27,6 @@ public class MemberService {
 
     @Transactional
     public Member joinMember(MemberDto params) {
-//        memberDto.setPassword(passwordEncoder.encode(memberDto.getPassword()));
-//        Member member = dtoToEntity(memberDto);
-//        MemberProfile profile = member.makeProfile();
-//        ProfileDto profileDto = memberDto.getProfile();
-//        profile.setImage(profileDto.getImage());
-//        profile.setThumbnail(profileDto.getThumbnail());
-//        profile.setPath(profileDto.getPath());
-//        profileRepository.save(profile);
         return memberRepository.save(Member.builder()
                 .email(params.getEmail())
                 .password(passwordEncoder.encode(params.getPassword()))
@@ -81,10 +73,10 @@ public class MemberService {
 //        return new Member(memberDto.getId(), memberDto.getEmail(), memberDto.getPassword(), memberDto.getUsername(), memberDto.getAge(), memberDto.getDepartment(), memberDto.getStudytime());
 //    }
 //
-//    public Member pwdSearch(MemberDto memberDto, String key){
-//        Member member = memberRepository.findByEmail(memberDto.getEmail()).get();
-//        member.setPassword(passwordEncoder.encode(key));
-//        memberRepository.save(member);
-//        return member;
-//    }
+    public Member pwdSearch(MemberDto memberDto, String key){
+        Member member = memberRepository.findByEmail(memberDto.getEmail()).get();
+        member.setPassword(passwordEncoder.encode(key));
+        memberRepository.save(member);
+        return member;
+    }
 }

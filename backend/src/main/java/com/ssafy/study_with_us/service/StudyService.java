@@ -89,6 +89,7 @@ public class StudyService {
         StudyProfile getProfile = studyRepository.getProfile(studyId);
         Profile profile = StudyProfile.builder()
                 .id(getProfile.getId())
+                .imageOrgName(getProfile.getImageOrgName())
                 .path(getProfile.getPath())
                 .image(getProfile.getImage())
                 .thumbnail(getProfile.getThumbnail()).build();

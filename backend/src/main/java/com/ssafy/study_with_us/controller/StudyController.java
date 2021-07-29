@@ -45,7 +45,6 @@ public class StudyController {
                 themes.add((String) theme);
             }
         };
-//        jObject.has("email") ? jObject.getString("email") : null
         StudyDto studyDto = StudyDto.builder()
                 .studyName(jObject.has("studyName") ? jObject.getString("studyName") : null)
                 .studyIntro(jObject.has("studyIntro") ? jObject.getString("studyIntro") : null)
