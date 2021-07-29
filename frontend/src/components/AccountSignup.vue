@@ -121,7 +121,9 @@ export default {
       .then(function () {
         var frm = new FormData();
         var photoFile = document.getElementById("file");
-        frm.append("profile", photoFile.files[0]);
+        
+        frm.append("files", photoFile.files[0]);
+
         console.log(photoFile.files[0]);
         $axios.post('http://localhost:5000/profile', frm, {
           headers: {
