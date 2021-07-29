@@ -19,4 +19,14 @@ public class ProfileDto {
         this.thumbnail = thumbnail;
         this.path = path;
     }
+
+    @Override
+    public String toString() {
+        return "ProfileDto{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", path='" + path + '\'' +
+                '}';
+    }
 }
