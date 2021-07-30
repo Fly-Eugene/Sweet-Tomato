@@ -55,7 +55,7 @@
                 <p>{{ groupError }}</p>
               </div>
               <footer>
-                <span class="checkword">I Agree with a policy and policy</span>
+                <span class="checkword">I Agree with a policy of this Service</span>
               </footer>
               <button> <span class="signupBtn">Sign Up</span> </button>
             </form>        
@@ -126,9 +126,8 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      // store.dispatch('requestSignup', frm)
       .then(function () {
-        alert('되나되나 !')
+        alert('회원가입 성공 !')
       })
       .catch(function (err) {
         alert(err)
