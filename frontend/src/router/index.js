@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import AccountLogin from '@/components/AccountLogin.vue'
+import AccountLogin from '@/components/Account/AccountLogin.vue'
 import AccountSignup from '@/components/AccountSignup'
-import AccountProfile from '@/components/AccountProfile'
+import AccountProfile from '@/components/Account/AccountProfile'
 import StudyMain from '@/views/StudyMain'
 import MakeStudy from '@/views/MakeStudy'
 

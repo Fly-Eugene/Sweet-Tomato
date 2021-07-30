@@ -5,7 +5,11 @@ export function requestSignup (context, payload) {
   console.log(payload)
   const url = 'http://localhost:5000/member/join'
   let body = payload
-  return $axios.post(url, body)
+  return $axios.post(url, body, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
 }
 
 export function login (context, credentials) {

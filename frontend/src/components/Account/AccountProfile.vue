@@ -17,7 +17,7 @@
           <div class="profile_left">
             <div class="profile_content">                
               <div class="profile_img_wrapper">
-                <img src="../assets/img/basic_profile.png" alt="">
+                <img src="@/assets/img/basic_profile.png" alt="">
               </div>
               <div class="profile_welcome">
                 <h2>어서오세요!</h2>
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import '../assets/style/account_profile.scss'
+import '@/assets/style/account_profile.scss'
 
 export default { 
   name: "AccountProfile",

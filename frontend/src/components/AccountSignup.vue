@@ -15,7 +15,7 @@
             <h2>Sweet Tomato</h2>
             <form enctype="multipart/form-data">                
               <div class="profile_box">
-                <img v-if="state.profile_image === ''" class="profile" src="../assets/img/basic_profile.png">
+                <img v-if="state.profile_image === ''" class="profile" src="@/assets/img/basic_profile.png">
                 <div v-else class="profile" :style="`background-image : url(${state.profile_image})`"></div>              
               </div>
               <div class="filebox">
@@ -70,7 +70,7 @@
 
 <script>
 
-import '../assets/style/signup.scss'
+import '@/assets/style/signup.scss'
 import * as yup from 'yup'
 import { useForm, useField } from 'vee-validate'
 import { computed, reactive } from '@vue/runtime-core'
@@ -84,7 +84,7 @@ export default {
     const store = useStore()
     const state = reactive({
       selectedFile: null,
-      profile_image: ''
+      profile_image: '',
     })
     const schema = computed(() => {
       return yup.object({
@@ -115,28 +115,20 @@ export default {
     const { value: age, errorMessage: ageError } = useField('age')
     const { value: group, errorMessage: groupError } = useField('group')
 
-
+    
     const onSignupSubmit = handleSubmit(() => {
-      store.dispatch('requestSignup', { email: email._value, password: password._value, username: username._value, age: age._value, group: group._value })
+      var frm = new FormData();
+      var photoFile = document.getElementById("file");
+      frm.append("files", photoFile.files[0]);
+      frm.append("jsonData", JSON.stringify({ email: email._value, password: password._value, username: username._value, age: age._value, group: group._value }))
+      $axios.post('http://localhost:5000/member/join', frm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      // store.dispatch('requestSignup', frm)
       .then(function () {
-        var frm = new FormData();
-        var photoFile = document.getElementById("file");
-        
-        frm.append("files", photoFile.files[0]);
-
-        console.log(photoFile.files[0]);
-        $axios.post('http://localhost:5000/profile', frm, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
-        .then(function () {
-          alert('회원가입에 성공하셨습니다.')
-        })
-        .catch(function () {
-          alert('shit..')
-        })
-        
+        alert('되나되나 !')
       })
       .catch(function (err) {
         alert(err)
