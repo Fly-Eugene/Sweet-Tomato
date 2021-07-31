@@ -39,6 +39,13 @@ public class StudyService {
                 .memberId(studyMemberRef.getMember().getId())
                 .studyId(studyMemberRef.getStudy().getId()).build();
     }
+
+    @Transactional
+    public Object withdraw(IdReqDto params) {
+        if (params.getMemberId() == null) params = IdReqDto.builder().memberId(getMemberId()).studyId(params.getStudyId()).build();
+        return studyMemberRefRepository.withdraw(params);
+    }
+
     /*
     * 1. 스터디 생성
     * 2. set으로 contain 확인 한 후에 없으면 생성

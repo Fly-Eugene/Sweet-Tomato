@@ -34,6 +34,10 @@ public class StudyController {
     public Object inviteMember(@RequestBody IdReqDto params){
         return studyService.joinMember(params);
     }
+    @DeleteMapping("/withdraw")
+    public Object withdraw(@RequestBody IdReqDto params){
+        return studyService.withdraw(params);
+    }
     @PostMapping
     public Object create(FileDto params) throws IOException {
         Profile profile = null;
