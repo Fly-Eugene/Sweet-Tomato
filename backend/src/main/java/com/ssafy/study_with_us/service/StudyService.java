@@ -2,6 +2,7 @@ package com.ssafy.study_with_us.service;
 
 import com.ssafy.study_with_us.domain.entity.*;
 import com.ssafy.study_with_us.domain.repository.*;
+import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.dto.ProfileDto;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.dto.StudyMemberDto;
@@ -27,15 +28,11 @@ public class StudyService {
         this.studyMemberRefRepository = studyMemberRefRepository;
     }
 
-    // 초대
-    public Object inviteMember(){
-        return null;
-    }
-    // 가입
-    public Object joinMember(Long studyId){
+    // 가입, params.memberId null이면 직접 가입 => 토큰에서 정보 얻어옴, null이 아니면 초대 => 받은 아이디 정보로 가입
+    public Object joinMember(IdReqDto params){
         StudyMemberRef studyMemberRef = studyMemberRefRepository.save(StudyMemberRef.builder()
-                .member(memberRepository.getById(getMemberId()))
-                .study(studyRepository.getById(studyId))
+                .member(memberRepository.getById(params.getMemberId() == null ? getMemberId() : params.getMemberId()))
+                .study(studyRepository.getById(params.getStudyId()))
                 .build());
         return StudyMemberDto.builder()
                 .id(studyMemberRef.getId())
