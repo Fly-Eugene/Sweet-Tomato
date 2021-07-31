@@ -4,6 +4,7 @@ import com.ssafy.study_with_us.domain.entity.*;
 import com.ssafy.study_with_us.domain.repository.*;
 import com.ssafy.study_with_us.dto.ProfileDto;
 import com.ssafy.study_with_us.dto.StudyDto;
+import com.ssafy.study_with_us.dto.StudyMemberDto;
 import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +33,14 @@ public class StudyService {
     }
     // 가입
     public Object joinMember(Long studyId){
-        return studyMemberRefRepository.save(StudyMemberRef.builder()
+        StudyMemberRef studyMemberRef = studyMemberRefRepository.save(StudyMemberRef.builder()
                 .member(memberRepository.getById(getMemberId()))
                 .study(studyRepository.getById(studyId))
                 .build());
+        return StudyMemberDto.builder()
+                .id(studyMemberRef.getId())
+                .memberId(studyMemberRef.getMember().getId())
+                .studyId(studyMemberRef.getStudy().getId()).build();
     }
     /*
     * 1. 스터디 생성

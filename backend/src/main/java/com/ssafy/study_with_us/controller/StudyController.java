@@ -32,7 +32,6 @@ public class StudyController {
     // 멤버가 직접 가입 하는거
     @PostMapping("/join")
     public Object join(@RequestBody StudyDto params){
-        System.out.println("params = " + params);
         return studyService.joinMember(params.getId());
     }
     @PostMapping
