@@ -29,6 +29,12 @@ public class StudyController {
         this.profileService = profileService;
     }
 
+    // 멤버가 직접 가입 하는거
+    @PostMapping("/join")
+    public Object join(@RequestBody StudyDto params){
+        System.out.println("params = " + params);
+        return studyService.joinMember(params.getId());
+    }
     @PostMapping
     public Object create(FileDto params) throws IOException {
         Profile profile = null;

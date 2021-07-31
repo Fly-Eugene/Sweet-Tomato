@@ -1,10 +1,7 @@
 package com.ssafy.study_with_us.service;
 
 import com.ssafy.study_with_us.domain.entity.*;
-import com.ssafy.study_with_us.domain.repository.MemberRepository;
-import com.ssafy.study_with_us.domain.repository.StudyRepository;
-import com.ssafy.study_with_us.domain.repository.StudyThemeRefRepository;
-import com.ssafy.study_with_us.domain.repository.ThemeRepository;
+import com.ssafy.study_with_us.domain.repository.*;
 import com.ssafy.study_with_us.dto.ProfileDto;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.util.SecurityUtil;
@@ -19,14 +16,27 @@ public class StudyService {
     private MemberRepository memberRepository;
     private ThemeRepository themeRepository;
     private StudyThemeRefRepository studyThemeRefRepository;
+    private StudyMemberRefRepository studyMemberRefRepository;
 
-    public StudyService(StudyRepository studyRepository, MemberRepository memberRepository, ThemeRepository themeRepository, StudyThemeRefRepository studyThemeRefRepository) {
+    public StudyService(StudyRepository studyRepository, MemberRepository memberRepository, ThemeRepository themeRepository, StudyThemeRefRepository studyThemeRefRepository, StudyMemberRefRepository studyMemberRefRepository) {
         this.studyRepository = studyRepository;
         this.memberRepository = memberRepository;
         this.themeRepository = themeRepository;
         this.studyThemeRefRepository = studyThemeRefRepository;
+        this.studyMemberRefRepository = studyMemberRefRepository;
     }
 
+    // 초대
+    public Object inviteMember(){
+        return null;
+    }
+    // 가입
+    public Object joinMember(Long studyId){
+        return studyMemberRefRepository.save(StudyMemberRef.builder()
+                .member(memberRepository.getById(getMemberId()))
+                .study(studyRepository.getById(studyId))
+                .build());
+    }
     /*
     * 1. 스터디 생성
     * 2. set으로 contain 확인 한 후에 없으면 생성
@@ -39,7 +49,7 @@ public class StudyService {
                 .id(null)
                 .studyName(params.getStudyName())
                 .studyIntro(params.getStudyIntro())
-                .studyLeader(getMemberId(SecurityUtil.getCurrentUsername()))
+                .studyLeader(getMemberId())
                 .security(params.getSecurity())
                 .profile((StudyProfile) params.getProfile())
                 .build());
@@ -126,8 +136,8 @@ public class StudyService {
         }
     }
 
-    private Long getMemberId(Optional<String> currentUsername) {
-        String s = currentUsername.get();
+    private Long getMemberId() {
+        String s = SecurityUtil.getCurrentUsername().get();
         return memberRepository.findByEmail(s).get().getId();
     }
 }

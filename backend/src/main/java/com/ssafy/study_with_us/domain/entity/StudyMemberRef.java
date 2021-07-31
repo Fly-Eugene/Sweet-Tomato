@@ -5,28 +5,30 @@ import lombok.Getter;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Getter
 @Entity
-@Table(name="member_study_ref")
-public class MemberStudyRef {
+@Table(name="study_member_ref")
+public class StudyMemberRef {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_study_ref_id")
+    @Column(name = "study_member_ref_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "study_id")
     private Study study;
 
-    public MemberStudyRef() {
+    public StudyMemberRef() {
     }
 
     @Builder
-    public MemberStudyRef(Long id, Member member, Study study) {
+    public StudyMemberRef(Long id, Member member, Study study) {
         this.id = id;
         this.member = member;
         this.study = study;
@@ -34,7 +36,7 @@ public class MemberStudyRef {
 
     @Override
     public String toString() {
-        return "MemberStudyRef{" +
+        return "StudyMemberRef{" +
                 "id=" + id +
                 ", member=" + member +
                 ", study=" + study +
