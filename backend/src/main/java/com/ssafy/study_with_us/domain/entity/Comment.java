@@ -17,8 +17,8 @@ public class Comment {
     @Column
     private String content;
 
-    @Column
-    private LocalDate reg_time;
+    @Column(name = "reg_time")
+    private LocalDate regTime;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -35,7 +35,7 @@ public class Comment {
     public Comment(Long id, String content, LocalDate reg_time, Member member, Study study) {
         this.id = id;
         this.content = content;
-        this.reg_time = reg_time;
+        this.regTime = reg_time;
         this.member = member;
         this.study = study;
     }
@@ -45,7 +45,7 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", content='" + content + '\'' +
-                ", reg_time=" + reg_time +
+                ", regTime=" + regTime +
                 ", member=" + member +
                 ", study=" + study +
                 '}';
