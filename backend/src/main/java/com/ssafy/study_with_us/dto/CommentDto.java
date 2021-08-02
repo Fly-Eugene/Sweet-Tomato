@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.dto;
 
+import com.ssafy.study_with_us.domain.entity.Comment;
 import lombok.Builder;
 import lombok.Getter;
 
