@@ -6,6 +6,7 @@ import com.ssafy.study_with_us.domain.repository.MemberRepository;
 import com.ssafy.study_with_us.domain.repository.StudyRepository;
 import com.ssafy.study_with_us.dto.CommentDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentService {
@@ -20,17 +21,23 @@ public class CommentService {
     }
 
     public Object create(CommentDto params) {
-        Comment comment = commentRepository.save(Comment.builder()
+        Comment save = commentRepository.save(Comment.builder()
                 .content(params.getContent())
                 .member(memberRepository.getById(params.getMemberId()))
                 .study(studyRepository.getById(params.getStudyId()))
                 .build());
-        return CommentDto.builder().id(comment.getId())
-                .content(comment.getContent())
-                .memberId(comment.getMember().getId())
-                .studyId(comment.getStudy().getId())
-                .regTime(comment.getRegTime())
-                .build();
+        return save.entityToDto();
+    }
+
+    // 세상에.. spring data jpa로 save()할 때 pk 같으면 update 되는거 까먹고 있었다
+    @Transactional
+    public Object update(CommentDto params) {
+        Comment comment = commentRepository.getById(params.getId());
+        Comment save = commentRepository.save(Comment.builder()
+                .id(params.getId())
+                .content(params.getContent() == null ? comment.getContent() : params.getContent())
+                .build());
+        return save.entityToDto();
     }
 
 }

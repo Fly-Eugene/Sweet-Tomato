@@ -22,11 +22,12 @@ public class CommentController {
         return commentService.create(params);
     }
     @PatchMapping
-    public Object update(){
-        return null;
+    public Object update(@RequestBody CommentDto params)
+    {
+        return commentService.update(params);
     }
     @DeleteMapping
-    public Object delete(@RequestBody IdReqDto params) {
+    public Object delete(@RequestBody CommentDto params) {
         return null;
     }
     @GetMapping
