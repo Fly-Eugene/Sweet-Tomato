@@ -8,6 +8,8 @@ import com.ssafy.study_with_us.dto.CommentDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CommentService {
     private CommentRepository commentRepository;
@@ -40,4 +42,12 @@ public class CommentService {
         return save.entityToDto();
     }
 
+    @Transactional
+    public void delete(CommentDto params) {
+        commentRepository.delete(commentRepository.getById(params.getId()));
+    }
+
+    public Object getComments(Long studyId){
+        return commentRepository.getByStudy(studyRepository.getById(studyId));
+    }
 }
