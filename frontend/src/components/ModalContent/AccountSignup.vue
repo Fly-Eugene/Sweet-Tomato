@@ -62,8 +62,8 @@
           </div>          
         </article>          
       </section>    
-      <img class="tomato1" src="../assets/img/tomato.png" alt="">
-      <img class="tomato2" src="../assets/img/tomato.png" alt="">
+      <img class="tomato1" src="@/assets/img/tomato.png" alt="">
+      <img class="tomato2" src="@/assets/img/tomato.png" alt="">
     </section>  
   </section>  
 </template>

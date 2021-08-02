@@ -78,7 +78,7 @@
 import '@/assets/style/account_profile.scss'
 
 export default { 
-  name: "AccountProfile",
+  name: "Profile",
   
 }
 </script>

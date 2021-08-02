@@ -51,7 +51,7 @@
 <script>
 // import { kurentoUtils } from '../../node_modules/kurento-utils' 
 // import Stomp from 'webstomp-client'
- import SockJS from 'sockjs-client'
+//  import SockJS from 'sockjs-client'
 // export default {
 //   name: 'RoomTest',
 //   data() {
@@ -294,16 +294,16 @@ function receiveVideoResponse(result) {
         if (error) return console.error (error);
     });
 }
-function callResponse(message) {
-    if (message.response != 'accepted') {
-        console.info('Call not accepted by peer. Closing call');
-        stop();
-    } else {
-        webRtcPeer.processAnswer(message.sdpAnswer, function (error) {
-            if (error) return console.error (error);
-        });
-    }
-}
+// function callResponse(message) {
+//     if (message.response != 'accepted') {
+//         console.info('Call not accepted by peer. Closing call');
+//         stop();
+//     } else {
+//         webRtcPeer.processAnswer(message.sdpAnswer, function (error) {
+//             if (error) return console.error (error);
+//         });
+//     }
+// }
 const PARTICIPANT_MAIN_CLASS = 'participant main';
 const PARTICIPANT_CLASS = 'participant';
 

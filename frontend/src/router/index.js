@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import AccountLogin from '@/components/Account/AccountLogin.vue'
-import AccountSignup from '@/components/AccountSignup'
-import AccountProfile from '@/components/Account/AccountProfile'
+import AccountLogin from '@/components/ModalContent/AccountLogin.vue'
+import AccountSignup from '@/components/ModalContent/AccountSignup'
+import Profile from '@/views/Profile'
 import StudyMain from '@/views/StudyMain'
-import MakeStudy from '@/views/MakeStudy'
-import RoomTest from '@/components/RoomTest'
+import MakeStudy from '@/components/ModalContent/MakeStudy'
+import Room from '@/views/Room'
 
 const routes = [
   {
@@ -25,8 +25,8 @@ const routes = [
   },
   {
     path: '/account/profile',
-    name: 'AccountProfile',
-    component: AccountProfile
+    name: 'Profile',
+    component: Profile
   },
   {
     path: '/study/main',
@@ -39,9 +39,9 @@ const routes = [
     component: MakeStudy
   },
   {
-    path: '/roomtest',
-    name: 'RoomTest',
-    component: RoomTest
+    path: '/room',
+    name: 'Room',
+    component: Room
   }
  
   // {

@@ -3,10 +3,10 @@
     <router-link to="/">Home</router-link> |
     <router-link :to="{name: 'AccountLogin'}">AccountLogin</router-link> |
     <router-link :to="{name: 'AccountSignup'}">Signup</router-link> |
-    <router-link :to="{name: 'AccountProfile'}">Profile</router-link> | 
-    <router-link :to="{name: 'StudyMain'}">StudyMain</router-link>
+    <router-link :to="{name: 'Profile'}">Profile</router-link> | 
+    <router-link :to="{name: 'StudyMain'}">StudyMain</router-link> |
     <router-link :to="{name: 'MakeStudy'}">MakeStudy</router-link> |
-    <router-link :to="{name: 'RoomTest'}">Room</router-link>
+    <router-link :to="{name: 'Room'}">Room</router-link>
   </div>
   <router-view/>
 </template>
@@ -14,7 +14,6 @@
 <style>
 
 body {
-  background: #FFD0BB;
   overflow: hidden;
   width: 100%;
   height: 100%;

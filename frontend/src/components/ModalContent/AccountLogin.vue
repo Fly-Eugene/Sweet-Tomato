@@ -63,7 +63,7 @@ import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
-import AccountPassword from '@/components/AccountPassword.vue'
+import AccountPassword from '@/components/ModalContent/AccountPassword.vue'
 
 export default {
   name: "AccountLogin",
