@@ -1,7 +1,11 @@
 package com.ssafy.study_with_us.controller;
 
+import com.ssafy.study_with_us.domain.entity.Member;
+import com.ssafy.study_with_us.domain.entity.Profile;
 import com.ssafy.study_with_us.domain.repository.MemberRepository;
 import com.ssafy.study_with_us.dto.MemberDto;
+import com.ssafy.study_with_us.dto.MemberResDto;
+import com.ssafy.study_with_us.dto.ProfileDto;
 import com.ssafy.study_with_us.dto.TokenDto;
 import com.ssafy.study_with_us.jwt.JwtFilter;
 import com.ssafy.study_with_us.jwt.TokenProvider;
@@ -10,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,7 +50,17 @@ public class AuthController {
 
         Map<String, Object> map = new HashMap<>();
         map.put("Token", new TokenDto(jwt));
-        map.put("member", memberRepository.findByEmail(member.getEmail()));
+        Member entity = memberRepository.findByEmail(member.getEmail()).get();
+        Profile profile = entity.getProfile();
+        MemberResDto dto = MemberResDto.builder().id(entity.getId())
+                .email(entity.getEmail())
+                .password(entity.getPassword())
+                .username(entity.getUsername())
+                .age(entity.getAge())
+                .department(entity.getDepartment())
+                .profile(ProfileDto.builder().id(profile.getId()).image(profile.getImage()).path(profile.getPath()).thumbnail(profile.getThumbnail()).imageOrgName(profile.getImageOrgName()).build())
+                .build();
+        map.put("member", dto);
         return map;
     }
 }

@@ -1,10 +1,10 @@
 <template>
-  
+  <div></div>
 </template>
 
 <script>
-export default { 
-  name: "AccontProfile",
+export default {
+  name: "DetailStudyManagement",
   
 }
 </script>
