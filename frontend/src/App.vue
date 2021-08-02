@@ -6,6 +6,7 @@
     <router-link :to="{name: 'AccountProfile'}">Profile</router-link> | 
     <router-link :to="{name: 'StudyMain'}">StudyMain</router-link>
     <router-link :to="{name: 'MakeStudy'}">MakeStudy</router-link> |
+    <router-link :to="{name: 'RoomTest'}">Room</router-link>
   </div>
   <router-view/>
 </template>

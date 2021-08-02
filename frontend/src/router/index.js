@@ -5,6 +5,7 @@ import AccountSignup from '@/components/AccountSignup'
 import AccountProfile from '@/components/Account/AccountProfile'
 import StudyMain from '@/views/StudyMain'
 import MakeStudy from '@/views/MakeStudy'
+import RoomTest from '@/components/RoomTest'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     name: 'MakeStudy',
     component: MakeStudy
   },
+  {
+    path: '/roomtest',
+    name: 'RoomTest',
+    component: RoomTest
+  }
  
   // {
   //   path: '/account',
