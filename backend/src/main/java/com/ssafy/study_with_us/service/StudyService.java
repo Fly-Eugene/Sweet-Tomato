@@ -1,12 +1,11 @@
 package com.ssafy.study_with_us.service;
 
 import com.ssafy.study_with_us.domain.entity.*;
-import com.ssafy.study_with_us.domain.repository.MemberRepository;
-import com.ssafy.study_with_us.domain.repository.StudyRepository;
-import com.ssafy.study_with_us.domain.repository.StudyThemeRefRepository;
-import com.ssafy.study_with_us.domain.repository.ThemeRepository;
+import com.ssafy.study_with_us.domain.repository.*;
+import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.dto.ProfileDto;
 import com.ssafy.study_with_us.dto.StudyDto;
+import com.ssafy.study_with_us.dto.StudyMemberDto;
 import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +18,32 @@ public class StudyService {
     private MemberRepository memberRepository;
     private ThemeRepository themeRepository;
     private StudyThemeRefRepository studyThemeRefRepository;
+    private StudyMemberRefRepository studyMemberRefRepository;
 
-    public StudyService(StudyRepository studyRepository, MemberRepository memberRepository, ThemeRepository themeRepository, StudyThemeRefRepository studyThemeRefRepository) {
+    public StudyService(StudyRepository studyRepository, MemberRepository memberRepository, ThemeRepository themeRepository, StudyThemeRefRepository studyThemeRefRepository, StudyMemberRefRepository studyMemberRefRepository) {
         this.studyRepository = studyRepository;
         this.memberRepository = memberRepository;
         this.themeRepository = themeRepository;
         this.studyThemeRefRepository = studyThemeRefRepository;
+        this.studyMemberRefRepository = studyMemberRefRepository;
+    }
+
+    // 가입, params.memberId null이면 직접 가입 => 토큰에서 정보 얻어옴, null이 아니면 초대 => 받은 아이디 정보로 가입
+    public Object joinMember(IdReqDto params){
+        StudyMemberRef studyMemberRef = studyMemberRefRepository.save(StudyMemberRef.builder()
+                .member(memberRepository.getById(params.getMemberId() == null ? getMemberId() : params.getMemberId()))
+                .study(studyRepository.getById(params.getStudyId()))
+                .build());
+        return StudyMemberDto.builder()
+                .id(studyMemberRef.getId())
+                .memberId(studyMemberRef.getMember().getId())
+                .studyId(studyMemberRef.getStudy().getId()).build();
+    }
+
+    @Transactional
+    public Object withdraw(IdReqDto params) {
+        if (params.getMemberId() == null) params = IdReqDto.builder().memberId(getMemberId()).studyId(params.getStudyId()).build();
+        return studyMemberRefRepository.withdraw(params);
     }
 
     /*
@@ -39,7 +58,7 @@ public class StudyService {
                 .id(null)
                 .studyName(params.getStudyName())
                 .studyIntro(params.getStudyIntro())
-                .studyLeader(getMemberId(SecurityUtil.getCurrentUsername()))
+                .studyLeader(getMemberId())
                 .security(params.getSecurity())
                 .profile((StudyProfile) params.getProfile())
                 .build());
@@ -126,8 +145,8 @@ public class StudyService {
         }
     }
 
-    private Long getMemberId(Optional<String> currentUsername) {
-        String s = currentUsername.get();
+    private Long getMemberId() {
+        String s = SecurityUtil.getCurrentUsername().get();
         return memberRepository.findByEmail(s).get().getId();
     }
 }
