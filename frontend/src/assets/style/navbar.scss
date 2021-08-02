@@ -1,0 +1,19 @@
+.navbar {
+  background: #FF7676;;
+  width: 7%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 50px 0 0 50px;
+
+  img {
+    width: 80%;
+    height: 8%;
+  }
+
+  .fas {
+    font-size: 300%;
+  }
+}

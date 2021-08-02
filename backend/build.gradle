@@ -44,8 +44,35 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
 
+    // json
+    implementation group: 'org.json', name: 'json', version: '20210307'
+
+    // Thumbnail
+    implementation 'net.coobird:thumbnailator:0.4.14'
+
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate5
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5', version: '2.11.3'
+
+    // https://mvnrepository.com/artifact/javax.mail/mail
+    implementation group: 'javax.mail', name: 'mail', version: '1.4.7'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+
+    implementation('org.springframework.boot:spring-boot-starter-websocket')
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
+    implementation('org.webjars.bower:jquery:3.3.1')
+    implementation('org.webjars:sockjs-client:1.1.2')
+    implementation('org.webjars:stomp-websocket:2.3.3-1')
+    implementation('org.webjars:webjars-locator:0.30')
+    implementation('org.webjars.bower:webrtc-adapter:7.4.0')
+    implementation('org.kurento:kurento-client:6.16.0')
+    implementation('org.kurento:kurento-utils-js:6.15.0')
 }
 
 

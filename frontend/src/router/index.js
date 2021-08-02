@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
+import AccountLogin from '@/components/Account/AccountLogin.vue'
+import AccountSignup from '@/components/AccountSignup'
+import AccountProfile from '@/components/Account/AccountProfile'
+import StudyMain from '@/views/StudyMain'
+import MakeStudy from '@/views/MakeStudy'
+import RoomTest from '@/components/RoomTest'
 
 const routes = [
   {
@@ -8,13 +14,52 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/account/login',
+    name: 'AccountLogin',
+    component: AccountLogin
+  },
+  {
+    path: '/account/signup',
+    name: 'AccountSignup',
+    component: AccountSignup
+  },
+  {
+    path: '/account/profile',
+    name: 'AccountProfile',
+    component: AccountProfile
+  },
+  {
+    path: '/study/main',
+    name: 'StudyMain',
+    component: StudyMain
+  },
+  {
+    path: '/study',
+    name: 'MakeStudy',
+    component: MakeStudy
+  },
+  {
+    path: '/roomtest',
+    name: 'RoomTest',
+    component: RoomTest
   }
+ 
+  // {
+  //   path: '/account',
+  //   name: 'Account',
+  //   component: Account,
+
+  //   children: [
+  //     { path: 'logintemp',
+  //       component: LoginTemp,  
+  //     },
+  //     { path: 'signuptemp',
+  //       component: SignupTemp
+  //     }
+  //   ]
+  // }
+
+
 ]
 
 const router = createRouter({

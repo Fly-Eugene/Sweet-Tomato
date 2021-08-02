@@ -1,11 +1,10 @@
 <template>
-  
+  <div></div>
 </template>
 
 <script>
 export default {
-  name: "DetailStudyManagement",
-  
+  name: "DetailStudyComment"
 }
 </script>
 
