@@ -4,11 +4,12 @@
       <Navbar />
       <section class="make_study_content">
         <header class="select_open">
-          <!-- <span>비공개 스터디</span> -->
-          <div class="select_open_btn"></div>
+          <div v-if="state.study_security === 'public'" class="select_open_btn_public" @click="onClickSecurity">공개</div>
+          <div v-else class="select_open_btn_private" @click="onClickSecurity">비공개</div>
         </header>
-        <div class="background_photo"></div>
-        <button class="background_photo_btn">+ 스터디 프로필</button>
+        <div v-if="state.profile_image === ''" class="background_photo"></div>
+        <div v-else class="background_photo" :style="`background-image : url(${state.profile_image})`"></div>
+        <input @change="upload" accept="image/*" type="file" class="background_photo_btn" id="file" name="study_profile">
         <article class="card_left">
           <div class="study_name">
             <span>스터디 이름 📚</span>
@@ -39,46 +40,85 @@
 <script>
 import '@/assets/style/make_study.scss'
 import Navbar from '@/views/Navbar.vue'
-// import MakeStudyHashTag from '@/components/MakeStudy/MakeStudyHashTag.vue'
-import {ref} from 'vue'
-import { useStore } from 'vuex'
+import {reactive, ref} from 'vue'
+// import { useStore } from 'vuex'
+import $axios from 'axios'
 
 export default {
   name: "MakeStudy",
   components: {
     Navbar,
-    // MakeStudyHashTag
   },
 
   setup() {
 
-    const store = useStore()
+    // const store = useStore()
+    const state = reactive({
+      selectedFile: null,
+      profile_image: '',
+      study_security: 'public'
+    })
     
     const study_name = ref('')
     const hash_tag = ref('')
     const hash_tag_list = ref([])
     const study_content = ref('')
 
+    function upload(e) {
+      const file = e.target.files;
+      state.selectedFile = file[0]
+      console.log(file[0])
+      const url = URL.createObjectURL(file[0])
+      console.log(url);
+      state.profile_image = url
+    }
+
     const onEnter = function() {
       hash_tag_list.value.push('#' + hash_tag.value)
-      console.log(hash_tag_list.value)
       hash_tag.value = ''
     }
 
     const onClickMakeStudy = function() {
-      store.dispatch('makeStudy', {  })
+      const frm = new FormData()
+      const photoFile = document.getElementById("file")
+      frm.append("files", photoFile.files[0])
+      frm.append("jsonData", JSON.stringify({ studyName: study_name.value, studyIntro : study_content.value, secutiry: state.study_security, themes: hash_tag_list.value}))
+      $axios.post("https://localhost:5000/study", frm, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(res => {
+        console.log(res)
+      })
+      .catch( err => {
+        console.log(err)
+      })
+    
+    }
+
+    const onClickSecurity = function() {
+      console.log('함수 실행 중')
+      if (state.study_security === 'public') {
+        state.study_security = 'private'
+      } else {
+        state.study_security = 'public'
+      }
     }
 
 
 
     return {
+      state,
       study_name,
       hash_tag,
       hash_tag_list,
       study_content,
 
+      upload,
       onEnter,
       onClickMakeStudy,
+      onClickSecurity,
 
     }
   }

@@ -37,14 +37,25 @@
           width: 80%;
         }
 
-        .select_open_btn {
+        .select_open_btn_public {
           background: #9C2223;
           width: 15%;
           height: 100%;
           border-radius: 10px;
           position: absolute;
-
+          cursor: pointer;
         }
+
+        .select_open_btn_private {
+          background: #9C2223;
+          width: 15%;
+          height: 100%;
+          right: 0%;
+          border-radius: 10px;
+          position: absolute;
+          cursor: pointer;
+        }
+
       }
 
       .background_photo {
@@ -54,6 +65,8 @@
         top: 15%;
         background-color: gray;
         position: absolute;
+        background-repeat : no-repeat;
+        background-size : cover;
       }
 
       .background_photo_btn {

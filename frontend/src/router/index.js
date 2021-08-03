@@ -6,6 +6,7 @@ import Profile from '@/views/Profile'
 import StudyMain from '@/views/StudyMain'
 import MakeStudy from '@/components/ModalContent/MakeStudy'
 import Room from '@/views/Room'
+import Modal from '@/views/Modal'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/room',
     name: 'Room',
     component: Room
+  },
+  {
+    path: '/modaltest',
+    name: 'Modal',
+    component: Modal
   }
  
   // {

@@ -7,6 +7,7 @@
     <router-link :to="{name: 'StudyMain'}">StudyMain</router-link> |
     <router-link :to="{name: 'MakeStudy'}">MakeStudy</router-link> |
     <router-link :to="{name: 'Room'}">Room</router-link> |
+    <router-link :to="{name: 'Modal'}">Modal 확인</router-link> |
   </div>
   <router-view/>
 </template>
