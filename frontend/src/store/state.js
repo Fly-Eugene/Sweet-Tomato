@@ -1,4 +1,4 @@
 export default {
-  server_url : 'http://localhost:5000/',
+  server_url : 'https://localhost:5000/',
   isLogin : false,
 }

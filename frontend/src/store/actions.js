@@ -3,7 +3,7 @@ import router from '@/router'
 
 export function requestSignup (context, payload) {
   console.log(payload)
-  const url = 'http://localhost:5000/member/join'
+  const url = 'https://localhost:5000/member/join'
   let body = payload
   return $axios.post(url, body, {
     headers: {
@@ -20,6 +20,9 @@ export function login (context, credentials) {
   })
   .then(res => {
     localStorage.setItem('jwt', res.data.Token.token)
+    const accessToken = localStorage.getItem('jwt')
+    $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+    
     context.commit('CHANGE_ISLOGIN')
     router.push({ name : 'Home'})
   })
