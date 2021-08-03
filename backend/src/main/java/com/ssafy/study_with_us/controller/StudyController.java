@@ -6,14 +6,14 @@ import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.service.ProfileService;
 import com.ssafy.study_with_us.service.StudyService;
+import com.ssafy.study_with_us.util.response.ApiResult;
+import com.ssafy.study_with_us.util.response.ResponseMessage;
+import com.ssafy.study_with_us.util.response.StatusCode;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @RestController
@@ -30,18 +30,19 @@ public class StudyController {
     // 멤버가 직접 가입 하는거
     @PostMapping("/join")
     public Object join(@RequestBody IdReqDto params){
-        return studyService.joinMember(params);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member_ref").data(studyService.joinMember(params)).build();
     }
     @PostMapping("/invite")
     public Object inviteMember(@RequestBody IdReqDto params){
-        return studyService.joinMember(params);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member_ref").data(studyService.joinMember(params)).build();
     }
     @DeleteMapping("/withdraw")
     public Object withdraw(@RequestBody IdReqDto params){
-        return studyService.withdraw(params);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_STUDY_MEMBER).dataType("Long").data(studyService.withdraw(params)).build();
     }
     @PostMapping
     public Object create(FileDto params) throws IOException {
+        Map<String, Object> map = new HashMap<>();
         Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성
         if (params.getFiles() != null) {
@@ -64,21 +65,21 @@ public class StudyController {
                 .profile(profile)
                 .build();
 
-        return studyService.create(studyDto);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY).dataType("study").data(studyService.create(studyDto)).build();
     }
 
     @PatchMapping
     public Object update(@RequestBody StudyDto params){
-        return studyService.update(params);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY).data(studyService.update(params)).build();
     }
 
     @GetMapping
     public Object read(@RequestParam Long id){
-        return studyService.read(id);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY).dataType("study").data(studyService.read(id)).build();
     }
 
     @PostMapping("/search")
     public Object searchStudyByThemes(@RequestBody Map<String, List<String>> params){
-        return studyService.searchStudyByThemes(params.get("themes"));
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_THEMES).dataType("themes").data(studyService.searchStudyByThemes(params.get("themes"))).build();
     }
 }
