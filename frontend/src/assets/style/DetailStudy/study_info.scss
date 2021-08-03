@@ -1,0 +1,115 @@
+.info_card{
+  position: relative;
+  width: 1050px;
+  height: 435px;
+  
+  background: rgba(243, 241, 241, 0.8);
+  border-radius: 30px;
+
+  .info_left {
+    position: absolute;
+    width: 421px;
+    height: 431px;
+    
+    background: #FFFFFF;
+    box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    
+    .info_img {
+      position: absolute;
+      width: 421px;
+      height: 315px;
+      
+      // background: url(.jpg), #C4C4C4;
+      background: #C4C4C4;
+      border-radius: 30px 30px 0px 0px;
+    }
+
+    .apply_btn {
+      position: absolute;
+      width: 112px;
+      height: 40px;
+      left: 38%;
+      top: 80%;
+      
+      color: white;
+      font-family: 'Godo', sans-serif;
+      font-size: 20px;
+
+      background: #E94846;
+      border: 1px solid #000000;
+      box-sizing: border-box;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+
+  }
+
+  .info_right{
+    position: absolute;
+    width: 629px;
+    height: 100%;
+    right: 0%;
+
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    border: 1px solid;
+    border-color: red;
+
+    .info_name{
+      position: absolute;
+      width: 484px;
+      height: 147px;
+      
+      font-family: 'Godo', sans-serif;
+      font-size: 64px;
+      line-height: 72px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      
+      color: #313131;
+    }
+
+    .info_tags {
+      position: absolute;
+      width: 80%;
+      height: 20%;
+      top: 147px;
+
+      border: 1px solid;
+      border-color: red;
+    }
+
+    .info_content {
+      position: absolute;
+      width: 80%;
+      height: 20%;
+      top: 55%;
+
+      border: 1px solid;
+      border-color: red;
+    }
+
+    .enter_btn {
+      position: absolute;
+      width: 141px;
+      height: 39px;
+      bottom: 5%;
+
+      color: white;
+      font-family: 'Godo', sans-serif;
+      font-size: 20px;
+
+      background: #E94846;
+      border: 1px solid #000000;
+      box-sizing: border-box;
+      border-radius: 30px;
+      cursor: pointer;
+    }
+  }
+}

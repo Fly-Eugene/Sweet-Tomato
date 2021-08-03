@@ -57,15 +57,23 @@
 
   min-width: 1200px;
   width: 60%;
-  height: 60%;
+  height: 70%;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background: rgba(243, 241, 241, 0.8);
 
   border-radius: 15px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+
+  .close_button {
+    position: absolute;
+    right: 5%;
+    font-family: 'Godo', sans-serif;
+    font-size: 30px;
+    cursor: pointer;
+
+  }
 }
 
 

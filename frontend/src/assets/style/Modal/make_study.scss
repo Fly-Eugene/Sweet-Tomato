@@ -1,0 +1,222 @@
+
+.select_open {
+  position: relative;
+  width: 179px;
+  height: 51px;
+  left: 40%;
+  
+
+  margin-bottom: 10px;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+  .select_open_btn_public {
+    position: absolute;
+    cursor: pointer;
+    height: 100%;
+    width: 40%;
+
+    background: #FF8E8E;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 3px 3px 4px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+  }
+
+  .select_open_btn_private {
+    position: absolute;
+    height: 100%;
+    width: 40%;
+    right: 0%;
+    cursor: pointer;
+
+    background: #FF8E8E;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    box-shadow: inset 3px 3px 4px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+  }
+
+}
+
+.make_study_content {
+  // left: 6%;
+  min-width: 1200px;
+  max-width: 1400px;
+  height: 70%;
+  position: relative;
+  
+
+
+  .card_left {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .background_photo {
+      width: 70%;
+      height: 60%;
+      margin-bottom: 10px;
+
+      border-radius: 20px;
+      background-color: gray;
+      background-repeat : no-repeat;
+      background-size : cover;
+    }
+
+    .background_photo_btn {
+      cursor: pointer;
+      width: 137px;
+      height: 41px;
+      
+      color: white;
+      font-family: 'Godo', sans-serif;
+
+      background: #E94846;
+      border-radius: 50px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+
+    input {
+      display: none;
+    }
+
+  }
+  
+  .card_right {
+    width: 50%;
+    height: 100%;
+    left: 50%;
+    position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .study_name {
+      // position: absolute;
+      // top: 10%;
+      width: 100%;
+      height: 10%;
+
+      
+      span {
+        font-size: 120%;
+        font-family: 'Godo', sans-serif;
+        margin-left: 20px;
+        float: left;
+
+      }
+
+      input {
+        width: 60%;
+        height: 60%;
+        
+        background: #FFFFFF;
+        box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+      }
+    }
+
+    .hash_tag {
+      // position: absolute;
+      // top: 30%;
+      width: 100%;
+      height: 10%;
+
+      span {
+        font-size: 120%;
+        font-family: 'Godo', sans-serif;
+        margin-left: 20px;
+        float: left;
+      }
+
+      input {
+        width: 60%;
+        height: 60%;
+        
+        background: #FFFFFF;
+        box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+      }
+    }
+
+    .hash_tag_content {
+      width: 80%;
+      float: right;
+
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      
+
+      .hash_tag_item {
+        padding: 5px;
+        min-height: 25px;
+        margin: 5px;
+
+        font-family: 'Godo', sans-serif;
+        background: #EC9191;
+        border: 2px solid #000000;
+        border-radius: 20px;
+      }
+    }
+
+    .study_content {
+      // position: absolute;
+      // top: 50%;
+      width: 100%;
+      height: 40%;
+
+      span {
+        font-size: 120%;
+        font-family: 'Godo', sans-serif;
+        margin: 20px;
+        float: left;
+      }
+
+      textarea {
+        width: 80%;
+        height: 100%;
+        padding: 10px;
+
+        background: #FFFFFF;
+        box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 30px;
+      }
+    }
+    
+  }
+
+}
+
+.make_study_btn {
+  position: absolute;
+  cursor: pointer;
+  width: 137px;
+  height: 41px;
+  left: 68%;
+  
+  color: white;
+  font-family: 'Godo', sans-serif;
+  font-size: 100%;
+
+  background: #E94846;
+  border-radius: 50px;
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

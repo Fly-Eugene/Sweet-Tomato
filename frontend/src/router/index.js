@@ -4,9 +4,9 @@ import AccountLogin from '@/components/ModalContent/AccountLogin.vue'
 import AccountSignup from '@/components/ModalContent/AccountSignup'
 import Profile from '@/views/Profile'
 import StudyMain from '@/views/StudyMain'
-import MakeStudy from '@/components/ModalContent/MakeStudy'
 import Room from '@/views/Room'
 import Modal from '@/views/Modal'
+import DetailStudy from '@/views/DetailStudy'
 
 const routes = [
   {
@@ -34,11 +34,7 @@ const routes = [
     name: 'StudyMain',
     component: StudyMain
   },
-  {
-    path: '/study',
-    name: 'MakeStudy',
-    component: MakeStudy
-  },
+
   {
     path: '/room',
     name: 'Room',
@@ -47,24 +43,15 @@ const routes = [
   {
     path: '/modaltest',
     name: 'Modal',
-    component: Modal
+    component: Modal,
+  },
+
+  {
+    path: '/study/:id',
+    name: 'DetailStudy',
+    component: DetailStudy,
+    props: true
   }
- 
-  // {
-  //   path: '/account',
-  //   name: 'Account',
-  //   component: Account,
-
-  //   children: [
-  //     { path: 'logintemp',
-  //       component: LoginTemp,  
-  //     },
-  //     { path: 'signuptemp',
-  //       component: SignupTemp
-  //     }
-  //   ]
-  // }
-
 
 ]
 
