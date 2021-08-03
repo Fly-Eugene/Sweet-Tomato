@@ -11,7 +11,6 @@ import com.ssafy.study_with_us.util.response.ResponseMessage;
 import com.ssafy.study_with_us.util.response.StatusCode;
 import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
@@ -53,9 +52,13 @@ public class StudyController {
                 .data(studyService.update(getStudyDtoAtFile(params))).build();
     }
 
+    @GetMapping("/detail")
+    public Object getDetail(@RequestParam Long id){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY).dataType("study").data(studyService.getDetail(id)).build();
+    }
     @GetMapping
-    public Object read(@RequestParam Long id){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY).dataType("study").data(studyService.read(id)).build();
+    public Object getStudyList(){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY).dataType("studies").data(studyService.getStudyList()).build();
     }
 
     @PostMapping("/search")
@@ -65,6 +68,7 @@ public class StudyController {
 
     private StudyDto getStudyDtoAtFile(FileDto params) throws IOException {
         Profile profile = null;
+        System.out.println("params.getFiles() = " + params.getFiles());
         // 파일 정보 있으면 받은 정보로 생성
         if (params.getFiles() != null) {
             profile = profileService.studyProfileCreate(params.getFiles().get(0));

@@ -54,6 +54,9 @@ public class StudyService {
     public Object create(StudyDto params){
         // 1. 스터디 생성 (여기 profile_id 어떻게 저장할지 생각해보기)
         Study study = saveStudy(params);
+        studyMemberRefRepository.save(StudyMemberRef.builder()
+                .study(study)
+                .member(memberRepository.getById(getMemberId())).build());
         makeThemes(params.getThemes(), study);
         return study;
     }
@@ -83,7 +86,7 @@ public class StudyService {
     }
 
 
-    public StudyDto read(Long studyId){
+    public StudyDto getDetail(Long studyId){
         Study study = studyRepository.getById(studyId);
         // themes 얻어오기
         List<Theme> getThemes = studyRepository.getThemes(studyId);
@@ -93,6 +96,8 @@ public class StudyService {
         }
         // profile 얻어오기
         StudyProfile getProfile = studyRepository.getProfile(studyId);
+        System.out.println(studyId);
+        System.out.println("getProfile = " + getProfile);
         Profile profile = StudyProfile.builder()
                 .id(getProfile.getId())
                 .imageOrgName(getProfile.getImageOrgName())
@@ -108,6 +113,17 @@ public class StudyService {
                 .themes(themes)
                 .profile(profile)
                 .build();
+    }
+
+    public List<StudyDto> getStudyList(){
+        List<Study> studies = studyMemberRefRepository.getByMemberId(getMemberId());
+        List<StudyDto> results = new ArrayList<>();
+        for (Study study : studies) {
+            results.add(StudyDto.builder().id(study.getId()).studyName(study.getStudyName())
+                    .studyLeader(study.getStudyLeader()).security(study.getSecurity())
+                    .studyIntro(study.getStudyIntro()).build());
+        }
+        return results;
     }
     private void removeThemes(Set<String> deleteThemes, Study study) {
         for (String deleteTheme : deleteThemes) {
@@ -136,7 +152,7 @@ public class StudyService {
         List<Long> studyIds = studyThemeRefRepository.searchStudyByThemes(themes);
         List<StudyDto> results = new ArrayList<>();
         for (Long studyId : studyIds) {
-            results.add(read(studyId));
+            results.add(getDetail(studyId));
         }
         return results;
     }

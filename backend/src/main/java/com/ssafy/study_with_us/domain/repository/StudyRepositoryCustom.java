@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudyRepositoryCustom {
     List<Theme> getThemes();
-    List<Theme>  getThemes(Long studyId);
+    List<Theme> getThemes(Long studyId);
     StudyProfile getProfile(Long studyId);
     void remove(String theme, Long studyID);
 }
