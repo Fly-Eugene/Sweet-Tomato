@@ -22,18 +22,38 @@
       position: absolute;
       width: 50%;
       height: 100%;
-      border: 1px solid red;
-      
-      .title {
-        span {
-          display: block;          
-          font-size: 35px;
+      left: 5%;
+      // border: 1px solid red;
+      .wrapper {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        .title {
+          padding-bottom: 20px;
+          line-height: 55px;
+          span {
+            font-weight: 600;
+            display: block;          
+            font-size: 3em;
+          }
         }
-      }
-      .content {        
-        span {
-          display: block;          
-          font-size: 15px;
+        .content {        
+          line-height: 25px;
+          padding-bottom: 15px;
+          span {
+            display: block;          
+            font-size: 20px;
+          }
+        }
+        button {
+          font-family: 'Godo', sans-serif;
+          width: 100px;
+          height: 30px;
+          border-radius: 20px;
+          border: 0;
+          background-color: black;
+          color: rgba(255, 255, 255, 0.9)
         }
       }
     }
@@ -42,12 +62,12 @@
       position: absolute;
       width: 50%;
       height: 100%;
-      left: 50%;
+      left: 45%;
 
       img {
         position: absolute;
-        width: 70%;
-        height: 70%;
+        width: 75%;
+        height: 75%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
