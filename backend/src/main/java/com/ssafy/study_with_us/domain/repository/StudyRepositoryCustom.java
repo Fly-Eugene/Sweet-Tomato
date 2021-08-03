@@ -10,6 +10,5 @@ public interface StudyRepositoryCustom {
     List<Theme> getThemes();
     List<Theme>  getThemes(Long studyId);
     StudyProfile getProfile(Long studyId);
-    Object update(StudyDto params);
     void remove(String theme, Long studyID);
 }
