@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.domain.entity;
 
+import com.ssafy.study_with_us.dto.CommentDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -49,5 +50,13 @@ public class Comment {
                 ", member=" + member +
                 ", study=" + study +
                 '}';
+    }
+    public CommentDto entityToDto() {
+        return CommentDto.builder().id(id)
+                .content(content)
+                .memberId(member.getId())
+                .studyId(study.getId())
+                .regTime(regTime)
+                .build();
     }
 }

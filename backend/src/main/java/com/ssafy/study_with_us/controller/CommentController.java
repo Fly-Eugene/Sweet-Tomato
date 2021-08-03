@@ -22,15 +22,16 @@ public class CommentController {
         return commentService.create(params);
     }
     @PatchMapping
-    public Object update(){
-        return null;
+    public Object update(@RequestBody CommentDto params)
+    {
+        return commentService.update(params);
     }
     @DeleteMapping
-    public Object delete(@RequestBody IdReqDto params) {
-        return null;
+    public void delete(@RequestBody CommentDto params) {
+        commentService.delete(params);
     }
     @GetMapping
-    public Object loadComments(@RequestBody IdReqDto params){
-        return null;
+    public Object getComments(@RequestBody IdReqDto params) {
+        return commentService.getComments(params.getStudyId());
     }
 }

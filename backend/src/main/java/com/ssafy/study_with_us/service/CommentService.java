@@ -6,6 +6,10 @@ import com.ssafy.study_with_us.domain.repository.MemberRepository;
 import com.ssafy.study_with_us.domain.repository.StudyRepository;
 import com.ssafy.study_with_us.dto.CommentDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -20,17 +24,39 @@ public class CommentService {
     }
 
     public Object create(CommentDto params) {
-        Comment comment = commentRepository.save(Comment.builder()
+        Comment result = commentRepository.save(Comment.builder()
                 .content(params.getContent())
                 .member(memberRepository.getById(params.getMemberId()))
                 .study(studyRepository.getById(params.getStudyId()))
                 .build());
-        return CommentDto.builder().id(comment.getId())
-                .content(comment.getContent())
-                .memberId(comment.getMember().getId())
-                .studyId(comment.getStudy().getId())
-                .regTime(comment.getRegTime())
-                .build();
+        return result.entityToDto();
     }
 
+    // 세상에.. spring data jpa로 save()할 때 pk 같으면 update 되는거 까먹고 있었다
+    @Transactional
+    public Object update(CommentDto params) {
+        Comment comment = commentRepository.getById(params.getId());
+        Comment result = commentRepository.save(Comment.builder()
+                .id(params.getId())
+                .content(params.getContent() == null ? comment.getContent() : params.getContent())
+                .study(comment.getStudy())
+                .member(comment.getMember())
+                .reg_time(comment.getRegTime())
+                .build());
+        return result.entityToDto();
+    }
+
+    @Transactional
+    public void delete(CommentDto params) {
+        commentRepository.delete(commentRepository.getById(params.getId()));
+    }
+
+    public Object getComments(Long studyId){
+        List<Comment> comments = commentRepository.getByStudy(studyRepository.getById(studyId));
+        List<CommentDto> results = new ArrayList<>();
+        for (Comment comment : comments) {
+            results.add(comment.entityToDto());
+        }
+        return results;
+    }
 }
