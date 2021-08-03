@@ -1,13 +1,18 @@
 <template>
-  <section class="navbar">
-    <img class="tomato1" src="../assets/img/tomato.png" alt="">
-    <i class="fas fa-home"></i>
-    <i class="fas fa-search"></i>
-    <i class="fas fa-plus-square"></i>
-    <!-- <i class="fas fa-pencil-alt"></i> -->
-    <i class="fas fa-user"></i>
-
-  </section>
+  <div class="navbar">
+    <div class="nav_logo">      
+      <router-link to="/">
+        <img src="@/assets/img/sweet_tomato.png" alt="">
+      </router-link>
+    </div>
+    <div class="nav_content">
+      <ul class="gnb">
+        <li><router-link to="/">개요</router-link></li>
+        <li><router-link :to="{name: 'StudyMain'}">스터디 찾기</router-link></li>
+        <li><router-link :to="{name: 'AccountLogin'}" class="loginBtn">로그인</router-link></li>
+      </ul>
+    </div>
+  </div>
 </template>
 
 <script>
