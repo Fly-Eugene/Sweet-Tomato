@@ -1,18 +1,18 @@
 <template>
   <div class="detail_study_all">
-    <StudyInfo/>
+    <StudyInfo :info='state.info' v-if='Object.keys(state.info).length'/>
     <TomatoRate/>
     <StudyChart/>
-    <StudyComment/>
+    <StudyComment :studyId='id'/>
 
   </div>
 </template>
 
 <script>
 import '@/assets/style/detail_study.scss'
-import { onMounted } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import $axios from 'axios'
-// import useStore from 'vuex'
+import { useStore } from 'vuex'
 import StudyInfo from '@/components/DetailStudy/StudyInfo.vue'
 import StudyChart from '@/components/DetailStudy/StudyChart.vue'
 import TomatoRate from '@/components/DetailStudy/TomatoRate.vue'
@@ -31,12 +31,16 @@ export default {
 
   props : {
     id : {
-      type: Number,
+      type: String,
     }
   },
 
   setup(props) {
-    
+
+    const check = ref(0)
+    const state = reactive({
+      info : {}
+    })
     
     onMounted(() => {
       console.log('onMounted 실행')
@@ -48,20 +52,21 @@ export default {
         }
       })
       .then(res => {
-        console.log(res)
+        console.log(res.data.data)
+
+        state.info = res.data.data
+        console.log(state.info)
       })
       .catch(err => {
         console.log(err)
-      })
+      }),
 
-      
-
-
-
+      useStore().dispatch('getComments', props.id)
     })
 
     return {
-      
+      state,
+      check
     }
   }
 

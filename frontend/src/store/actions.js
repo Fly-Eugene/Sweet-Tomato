@@ -19,7 +19,8 @@ export function login (context, credentials) {
     data: credentials
   })
   .then(res => {
-    localStorage.setItem('jwt', res.data.Token.token)
+    console.log(res.data)
+    localStorage.setItem('jwt', res.data.data.token)
     const accessToken = localStorage.getItem('jwt')
     $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
     
@@ -44,5 +45,17 @@ export function sendValidateEmail (context, email) {
   })
   .catch(err => {
     console.log(err)
+  })
+}
+
+export function createComment (context, studyId ,input_value) {
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'comment',
+    data : {
+      "content" : input_value,
+      // "memberId": memberId,
+      "studyId" : studyId
+    }
   })
 }
