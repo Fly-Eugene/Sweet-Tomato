@@ -1,12 +1,13 @@
 <template>
   <div class="findPassword" v-if="forgotPassword === true">
-    <div><h3>Did you forget the Password?</h3></div>
-    <!-- 인증번호 전송 email -->
-    <div>
-      <input placeholder="Email을 입력해주세요" type="text" v-model="email_validate" />
+    <div>X</div>
+    <div class="content_wrapper">
+      <p>비밀번호를 잊어버리셨나요 ?</p>
+          <!-- 인증번호 전송 email -->
+      <input placeholder="이메일을 입력해주세요" type="text" v-model="email_validate" />
+      <button @click="onClickSendValidate">임시 비밀번호 전송</button>
+      <!-- 인증번호 전송 버튼 -->
     </div>
-    <!-- 인증번호 전송 버튼 -->
-    <div><button @click="onClickSendValidate"> <p>인증번호 전송</p> </button></div>
   </div>
 </template>
 
@@ -36,7 +37,6 @@ export default {
     return {
       email_validate,
       onClickSendValidate
-
     }
   }
 
