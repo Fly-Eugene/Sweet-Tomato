@@ -6,8 +6,7 @@
       <Navbar/>
     </div>
     <router-view/>
-    <div class="footer">
-      
+    <div class="footer">      
     </div>
   </div>
 </template>

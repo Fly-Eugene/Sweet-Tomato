@@ -1,12 +1,11 @@
 <template>
-<div>
+<div v-if="showModal">
   <button id="show-modal" @click="showModal = true">Show Modal</button>
   
   <div id="circle"><div id="circle2"></div></div>
   <div id="rectangle"></div>
 
-  <ModalContent v-if="showModal" @close="showModal = false">
-    <!-- <h3 slot="header">custom header</h3> -->
+  <ModalContent @close="showModal = false">
   </ModalContent>
 
 </div>

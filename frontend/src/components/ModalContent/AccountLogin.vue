@@ -2,47 +2,49 @@
   <section class="login_body">
     <div class="circle"></div>
     <div class="rectangle"></div>
-    <img class="tomato1" src="@/assets/img/tomato.png" alt="">
-    <img class="tomato2" src="@/assets/img/tomato.png" alt="">
     
     <article class="login_card">
       <AccountPassword :forgotPassword="forgotPassword"/>
       <aside class="login_left">
-        <article class="login_left_content">              
-          <h2>Sweet Tomato</h2>
-        </article>
+        <article class="login_left_content">          
+          <img src="@/assets/img/tomato1.svg" alt="">
+          <div> 
+            <h2>Sweet</h2> 
+            <h2>Tomato</h2>
+          </div>
+        </article>        
       </aside>
       
       <aside class="login_right">
         <article class="login_right_content">
           <h2>Log in</h2>
           <span>
-            Check your time with a Tomato.
+            토마토와 함께 공부하세요
             <br>
-            It makes you to spend a time more effeciently.
+            보다 효율적이고 즐거운 스터디 시간
           </span>
           <form @submit="onLoginSubmit">
             <!-- 로그인 ID 입력 div -->
             <div>
-              <input placeholder="ID" class="accountInput" type="text" name="ID" v-model="ID" />
+              <input placeholder="아이디" class="accountInput" type="text" name="ID" v-model="ID" />
               <p>{{ IDError }}</p>
             </div>
             <!-- 로그인 비밀번호 div -->
             <div>
-              <input placeholder="Password" class="accountInput" type="password" name="Password" v-model="Password">
+              <input placeholder="비밀번호" class="accountInput" type="password" name="Password" v-model="Password">
               <p>{{ PasswordError }}</p>
             </div>
             <!-- 비밀번호 찾기 -->
             <div id="forgotPassword" @click="onClickForgotPassword">
-              <span>Forget Password?</span>
+              <span>비밀번호를 잊으셨나요 ?</span>
             </div>
             <!-- 로그인 버튼 -->
-            <button> <p>Log in</p> </button>
+            <button class="loginBtn">로그인</button>
             <br>
             <!-- 회원가입 찾기 이동 -->
             <div>
-              <span>Don't you have account? </span>
-              <a id="goSignup" @click="onClickSignup" href="">Sign up</a>
+              <span>계정이 없으신가요 ?</span>
+              <a id="goSignup" @click="onClickSignup" href="">회원가입</a>
             </div>
           </form>
         </article>
