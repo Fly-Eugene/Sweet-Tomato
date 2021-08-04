@@ -11,7 +11,6 @@
     padding: 50px;
     height: 90%;
     max-width: 1300px;
-    background: #FFD0BB;
     display: inline-block;    
     position: relative;       
 
@@ -21,7 +20,7 @@
       width: 400px;
       height: 400px; 
       left: -10%;
-      top: 0%;
+      top: 2%;
       border-radius: 70%;
       background-color: #AE1A1F;
     }
@@ -41,7 +40,7 @@
     .tomato1 {
       z-index: 99;
       top: 50%;
-      left: -3%;
+      left: -7%;
       width: 300px;
       height: 300px;
       transform: rotate(-15deg);
@@ -64,11 +63,11 @@
       z-index: 10;
       width: 1300px;
       height: 700px;
-      background: #FFFFFF;
+      background: rgba(243, 241, 241, 0.8);
       border-radius: 50px;
       display: inline-block;
       overflow: hidden;           
-        
+      // border: 2px solid ;
       .signup_left {
         float: left;
         width: 60%;
@@ -80,13 +79,13 @@
           top: 4%;
           
           a {
-            font-family: 'Dosis', sans-serif; 
+            font-family: 'Godo', sans-serif;
             text-align: left;
             color: black;
-            font-size: 25px;
+            font-size: 20px;
             line-height: 10px;
             position: relative;
-            display: inline;
+            display: inline;            
             left: -41%;
             text-decoration: none;
             
@@ -170,7 +169,7 @@
         width: 40%;
         height: 100%;
         padding: 0%;
-        background: rgba(255, 230, 219, 0.4);
+        background: rgba(255, 230, 219, 0.8);
         border-radius: 0px 50px 50px 0px;
         position: relative;
 

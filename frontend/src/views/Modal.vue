@@ -2,6 +2,8 @@
 <div>
   <button id="show-modal" @click="state.showModalSample = true">Show Modal Sample</button>
   <button id="show-modal" @click="state.makeStudyModal = true">Make Study Modal</button>
+<!-- <div v-if="showModal"> -->
+  <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
   
   <div id="circle"><div id="circle2"></div></div>
   <div id="rectangle"></div>

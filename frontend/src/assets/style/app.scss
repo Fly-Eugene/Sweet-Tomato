@@ -18,12 +18,20 @@ body {
   // overflow: hidden;
   width: 100vw;
   height: 100vh;
+  overflow-x: hidden;
 }
 
 .innerHeader {
-  width: 90%;
+  width: 90vw;
   margin: auto;
   border-bottom: 3px solid black;
+}
+
+.footer {
+  width: 100vw;
+  height: 100px;
+  margin: auto;
+  background-color: rgb(167, 167, 167);
 }
 
 #app {
