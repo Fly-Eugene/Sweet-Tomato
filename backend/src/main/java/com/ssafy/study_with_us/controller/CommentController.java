@@ -35,7 +35,7 @@ public class CommentController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_COMMENT).build();
     }
     @GetMapping
-    public Object getComments(@RequestBody IdReqDto params) {
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_COMMENTS).dataType("comments").data(commentService.getComments(params.getStudyId())).build();
+    public Object getComments(@RequestParam Long id) {
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_COMMENTS).dataType("comments").data(commentService.getComments(id)).build();
     }
 }

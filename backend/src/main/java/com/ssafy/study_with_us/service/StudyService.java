@@ -96,8 +96,6 @@ public class StudyService {
         }
         // profile 얻어오기
         StudyProfile getProfile = studyRepository.getProfile(studyId);
-        System.out.println(studyId);
-        System.out.println("getProfile = " + getProfile);
         Profile profile = StudyProfile.builder()
                 .id(getProfile.getId())
                 .imageOrgName(getProfile.getImageOrgName())

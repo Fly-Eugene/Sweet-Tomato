@@ -68,7 +68,6 @@ public class StudyController {
 
     private StudyDto getStudyDtoAtFile(FileDto params) throws IOException {
         Profile profile = null;
-        System.out.println("params.getFiles() = " + params.getFiles());
         // 파일 정보 있으면 받은 정보로 생성
         if (params.getFiles() != null) {
             profile = profileService.studyProfileCreate(params.getFiles().get(0));
