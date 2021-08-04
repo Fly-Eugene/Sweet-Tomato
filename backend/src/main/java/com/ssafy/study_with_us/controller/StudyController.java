@@ -19,8 +19,8 @@ import java.util.*;
 @RestController
 @RequestMapping("/study")
 public class StudyController {
-    private StudyService studyService;
-    private ProfileService profileService;
+    private final StudyService studyService;
+    private final ProfileService profileService;
 
     public StudyController(StudyService studyService, ProfileService profileService) {
         this.studyService = studyService;
@@ -42,7 +42,31 @@ public class StudyController {
     }
     @PostMapping
     public Object create(FileDto params) throws IOException {
-        Map<String, Object> map = new HashMap<>();
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY).dataType("study")
+                .data(studyService.create(getStudyDtoAtFile(params))).build();
+    }
+
+    @PatchMapping
+    public Object update(FileDto params) throws IOException {
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY)
+                .data(studyService.update(getStudyDtoAtFile(params))).build();
+    }
+
+    @GetMapping("/detail")
+    public Object getDetail(@RequestParam Long id){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY).dataType("study").data(studyService.getDetail(id)).build();
+    }
+    @GetMapping
+    public Object getStudyList(){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY).dataType("studies").data(studyService.getStudyList()).build();
+    }
+
+    @PostMapping("/search")
+    public Object searchStudyByThemes(@RequestBody Map<String, List<String>> params){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_THEMES).dataType("themes").data(studyService.searchStudyByThemes(params.get("themes"))).build();
+    }
+
+    private StudyDto getStudyDtoAtFile(FileDto params) throws IOException {
         Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성
         if (params.getFiles() != null) {
@@ -57,29 +81,13 @@ public class StudyController {
                 themes.add((String) theme);
             }
         };
-        StudyDto studyDto = StudyDto.builder()
+        return StudyDto.builder()
+                .id(jObject.has("id") ? jObject.getLong("id") : null)
                 .studyName(jObject.has("studyName") ? jObject.getString("studyName") : null)
                 .studyIntro(jObject.has("studyIntro") ? jObject.getString("studyIntro") : null)
                 .security(jObject.has("security") ? jObject.getString("security") : null)
                 .themes(themes)
                 .profile(profile)
                 .build();
-
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY).dataType("study").data(studyService.create(studyDto)).build();
-    }
-
-    @PatchMapping
-    public Object update(@RequestBody StudyDto params){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY).data(studyService.update(params)).build();
-    }
-
-    @GetMapping
-    public Object read(@RequestParam Long id){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY).dataType("study").data(studyService.read(id)).build();
-    }
-
-    @PostMapping("/search")
-    public Object searchStudyByThemes(@RequestBody Map<String, List<String>> params){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_THEMES).dataType("themes").data(studyService.searchStudyByThemes(params.get("themes"))).build();
     }
 }

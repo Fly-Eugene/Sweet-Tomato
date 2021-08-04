@@ -14,7 +14,7 @@ import static com.ssafy.study_with_us.domain.entity.QTheme.theme;
 
 @Repository
 public class StudyRepositoryImpl implements StudyRepositoryCustom{
-    private JPAQueryFactory jpaQueryFactory;
+    private final JPAQueryFactory jpaQueryFactory;
 
     public StudyRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
         this.jpaQueryFactory = jpaQueryFactory;
@@ -33,16 +33,6 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom{
     @Override
     public StudyProfile getProfile(Long studyId) {
         return jpaQueryFactory.select(study.profile).from(study).where(study.id.eq(studyId)).fetchOne();
-    }
-
-    @Override
-    public Object update(StudyDto params) {
-        jpaQueryFactory.update(study)
-                .set(study.studyName, params.getStudyName())
-                .set(study.studyIntro, params.getStudyIntro())
-                .where(study.id.eq(params.getId()))
-                .execute();
-        return null;
     }
 
     // 좀 더 효율적으로 가능할듯 후에 수정
