@@ -1,70 +1,66 @@
 <template>
-  <section class="signup">
-    <section class="signup_body">     
-      <div class="circle"></div> 
-      <div class="rectangle"></div>                 
-      <section class="signup_card">      
-        <article class="signup_left">              
-          <div class="toMain">            
-            <router-link :to="{name: 'AccountLogin'}">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-              이전        
-            </router-link>    
-          </div>        
-          <div class="signup_left_content">              
-            <h2>Sweet Tomato</h2>
-            <form enctype="multipart/form-data">                
-              <div class="profile_box">
-                <img v-if="state.profile_image === ''" class="profile" src="@/assets/img/basic_profile.png">
-                <div v-else class="profile" :style="`background-image : url(${state.profile_image})`"></div>              
-              </div>
-              <div class="filebox">
-                <label for="file">프로필 변경</label>
-                <input @change="upload" accept="image/*" type="file" id="file" name="profile"/>            
-              </div>
-            </form>
-          </div>
-        </article>
-        <article class="signup_right">
-          <div class="signup_right_content">
-            <h2>Sign Up</h2>
-            <span>Please fill your information for Signup</span>
-            <form class="signup_form" ref="signupForm" @submit="onSignupSubmit">
-              <div>
-                <input type="email" v-model="email" name="email" placeholder="Email">
-                <p>{{ emailError }}</p>
-              </div>      
-              <div>
-                <input type="text" v-model="username" name="username" placeholder="Username">
-                <p>{{ usernameError }}</p>
-              </div>      
-              <div>
-                <input type="password" v-model="password" name="password" placeholder="Password">
-                <p>{{ passwordError }}</p>
-              </div>
-              <div>
-                <input type="password" v-model="passwordConfirmation" name="passwordConfirmation" placeholder="Password Confirm">
-                <p>{{ passwordConfirmationError }}</p>
-              </div> 
-              <div>
-                <input type="number" v-model="age" name="age" placeholder="Age">
-                <p>{{ ageError }}</p>
-              </div>
-              <div>
-                <input type="text" v-model="group" name="group" placeholder="Group">
-                <p>{{ groupError }}</p>
-              </div>
-              <footer>
-                <span class="checkword">I Agree with a policy of this Service</span>
-              </footer>
-              <button> <span class="signupBtn">Sign Up</span> </button>
-            </form>        
-          </div>          
-        </article>          
-      </section>    
-      <img class="tomato1" src="@/assets/img/tomato.png" alt="">
-      <img class="tomato2" src="@/assets/img/tomato.png" alt="">
-    </section>  
+  <section class="signup_body">     
+    <div class="circle"></div> 
+    <div class="rectangle"></div>                 
+    <section class="signup_card">      
+      <article class="signup_left">              
+        <div class="toMain">            
+          <router-link :to="{name: 'AccountLogin'}">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            이전        
+          </router-link>    
+        </div>        
+        <div class="signup_left_content">              
+          <h2>Sweet Tomato</h2>
+          <form enctype="multipart/form-data">                
+            <div class="profile_box">
+              <img v-if="state.profile_image === ''" class="profile" src="@/assets/img/basic_profile.png">
+              <div v-else class="profile" :style="`background-image : url(${state.profile_image})`"></div>              
+            </div>
+            <div class="filebox">
+              <label for="file">프로필 변경</label>
+              <input @change="upload" accept="image/*" type="file" id="file" name="profile"/>            
+            </div>
+          </form>
+        </div>
+      </article>
+      <article class="signup_right">
+        <div class="signup_right_content">
+          <h2>회원가입</h2>
+          <span>회원가입을 위해 아래의 정보를 입력해주세요</span>
+          <form class="signup_form" ref="signupForm" @submit="onSignupSubmit">
+            <div>
+              <input type="email" v-model="email" name="email" placeholder="이메일">
+              <p>{{ emailError }}</p>
+            </div>      
+            <div>
+              <input type="text" v-model="username" name="username" placeholder="닉네임">
+              <p>{{ usernameError }}</p>
+            </div>      
+            <div>
+              <input type="password" v-model="password" name="password" placeholder="비밀번호">
+              <p>{{ passwordError }}</p>
+            </div>
+            <div>
+              <input type="password" v-model="passwordConfirmation" name="passwordConfirmation" placeholder="비밀번호 확인">
+              <p>{{ passwordConfirmationError }}</p>
+            </div> 
+            <div>
+              <input type="number" v-model="age" name="age" placeholder="나이">
+              <p>{{ ageError }}</p>
+            </div>
+            <div>
+              <input type="text" v-model="group" name="group" placeholder="조직">
+              <p>{{ groupError }}</p>
+            </div>
+            <footer>
+              <span class="checkword">이 사이트의 이용방침에 동의합니다</span>
+            </footer>
+            <button class="signupBtn">회원 가입</button>
+          </form>        
+        </div>          
+      </article>          
+    </section>    
   </section>  
 </template>
 

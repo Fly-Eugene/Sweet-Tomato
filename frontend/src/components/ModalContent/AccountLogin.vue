@@ -17,8 +17,8 @@
       
       <aside class="login_right">
         <article class="login_right_content">
-          <h2>Log in</h2>
-          <span>
+          <h2>로그인</h2>
+          <span class="sub_head">
             토마토와 함께 공부하세요
             <br>
             보다 효율적이고 즐거운 스터디 시간
@@ -26,7 +26,7 @@
           <form @submit="onLoginSubmit">
             <!-- 로그인 ID 입력 div -->
             <div>
-              <input placeholder="아이디" class="accountInput" type="text" name="ID" v-model="ID" />
+              <input placeholder="이메일" class="accountInput" type="text" name="ID" v-model="ID" />
               <p>{{ IDError }}</p>
             </div>
             <!-- 로그인 비밀번호 div -->
@@ -42,9 +42,9 @@
             <button class="loginBtn">로그인</button>
             <br>
             <!-- 회원가입 찾기 이동 -->
-            <div>
-              <span>계정이 없으신가요 ?</span>
-              <a id="goSignup" @click="onClickSignup" href="">회원가입</a>
+            <div class="signup_footer">
+              <span>계정이 없으신가요 ?   </span>
+              <a id="goSignup" @click="onClickSignup">회원가입</a>
             </div>
           </form>
         </article>

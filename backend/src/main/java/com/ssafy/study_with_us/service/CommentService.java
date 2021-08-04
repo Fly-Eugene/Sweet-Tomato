@@ -5,6 +5,7 @@ import com.ssafy.study_with_us.domain.repository.CommentRepository;
 import com.ssafy.study_with_us.domain.repository.MemberRepository;
 import com.ssafy.study_with_us.domain.repository.StudyRepository;
 import com.ssafy.study_with_us.dto.CommentDto;
+import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,9 @@ import java.util.List;
 
 @Service
 public class CommentService {
-    private CommentRepository commentRepository;
-    private MemberRepository memberRepository;
-    private StudyRepository studyRepository;
+    private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
+    private final StudyRepository studyRepository;
 
     public CommentService(CommentRepository commentRepository, MemberRepository memberRepository, StudyRepository studyRepository) {
         this.commentRepository = commentRepository;
@@ -26,7 +27,7 @@ public class CommentService {
     public Object create(CommentDto params) {
         Comment result = commentRepository.save(Comment.builder()
                 .content(params.getContent())
-                .member(memberRepository.getById(params.getMemberId()))
+                .member(memberRepository.getById(getMemberId()))
                 .study(studyRepository.getById(params.getStudyId()))
                 .build());
         return result.entityToDto();
@@ -58,5 +59,9 @@ public class CommentService {
             results.add(comment.entityToDto());
         }
         return results;
+    }
+    private Long getMemberId() {
+        String s = SecurityUtil.getCurrentUsername().get();
+        return memberRepository.findByEmail(s).get().getId();
     }
 }
