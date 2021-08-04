@@ -4,7 +4,7 @@
     <div class="rectangle"></div>
     
     <article class="login_card">
-      <AccountPassword :forgotPassword="forgotPassword"/>
+      <AccountPassword :forgotPassword="forgotPassword" @closeDialog="onCloseDialog"/>
       <aside class="login_left">
         <article class="login_left_content">          
           <img src="@/assets/img/tomato1.svg" alt="">
@@ -104,6 +104,9 @@ export default {
       forgotPassword.value = true
     }
 
+    const onCloseDialog = function() {
+      forgotPassword.value = false
+    }
 
     onMounted( function() {
       forgotPassword.value = false
@@ -119,6 +122,7 @@ export default {
       onClickSignup,
       onClickForgotPassword,
       onLoginSubmit,
+      onCloseDialog
     }
 
   }
