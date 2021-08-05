@@ -10,8 +10,13 @@ export function login (context, credentials) {
   .then(res => {
     console.log(res.data)
     localStorage.setItem('jwt', res.data.data.token)
+<<<<<<< HEAD
     const accessToken = localStorage.getItem('jwt')
     $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+=======
+    // const accessToken = localStorage.getItem('jwt')
+    // $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+>>>>>>> feature/studyDetail
     
     context.commit('CHANGE_ISLOGIN')
     router.push({ name : 'Home'})
@@ -31,6 +36,40 @@ export function sendValidateEmail (context, email) {
   })
   .then(res => {
     alert(res.data.msg)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function createComment (context, arr) {
+  const [studyId, input_value] = arr
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'comment',
+    data : {
+      "content" : input_value,
+      "studyId" : studyId
+    }
+  })
+  .then(res => {
+    context.commit('CREATE_COMMENT', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getComments (context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'comment',
+    params: {
+      id: studyId
+    }
+  })
+  .then(res => {
+    context.commit('GET_COMMENTS', res.data.data)
   })
   .catch(err => {
     console.log(err)
