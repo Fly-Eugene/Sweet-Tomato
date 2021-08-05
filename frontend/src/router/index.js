@@ -8,6 +8,8 @@ import Room from '@/views/Room'
 import Modal from '@/views/Modal'
 import DetailStudy from '@/views/DetailStudy'
 
+import ErrorPage from '@/views/ErrorPage.vue'
+
 const routes = [
   {
     path: '/',
@@ -25,7 +27,7 @@ const routes = [
     component: AccountSignup
   },
   {
-    path: '/account/profile',
+    path: '/account/profile/test',
     name: 'Profile',
     component: Profile
   },
@@ -51,6 +53,12 @@ const routes = [
     name: 'DetailStudy',
     component: DetailStudy,
     props: true
+  },
+
+  {
+    path: '/error',
+    name: 'ErrorPage',
+    component: ErrorPage,
   }
 
 ]

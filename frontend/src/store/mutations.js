@@ -8,3 +8,11 @@ export function CHANGE_ISLOGIN (state) {
     state.isLogin = false
   }
 }
+
+export function CREATE_COMMENT (state, res) {
+  state.studyComments.push(res)
+}
+
+export function GET_COMMENTS (state, res) {
+  state.studyComments = res
+}
