@@ -1,14 +1,13 @@
 package com.ssafy.study_with_us.controller;
 
 import com.ssafy.study_with_us.domain.entity.Tomato;
+import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.dto.TomatoDto;
 import com.ssafy.study_with_us.service.TomatoService;
 import com.ssafy.study_with_us.util.response.ApiResult;
+import com.ssafy.study_with_us.util.response.ResponseMessage;
 import com.ssafy.study_with_us.util.response.StatusCode;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tomato")
@@ -27,5 +26,15 @@ public class TomatoController {
     public Object addTomato(@RequestBody TomatoDto params){
         return ApiResult.builder().status(StatusCode.OK).message("토마토 추가 성공").dataType("tomato")
                 .data(tomatoService.addTomato(params)).build();
+    }
+    
+    // 일단 토마토 테스트 할라고 여기 만들었는데, 멤버, 스터디 세부 검색 하는곳으로 이동 예정
+    @PostMapping("/study")
+    public Object getTomatoes(@RequestBody StudyDto params){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_SUM).dataType("study_tomato_sum").data(tomatoService.getTomatoes(params)).build();
+    }
+    @GetMapping
+    public Object getTomatoes(){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_MEMBER_TOMATO_SUM).dataType("member_tomato_sum").data(tomatoService.getTomatoes()).build();
     }
 }

@@ -4,10 +4,12 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ssafy.study_with_us.domain.entity.QTomato;
 import com.ssafy.study_with_us.domain.entity.Tomato;
+import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.dto.TomatoDto;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static com.ssafy.study_with_us.domain.entity.QTomato.*;
 
@@ -24,6 +26,21 @@ public class TomatoRepositoryImpl implements TomatoRepositoryCustom {
         return jpaQueryFactory.selectFrom(tomato)
                 .where(memberIdEq(params.getMemberId()), studyIdEq(params.getStudyId()), tomatoDateEq(params.getDate()))
                 .fetchOne();
+    }
+
+    @Override
+    public Integer getRelevantSum(StudyDto params) {
+        return jpaQueryFactory.select(tomato.tomatoCount.sum()).from(tomato).where(studyIdEq(params.getId())).fetchOne();
+    }
+
+    @Override
+    public Integer getRelevantSum(Long memberId) {
+        return jpaQueryFactory.select(tomato.tomatoCount.sum()).from(tomato).where(memberIdEq(memberId)).fetchOne();
+    }
+
+    @Override
+    public Integer getTotalSum() {
+        return jpaQueryFactory.select(tomato.tomatoCount.sum()).from(tomato).fetchOne();
     }
 
     private BooleanExpression memberIdEq(Long memberId){
