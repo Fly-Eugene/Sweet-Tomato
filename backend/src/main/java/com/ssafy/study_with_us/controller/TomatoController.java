@@ -31,10 +31,10 @@ public class TomatoController {
     // 일단 토마토 테스트 할라고 여기 만들었는데, 멤버, 스터디 세부 검색 하는곳으로 이동 예정
     @PostMapping("/study")
     public Object getTomatoes(@RequestBody StudyDto params){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_SUM).dataType("study_tomato_sum").data(tomatoService.getTomatoes(params)).build();
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATOES).dataType("tomatoes_by_study").data(tomatoService.getTomatoes(params)).build();
     }
     @GetMapping
     public Object getTomatoes(){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_MEMBER_TOMATO_SUM).dataType("member_tomato_sum").data(tomatoService.getTomatoes()).build();
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_MEMBER_TOMATOES).dataType("tomatoes_by_member").data(tomatoService.getTomatoes()).build();
     }
 }

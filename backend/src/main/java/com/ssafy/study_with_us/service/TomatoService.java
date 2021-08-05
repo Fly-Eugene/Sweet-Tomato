@@ -6,11 +6,13 @@ import com.ssafy.study_with_us.domain.repository.StudyRepository;
 import com.ssafy.study_with_us.domain.repository.TomatoRepository;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.dto.TomatoDto;
-import com.ssafy.study_with_us.dto.TomatoSumDto;
+import com.ssafy.study_with_us.dto.TomatoResDto;
 import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TomatoService {
@@ -42,21 +44,22 @@ public class TomatoService {
     }
     //member
     public Object getTomatoes(){
-        return TomatoSumDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(getMemberId())).build();
+        return TomatoResDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(getMemberId()))
+                .tomatoes(getTomatoDtos(tomatoRepository.getTomatoes(getMemberId()))).build();
     }
     //study
     public Object getTomatoes(StudyDto params){
-        return TomatoSumDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(params)).build();
+        return TomatoResDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(params))
+                .tomatoes(getTomatoDtos(tomatoRepository.getTomatoes(params))).build();
     }
 
-    // 개수만 뽑아주면 되는데 토마토 전체 리스트를 구해버림
-//    private List<TomatoDto> getTomatoDtos(List<Tomato> tomatoes) {
-//        List<TomatoDto> results = new ArrayList<>();
-//        for (Tomato tomato : tomatoes) {
-//            results.add(tomato.entityToDto());
-//        }
-//        return results;
-//    }
+    private List<TomatoDto> getTomatoDtos(List<Tomato> tomatoes) {
+        List<TomatoDto> results = new ArrayList<>();
+        for (Tomato tomato : tomatoes) {
+            results.add(tomato.entityToDto());
+        }
+        return results;
+    }
 
     private Long getMemberId() {
         String s = SecurityUtil.getCurrentUsername().get();

@@ -3,24 +3,30 @@ package com.ssafy.study_with_us.dto;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
-public class TomatoSumDto {
+public class TomatoResDto {
     private Integer totalSum;
     private Integer relevantSum;
+    private List<TomatoDto> tomatoes;
 
-    public TomatoSumDto() {
+    public TomatoResDto() {
     }
+
     @Builder
-    public TomatoSumDto(Integer totalSum, Integer relevantSum) {
+    public TomatoResDto(Integer totalSum, Integer relevantSum, List<TomatoDto> tomatoes) {
         this.totalSum = totalSum;
         this.relevantSum = relevantSum;
+        this.tomatoes = tomatoes;
     }
 
     @Override
     public String toString() {
-        return "TomatoSumDto{" +
+        return "TomatoResDto{" +
                 "totalSum=" + totalSum +
                 ", relevantSum=" + relevantSum +
+                ", tomatoes=" + tomatoes +
                 '}';
     }
 }
