@@ -27,8 +27,6 @@ public class TomatoService {
         // 여기서 tomato null이면 만들어주고 아니면 count + 1 해줌
         Tomato tomato = tomatoRepository.addTomato(TomatoDto.builder().memberId(getMemberId())
                 .studyId(params.getStudyId()).date(LocalDate.now()).build());
-        System.out.println("tomato = " + tomato);
-        System.out.println("params = " + params);
         Tomato result = null;
         if(tomato == null) {
             result = tomatoRepository.save(Tomato.builder().tomatoCount(1)
@@ -39,7 +37,7 @@ public class TomatoService {
                     .member(tomato.getMember()).study(tomato.getStudy())
                     .tomatoDate(tomato.getTomatoDate()).build());
         }
-        return result;
+        return TomatoDto.builder().id(result.getId()).date(result.getTomatoDate()).count(result.getTomatoCount()).studyId(result.getStudy().getId()).memberId(result.getMember().getId()).build();
     }
 
     private Long getMemberId() {

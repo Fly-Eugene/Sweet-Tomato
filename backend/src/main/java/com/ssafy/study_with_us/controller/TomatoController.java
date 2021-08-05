@@ -25,8 +25,7 @@ public class TomatoController {
 //  0짜리 토마토 다 만들어 놓는거보다 첫 추가시에 만들어주는게 효율적일듯
     @PostMapping
     public Object addTomato(@RequestBody TomatoDto params){
-        ApiResult.builder().status(StatusCode.OK).message("").dataType("")
+        return ApiResult.builder().status(StatusCode.OK).message("토마토 추가 성공").dataType("tomato")
                 .data(tomatoService.addTomato(params)).build();
-        return null; // service단에서 DTO로 반환해줘야함 일단 되는지 테스트 해보고 바꿔주기
     }
 }
