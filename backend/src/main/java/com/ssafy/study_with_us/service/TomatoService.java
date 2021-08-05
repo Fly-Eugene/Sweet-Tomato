@@ -48,7 +48,7 @@ public class TomatoService {
                 .tomatoes(getTomatoDtos(tomatoRepository.getTomatoes(getMemberId()))).build();
     }
     //study
-    public Object getTomatoes(StudyDto params){
+    public Object getTomatoes(TomatoDto params){
         return TomatoResDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(params))
                 .tomatoes(getTomatoDtos(tomatoRepository.getTomatoes(params))).build();
     }

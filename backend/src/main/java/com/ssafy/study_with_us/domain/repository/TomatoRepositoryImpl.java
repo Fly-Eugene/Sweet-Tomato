@@ -28,8 +28,8 @@ public class TomatoRepositoryImpl implements TomatoRepositoryCustom {
     }
 
     @Override
-    public Integer getRelevantSum(StudyDto params) {
-        return jpaQueryFactory.select(tomato.tomatoCount.sum()).from(tomato).where(studyIdEq(params.getId())).fetchOne();
+    public Integer getRelevantSum(TomatoDto params) {
+        return jpaQueryFactory.select(tomato.tomatoCount.sum()).from(tomato).where(studyIdEq(params.getStudyId())).fetchOne();
     }
 
     @Override
@@ -43,8 +43,8 @@ public class TomatoRepositoryImpl implements TomatoRepositoryCustom {
     }
 
     @Override
-    public List<Tomato> getTomatoes(StudyDto params) {
-        return jpaQueryFactory.selectFrom(tomato).where(studyIdEq(params.getId())).fetch();
+    public List<Tomato> getTomatoes(TomatoDto params) {
+        return jpaQueryFactory.selectFrom(tomato).where(studyIdEq(params.getStudyId())).fetch();
     }
 
     @Override
