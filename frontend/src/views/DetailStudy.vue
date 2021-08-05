@@ -41,27 +41,27 @@ export default {
     const state = reactive({
       info : {}
     })
+    const store = useStore()
     
     onMounted(() => {
       console.log('onMounted 실행')
       $axios({
         method: 'get',
-        url: 'https://localhost:5000/study',
+        url: store.state.server_url + 'study/detail',
+        // url: 'https://localhost:5000/study/detail',
         params : {
           id : props.id
         }
       })
       .then(res => {
         console.log(res.data.data)
-
         state.info = res.data.data
-        console.log(state.info)
       })
       .catch(err => {
         console.log(err)
       }),
 
-      useStore().dispatch('getComments', props.id)
+      store.dispatch('getComments', props.id)
     })
 
     return {
@@ -70,9 +70,6 @@ export default {
     }
   }
 
-
-
-  
 }
 
 </script>

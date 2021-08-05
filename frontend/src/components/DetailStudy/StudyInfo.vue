@@ -1,7 +1,8 @@
 <template>
   <section class="info_card">
       <article class="info_left">
-        <div class="info_img" :style="`background-image : url(${image_url})`">이미지 표시 구간</div>
+        <div class="info_img" src="" alt=""></div>
+        <!-- <img class="info_img" :src="`${image_url}`"> -->
         <button class="apply_btn">신청하기</button>
       </article>
       <article class="info_right">
@@ -29,14 +30,12 @@ export default {
   },
 
   setup(props) {
-    console.log('여기는 Study_info', props)
-
-    const image_url = 'http://localhost:5001/' + props.info.profile.image
+    const image_url = props.info.profile.path + props.info.profile.thumbnail
     console.log(image_url)
 
-
     return {
-
+      image_url,
+      
     }
   }
 
