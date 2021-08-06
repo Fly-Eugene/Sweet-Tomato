@@ -1,11 +1,10 @@
 package com.ssafy.study_with_us.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -26,14 +25,18 @@ public class StudyMemberRef {
     @JoinColumn(name = "study_id")
     private Study study;
 
+    @Column(name = "recently_connection_time")
+    private LocalDateTime recentlyConnectionTime;
+
     public StudyMemberRef() {
     }
 
     @Builder
-    public StudyMemberRef(Long id, Member member, Study study) {
+    public StudyMemberRef(Long id, Member member, Study study, LocalDateTime recentlyConnectionTime) {
         this.id = id;
         this.member = member;
         this.study = study;
+        this.recentlyConnectionTime = recentlyConnectionTime;
     }
 
     @Override
@@ -42,6 +45,7 @@ public class StudyMemberRef {
                 "id=" + id +
                 ", member=" + member +
                 ", study=" + study +
+                ", recentlyConnectionTime=" + recentlyConnectionTime +
                 '}';
     }
 }

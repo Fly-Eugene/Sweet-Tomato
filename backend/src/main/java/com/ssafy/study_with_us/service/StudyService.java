@@ -9,6 +9,7 @@ import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -52,7 +53,6 @@ public class StudyService {
     * 4. 만들어진 스터디 id + themes로(해시태그들) 맵핑 테이블에 저장
     */
     public Object create(StudyDto params){
-        // 1. 스터디 생성 (여기 profile_id 어떻게 저장할지 생각해보기)
         Study study = saveStudy(params);
         studyMemberRefRepository.save(StudyMemberRef.builder()
                 .study(study)
@@ -153,6 +153,13 @@ public class StudyService {
             results.add(getDetail(studyId));
         }
         return results;
+    }
+
+    public Object connectStudy(Long studyId){
+        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), studyId);
+        StudyMemberRef result = studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId()).member(studyMember.getMember())
+                .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build());
+        return StudyMemberDto.builder().id(result.getId()).studyId(result.getStudy().getId()).memberId(result.getMember().getId()).recentlyConnectionTime(result.getRecentlyConnectionTime()).build();
     }
     private Long getMemberId() {
         String s = SecurityUtil.getCurrentUsername().get();

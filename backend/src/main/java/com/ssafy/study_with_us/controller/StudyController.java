@@ -66,6 +66,11 @@ public class StudyController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_THEMES).dataType("themes").data(studyService.searchStudyByThemes(params.get("themes"))).build();
     }
 
+    @PostMapping("/connection")
+    public Object connection(@RequestBody IdReqDto params){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CONNECTED_STUDY).dataType("study_member").data(studyService.connectStudy(params.getStudyId())).build();
+    }
+
     private StudyDto getStudyDtoAtFile(FileDto params) throws IOException {
         Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성
