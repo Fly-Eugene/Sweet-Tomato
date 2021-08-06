@@ -29,15 +29,36 @@ public class DataRoomService {
 
     public DataRoomDto create(DataRoomDto params, List<MultipartFile> files) throws IOException {
         // 자료실(글) 저장
-        DataRoom dataRoom = dataRoomRepository.save(DataRoom.builder()
-                .id(params.getId()).subject(params.getSubject()).content(params.getContent())
-                .member(memberRepository.getById(getMemberId()))
-                .study(studyRepository.getById(params.getStudyId())).build());
+        DataRoom dataRoom = saveDataRoom(params);
         // 파일 저장
         fileService.create(files, dataRoom);
         return DataRoomDto.builder().id(dataRoom.getId()).subject(dataRoom.getSubject()).content(dataRoom.getContent())
                 .memberId(dataRoom.getMember().getId()).studyId(dataRoom.getStudy().getId())
                 .build();
+    }
+
+
+    public DataRoomDto update(DataRoomDto params, List<MultipartFile> files) throws IOException {
+        DataRoom getDataRoom = dataRoomRepository.getById(params.getId());
+        DataRoom dataRoom = saveDataRoom(DataRoomDto.builder()
+                .id(getDataRoom.getId())
+                .subject(params.getSubject() == null ? getDataRoom.getSubject() : params.getSubject())
+                .content(params.getContent() == null ? getDataRoom.getContent() : params.getContent())
+                .memberId(getDataRoom.getMember().getId())
+                .studyId(getDataRoom.getStudy().getId())
+                .build());
+        // file 수정 처리
+        // 있었는데 없어진거 제거
+        // 없었는데 있어진거 추가
+
+        return dataRoom.entityToDto();
+    }
+
+    private DataRoom saveDataRoom(DataRoomDto params) {
+        return dataRoomRepository.save(DataRoom.builder()
+                .id(params.getId()).subject(params.getSubject()).content(params.getContent())
+                .member(memberRepository.getById(getMemberId()))
+                .study(studyRepository.getById(params.getStudyId())).build());
     }
 
     private Long getMemberId() {

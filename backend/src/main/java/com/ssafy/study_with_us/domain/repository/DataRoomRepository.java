@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DataRoomRepository extends JpaRepository<DataRoom, Long>, DataRoomRepositoryCustom {
     DataRoom save(DataRoom dataRoom);
+    DataRoom getById(Long id);
 }
