@@ -2,13 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import AccountLogin from '@/components/ModalContent/AccountLogin.vue'
 import AccountSignup from '@/components/ModalContent/AccountSignup'
-import Profile from '@/views/Profile'
 import StudyMain from '@/views/StudyMain'
 import Room from '@/views/Room'
 import Modal from '@/views/Modal'
 import DetailStudy from '@/views/DetailStudy'
+import Mypage from '@/views/Mypage'
 
 const routes = [
+  {
+    path: '/mypage',
+    name: 'Mypage',
+    component: Mypage
+  },
   {
     path: '/',
     name: 'Home',
@@ -23,11 +28,6 @@ const routes = [
     path: '/account/signup',
     name: 'AccountSignup',
     component: AccountSignup
-  },
-  {
-    path: '/account/profile',
-    name: 'Profile',
-    component: Profile
   },
   {
     path: '/study/main',

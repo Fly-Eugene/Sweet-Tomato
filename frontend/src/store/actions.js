@@ -10,9 +10,10 @@ export function login (context, credentials) {
   .then(res => {
     console.log(res.data)
     localStorage.setItem('jwt', res.data.data.token)
-    const accessToken = localStorage.getItem('jwt')
-    $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
     
+    const accessToken = localStorage.getItem('jwt')
+    $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}` 
+
     context.commit('CHANGE_ISLOGIN')
     router.push({ name : 'Home'})
   })
@@ -21,7 +22,6 @@ export function login (context, credentials) {
     console.log(err)
   })
 }
-
 
 export function sendValidateEmail (context, email) {
   $axios({

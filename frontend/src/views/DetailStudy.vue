@@ -4,7 +4,6 @@
     <TomatoRate/>
     <StudyChart/>
     <StudyComment/>
-
   </div>
 </template>
 
