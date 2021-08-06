@@ -10,13 +10,8 @@ export function login (context, credentials) {
   .then(res => {
     console.log(res.data)
     localStorage.setItem('jwt', res.data.data.token)
-<<<<<<< HEAD
-    const accessToken = localStorage.getItem('jwt')
-    $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-=======
     // const accessToken = localStorage.getItem('jwt')
     // $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
->>>>>>> feature/studyDetail
     
     context.commit('CHANGE_ISLOGIN')
     router.push({ name : 'Home'})
