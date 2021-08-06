@@ -59,6 +59,7 @@ export function createComment (context, arr) {
     }
   })
   .then(res => {
+    console.log(res.data.data)
     context.commit('CREATE_COMMENT', res.data.data)
   })
   .catch(err => {
