@@ -22,7 +22,6 @@ export function login (context, credentials) {
   })
 }
 
-
 export function sendValidateEmail (context, email) {
   $axios({
     method: 'post',

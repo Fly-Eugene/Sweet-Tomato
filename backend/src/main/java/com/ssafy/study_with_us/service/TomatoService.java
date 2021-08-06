@@ -4,11 +4,15 @@ import com.ssafy.study_with_us.domain.entity.Tomato;
 import com.ssafy.study_with_us.domain.repository.MemberRepository;
 import com.ssafy.study_with_us.domain.repository.StudyRepository;
 import com.ssafy.study_with_us.domain.repository.TomatoRepository;
+import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.dto.TomatoDto;
+import com.ssafy.study_with_us.dto.TomatoResDto;
 import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TomatoService {
@@ -22,13 +26,10 @@ public class TomatoService {
         this.studyRepository = studyRepository;
     }
 
-    //  date type 찾아봐야함
     public Object addTomato(TomatoDto params){
         // 여기서 tomato null이면 만들어주고 아니면 count + 1 해줌
         Tomato tomato = tomatoRepository.addTomato(TomatoDto.builder().memberId(getMemberId())
                 .studyId(params.getStudyId()).date(LocalDate.now()).build());
-        System.out.println("tomato = " + tomato);
-        System.out.println("params = " + params);
         Tomato result = null;
         if(tomato == null) {
             result = tomatoRepository.save(Tomato.builder().tomatoCount(1)
@@ -39,7 +40,25 @@ public class TomatoService {
                     .member(tomato.getMember()).study(tomato.getStudy())
                     .tomatoDate(tomato.getTomatoDate()).build());
         }
-        return result;
+        return TomatoDto.builder().id(result.getId()).date(result.getTomatoDate()).count(result.getTomatoCount()).studyId(result.getStudy().getId()).memberId(result.getMember().getId()).build();
+    }
+    //member
+    public Object getTomatoes(){
+        return TomatoResDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(getMemberId()))
+                .tomatoes(getTomatoDtos(tomatoRepository.getTomatoes(getMemberId()))).build();
+    }
+    //study
+    public Object getTomatoes(TomatoDto params){
+        return TomatoResDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(params))
+                .tomatoes(getTomatoDtos(tomatoRepository.getTomatoes(params))).build();
+    }
+
+    private List<TomatoDto> getTomatoDtos(List<Tomato> tomatoes) {
+        List<TomatoDto> results = new ArrayList<>();
+        for (Tomato tomato : tomatoes) {
+            results.add(tomato.entityToDto());
+        }
+        return results;
     }
 
     private Long getMemberId() {

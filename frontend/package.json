@@ -10,6 +10,7 @@
   "dependencies": {
     "apexcharts": "^3.27.3",
     "axios": "^0.21.1",
+    "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
     "kurento-utils": "^6.16.0",

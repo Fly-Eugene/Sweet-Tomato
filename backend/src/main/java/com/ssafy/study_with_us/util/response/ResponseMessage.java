@@ -22,6 +22,10 @@ public class ResponseMessage {
     public static final String DELETED_COMMENT = "댓글 삭제 성공";
     public static final String SEARCHED_COMMENTS = "댓글 검색 성공";
 
+    public static final String SEARCHED_MEMBER_TOMATOES = "멤버별 토마토 검색 성공";
+    public static final String SEARCHED_STUDY_TOMATOES = "스터디별 토마토 검색 성공";
+
+
     public static final String INTERNAL_SERVER_ERROR = "서버 내부 에러";
     public static final String DB_ERROR = "데이터베이스 에러";
 }
