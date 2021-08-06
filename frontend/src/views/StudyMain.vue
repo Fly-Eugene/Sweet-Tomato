@@ -2,6 +2,7 @@
   <section class="study_main">
     <StudySearch/>
     <StudyCards/>
+    hihi
   </section>
 </template>
 
