@@ -4,6 +4,7 @@ import com.ssafy.study_with_us.domain.entity.Profile;
 import com.ssafy.study_with_us.dto.FileReqDto;
 import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.dto.StudyDto;
+import com.ssafy.study_with_us.dto.ThemesReqDto;
 import com.ssafy.study_with_us.service.ProfileService;
 import com.ssafy.study_with_us.service.StudyService;
 import com.ssafy.study_with_us.util.response.ApiResult;
@@ -65,8 +66,9 @@ public class StudyController {
     }
 
     @PostMapping("/search")
-    public Object searchStudyByThemes(@RequestBody Map<String, List<String>> params){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_THEMES).dataType("themes").data(studyService.searchStudyByThemes(params.get("themes"))).build();
+    public Object searchStudyByThemes(@RequestBody ThemesReqDto params){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_THEMES).dataType("themes")
+                .data(studyService.searchStudyByThemes(params.getThemes(), params.getPage())).build();
     }
 
     @PostMapping("/connection")

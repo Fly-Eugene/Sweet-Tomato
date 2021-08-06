@@ -147,8 +147,8 @@ public class StudyService {
         }
     }
 
-    public Object searchStudyByThemes(List<String> themes){
-        List<Long> studyIds = studyThemeRefRepository.searchStudyByThemes(themes);
+    public Object searchStudyByThemes(List<String> themes, Integer page){
+        List<Long> studyIds = studyThemeRefRepository.searchStudyByThemes(themes, page);
         List<StudyDto> results = new ArrayList<>();
         for (Long studyId : studyIds) {
             results.add(getDetail(studyId));
