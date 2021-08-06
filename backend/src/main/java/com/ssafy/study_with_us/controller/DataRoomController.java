@@ -7,10 +7,7 @@ import com.ssafy.study_with_us.util.response.ApiResult;
 import com.ssafy.study_with_us.util.response.ResponseMessage;
 import com.ssafy.study_with_us.util.response.StatusCode;
 import org.json.JSONObject;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -32,6 +29,17 @@ public class DataRoomController {
     public Object update(FileReqDto params) throws IOException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_DATA_ROOM).dataType("data_room")
         .data(dataRoomService.update(getDataRoomDtoAtFile(params), params.getFiles())).build();
+    }
+
+    @GetMapping("/detail")
+    public Object getDetail(@RequestParam Long dataRoomId){
+        dataRoomService.getDetail(dataRoomId);
+        return null;
+    }
+
+    @GetMapping
+    public Object getDataRoomList(@RequestParam Long studyId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_DATA_ROOM_LIST).dataType("data_rooms").data(dataRoomService.getDataRoomList(studyId)).build();
     }
 
     private DataRoomDto getDataRoomDtoAtFile(FileReqDto params){

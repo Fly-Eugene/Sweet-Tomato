@@ -30,7 +30,8 @@ public class ResponseMessage {
 
     public static final String CREATED_DATA_ROOM = "자료실 글 작성 완료";
     public static final String UPDATED_DATA_ROOM = "자료실 글 수정 완료";
-
+    public static final String SEARCHED_DATA_ROOM_LIST = "자료실 목록 조회 완료";
+    
 
     public static final String INTERNAL_SERVER_ERROR = "서버 내부 에러";
     public static final String DB_ERROR = "데이터베이스 에러";

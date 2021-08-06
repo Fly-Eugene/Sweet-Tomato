@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,6 +53,20 @@ public class DataRoomService {
         // 없었는데 있어진거 추가
 
         return dataRoom.entityToDto();
+    }
+
+    public Object getDetail(Long dataRoomId){
+        return null;
+    }
+
+    public Object getDataRoomList(Long studyId){
+        List<DataRoom> dataRooms = dataRoomRepository.getByStudyId(studyId);
+        // results 반환하는거 람다식으로 가능할듯? or 함수형 프로그래밍으로
+        List<DataRoomDto> results = new ArrayList<>();
+        for (DataRoom dataRoom : dataRooms) {
+            results.add(dataRoom.entityToDto());
+        }
+        return results;
     }
 
     private DataRoom saveDataRoom(DataRoomDto params) {
