@@ -1,10 +1,10 @@
 package com.ssafy.study_with_us.domain.entity;
 
+import com.ssafy.study_with_us.dto.DataRoomDto;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Entity
@@ -28,19 +28,19 @@ public class DataRoom {
     @JoinColumn(name = "study_id")
     private Study study;
 
-    @OneToMany(mappedBy = "dataRoom")
-    private List<File> files;
-
     public DataRoom() {
     }
 
     @Builder
-    public DataRoom(Long id, String subject, String content, Member member, Study study, List<File> files) {
+    public DataRoom(Long id, String subject, String content, Member member, Study study) {
         this.id = id;
         this.subject = subject;
         this.content = content;
         this.member = member;
         this.study = study;
-        this.files = files;
+    }
+
+    public DataRoomDto entityToDto(){
+        return DataRoomDto.builder().id(id).subject(subject).content(content).memberId(member.getId()).studyId(study.getId()).build();
     }
 }

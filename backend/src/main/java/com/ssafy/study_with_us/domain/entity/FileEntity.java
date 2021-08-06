@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.domain.entity;
 
+import com.ssafy.study_with_us.dto.FileDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,10 +9,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-public class File {
+@Table(name = "file")
+public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "data_room_id")
+    @Column(name = "file_id")
     private Long id;
 
     @Column(name = "sys_name")
@@ -23,6 +25,12 @@ public class File {
     @Column(name = "path")
     private String path;
 
+    @Column(name = "file_size")
+    private Long fileSize;
+
+    @Column(name = "content_type")
+    private String contentType;
+
     @Column(name = "reg_time")
     private LocalDateTime regTime;
 
@@ -30,15 +38,17 @@ public class File {
     @JoinColumn(name = "data_room_id")
     private DataRoom dataRoom;
 
-    public File() {
+    public FileEntity() {
     }
 
     @Builder
-    public File(Long id, String sysName, String orgName, String path, LocalDateTime regTime, DataRoom dataRoom) {
+    public FileEntity(Long id, String sysName, String orgName, String path, Long fileSize, String contentType, LocalDateTime regTime, DataRoom dataRoom) {
         this.id = id;
         this.sysName = sysName;
         this.orgName = orgName;
         this.path = path;
+        this.fileSize = fileSize;
+        this.contentType = contentType;
         this.regTime = regTime;
         this.dataRoom = dataRoom;
     }
@@ -50,8 +60,14 @@ public class File {
                 ", sysName='" + sysName + '\'' +
                 ", orgName='" + orgName + '\'' +
                 ", path='" + path + '\'' +
+                ", fileSize=" + fileSize +
+                ", contentType='" + contentType + '\'' +
                 ", regTime=" + regTime +
                 ", dataRoom=" + dataRoom +
                 '}';
+    }
+
+    public FileDto entityToDto(){
+        return FileDto.builder().id(id).sysName(sysName).orgName(orgName).path(path).fileSize(fileSize).contentType(contentType).regTime(regTime).dataRoom(dataRoom.entityToDto()).build();
     }
 }
