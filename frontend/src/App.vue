@@ -29,13 +29,23 @@
 <script>
 import '@/assets/style/app.scss'
 import Navbar from '@/views/Navbar.vue'
-// import $axios from 'axios'
-
+import $axios from 'axios'
 export default {
   name: 'App',
 
   components: {
     Navbar
   },
+
+  setup() {
+    const accessToken = localStorage.getItem('jwt')
+    if (accessToken) {
+      $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+    } else {
+      $axios.defaults.headers.common['Authorization'] = null
+    }
+    
+
+  }
 }
 </script>

@@ -8,6 +8,8 @@ import Modal from '@/views/Modal'
 import DetailStudy from '@/views/DetailStudy'
 import Mypage from '@/views/Mypage'
 
+import ErrorPage from '@/views/ErrorPage.vue'
+
 const routes = [
   {
     path: '/mypage',
@@ -51,6 +53,12 @@ const routes = [
     name: 'DetailStudy',
     component: DetailStudy,
     props: true
+  },
+
+  {
+    path: '/error',
+    name: 'ErrorPage',
+    component: ErrorPage,
   }
 
 ]
