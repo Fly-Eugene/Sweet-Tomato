@@ -2,25 +2,27 @@ package com.ssafy.study_with_us.dto;
 
 import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
-public class DataRoomDto extends FileDto {
+public class DataRoomDto{
     private Long id;
     private String subject;
     private String content;
     private MemberDto member;
     private StudyDto study;
+    private List<FileDto> files;
 
     public DataRoomDto() {
     }
+
     @Builder
-    public DataRoomDto(String sysName, String orgName, String path, LocalDateTime regTime, Long id, String subject, String content, MemberDto member, StudyDto study) {
-        super(sysName, orgName, path, regTime);
+    public DataRoomDto(Long id, String subject, String content, MemberDto member, StudyDto study, List<FileDto> files) {
         this.id = id;
         this.subject = subject;
         this.content = content;
         this.member = member;
         this.study = study;
+        this.files = files;
     }
 
     @Override
@@ -31,6 +33,7 @@ public class DataRoomDto extends FileDto {
                 ", content='" + content + '\'' +
                 ", member=" + member +
                 ", study=" + study +
+                ", files=" + files +
                 '}';
     }
 }
