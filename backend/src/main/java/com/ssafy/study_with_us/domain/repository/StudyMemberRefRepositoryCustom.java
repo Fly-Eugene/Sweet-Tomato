@@ -10,4 +10,5 @@ public interface StudyMemberRefRepositoryCustom {
     Object withdraw(IdReqDto params);
     List<Study> getByMemberId(Long memberId);
     StudyMemberRef getStudyMember(Long memberId, Long studyId);
+    List<StudyMemberRef> getRecentlyStudies(Long memberId);
 }

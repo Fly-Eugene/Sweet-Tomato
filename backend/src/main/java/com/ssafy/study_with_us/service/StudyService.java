@@ -161,6 +161,16 @@ public class StudyService {
                 .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build());
         return StudyMemberDto.builder().id(result.getId()).studyId(result.getStudy().getId()).memberId(result.getMember().getId()).recentlyConnectionTime(result.getRecentlyConnectionTime()).build();
     }
+
+    public Object getRecentlyStudies(){
+        List<StudyMemberRef> recentlyStudies = studyMemberRefRepository.getRecentlyStudies(getMemberId());
+        List<StudyMemberDto> results = new ArrayList<>();
+        for (StudyMemberRef recentlyStudy : recentlyStudies) {
+            results.add(recentlyStudy.entityToDto());
+        }
+        return results;
+    }
+
     private Long getMemberId() {
         String s = SecurityUtil.getCurrentUsername().get();
         return memberRepository.findByEmail(s).get().getId();

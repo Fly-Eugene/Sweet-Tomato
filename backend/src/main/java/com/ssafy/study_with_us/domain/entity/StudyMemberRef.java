@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.domain.entity;
 
+import com.ssafy.study_with_us.dto.StudyMemberDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -47,5 +48,9 @@ public class StudyMemberRef {
                 ", study=" + study +
                 ", recentlyConnectionTime=" + recentlyConnectionTime +
                 '}';
+    }
+    public StudyMemberDto entityToDto(){
+        return StudyMemberDto.builder().id(id).memberId(member.getId())
+                .studyId(study.getId()).recentlyConnectionTime(recentlyConnectionTime).build();
     }
 }

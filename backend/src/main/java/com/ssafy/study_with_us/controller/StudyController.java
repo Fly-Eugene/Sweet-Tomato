@@ -71,6 +71,12 @@ public class StudyController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CONNECTED_STUDY).dataType("study_member").data(studyService.connectStudy(params.getStudyId())).build();
     }
 
+    @GetMapping("/recently")
+    public Object getRecentlyStudies(){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_RECENTLY_STUDIES).dataType("study").data(studyService.getRecentlyStudies()).build();
+
+    }
+
     private StudyDto getStudyDtoAtFile(FileDto params) throws IOException {
         Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성

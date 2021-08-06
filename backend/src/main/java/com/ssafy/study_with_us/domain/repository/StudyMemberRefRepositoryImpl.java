@@ -2,7 +2,6 @@ package com.ssafy.study_with_us.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.study_with_us.domain.entity.QStudyMemberRef;
 import com.ssafy.study_with_us.domain.entity.Study;
 import com.ssafy.study_with_us.domain.entity.StudyMemberRef;
 import com.ssafy.study_with_us.dto.IdReqDto;
@@ -10,8 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.ssafy.study_with_us.domain.entity.QStudyMemberRef.*;
-import static com.ssafy.study_with_us.domain.entity.QTomato.tomato;
+import static com.ssafy.study_with_us.domain.entity.QStudyMemberRef.studyMemberRef;
 
 @Repository
 public class StudyMemberRefRepositoryImpl implements StudyMemberRefRepositoryCustom {
@@ -24,17 +22,22 @@ public class StudyMemberRefRepositoryImpl implements StudyMemberRefRepositoryCus
     @Override
     public Object withdraw(IdReqDto params) {
         return jpaQueryFactory.delete(studyMemberRef)
-                .where(studyMemberRef.member.id.eq(params.getMemberId()), studyMemberRef.study.id.eq(params.getStudyId()))
+                .where(memberIdEq(params.getMemberId()), studyIdEq(params.getStudyId()))
                 .execute();
     }
 
     public List<Study> getByMemberId(Long memberId){
-        return jpaQueryFactory.select(studyMemberRef.study).from(studyMemberRef).where(studyMemberRef.member.id.eq(memberId)).fetch();
+        return jpaQueryFactory.select(studyMemberRef.study).from(studyMemberRef).where(memberIdEq(memberId)).fetch();
     }
 
     @Override
     public StudyMemberRef getStudyMember(Long memberId, Long studyId) {
         return jpaQueryFactory.selectFrom(studyMemberRef).where(memberIdEq(memberId),studyIdEq(studyId)).fetchOne();
+    }
+
+    @Override
+    public List<StudyMemberRef> getRecentlyStudies(Long memberId) {
+        return jpaQueryFactory.selectFrom(studyMemberRef).where(memberIdEq(memberId), studyMemberRef.recentlyConnectionTime.isNotNull()).orderBy(studyMemberRef.recentlyConnectionTime.desc()).limit(3).fetch();
     }
 
     private BooleanExpression studyIdEq(Long studyId){
