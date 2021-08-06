@@ -12,7 +12,8 @@ public class ResponseMessage {
 
     public static final String CREATED_STUDY = "스터디 생성 성공";
     public static final String UPDATED_STUDY = "스터디 수정 성공";
-    public static final String SEARCHED_STUDY = "스터디 검색 성공";
+    public static final String SEARCHED_STUDY_DETAIL = "스터디 세부 조회 성공";
+    public static final String SEARCHED_STUDY_LIST = "스터디 목록 조회 성공";
     public static final String CREATED_STUDY_MEMBER = "스터디 회원 가입 성공";
     public static final String DELETED_STUDY_MEMBER = "스터디 회원 탈퇴 성공";
     public static final String SEARCHED_STUDY_THEMES = "스터디 테마 검색 성공";
