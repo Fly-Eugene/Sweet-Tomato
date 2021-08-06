@@ -114,13 +114,16 @@ public class StudyService {
                 .build();
     }
 
-    public List<StudyDto> getStudyList(){
-        List<Study> studies = studyMemberRefRepository.getByMemberId(getMemberId());
+    public List<StudyDto> getStudyList(Integer page){
+        List<Study> studies = studyMemberRefRepository.getByMemberId(getMemberId(), page);
         List<StudyDto> results = new ArrayList<>();
         for (Study study : studies) {
             results.add(StudyDto.builder().id(study.getId()).studyName(study.getStudyName())
                     .studyLeader(study.getStudyLeader()).security(study.getSecurity())
-                    .studyIntro(study.getStudyIntro()).build());
+                    .studyIntro(study.getStudyIntro())
+                    .themes(study.listToSet())
+                    .profile(study.getProfile().entityToDto())
+                    .build());
         }
         return results;
     }

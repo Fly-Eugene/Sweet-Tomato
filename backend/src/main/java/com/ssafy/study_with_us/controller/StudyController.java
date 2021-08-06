@@ -60,9 +60,9 @@ public class StudyController {
     public Object getDetail(@RequestParam Long studyId){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_DETAIL).dataType("study").data(studyService.getDetail(studyId)).build();
     }
-    @GetMapping
-    public Object getStudyList(){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_LIST).dataType("studies").data(studyService.getStudyList()).build();
+    @GetMapping("/{page}")
+    public Object getStudyList(@PathVariable("page") Integer page){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_LIST).dataType("studies").data(studyService.getStudyList(page)).build();
     }
 
     @PostMapping("/search")
