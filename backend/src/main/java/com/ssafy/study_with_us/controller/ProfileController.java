@@ -1,15 +1,11 @@
 package com.ssafy.study_with_us.controller;
 
-import com.ssafy.study_with_us.dto.FileDto;
 import com.ssafy.study_with_us.service.ProfileService;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONObject;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;

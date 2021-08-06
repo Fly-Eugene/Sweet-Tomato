@@ -1,7 +1,7 @@
 package com.ssafy.study_with_us.controller;
 
 import com.ssafy.study_with_us.domain.entity.Profile;
-import com.ssafy.study_with_us.dto.FileDto;
+import com.ssafy.study_with_us.dto.FileReqDto;
 import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.service.ProfileService;
@@ -13,7 +13,10 @@ import org.json.JSONObject;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 
 @RestController
@@ -41,13 +44,13 @@ public class StudyController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_STUDY_MEMBER).dataType("Long").data(studyService.withdraw(params)).build();
     }
     @PostMapping
-    public Object create(FileDto params) throws IOException {
+    public Object create(FileReqDto params) throws IOException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY).dataType("study")
                 .data(studyService.create(getStudyDtoAtFile(params))).build();
     }
 
     @PatchMapping
-    public Object update(FileDto params) throws IOException {
+    public Object update(FileReqDto params) throws IOException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY)
                 .data(studyService.update(getStudyDtoAtFile(params))).build();
     }
@@ -77,7 +80,7 @@ public class StudyController {
 
     }
 
-    private StudyDto getStudyDtoAtFile(FileDto params) throws IOException {
+    private StudyDto getStudyDtoAtFile(FileReqDto params) throws IOException {
         Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성
         if (params.getFiles() != null) {
