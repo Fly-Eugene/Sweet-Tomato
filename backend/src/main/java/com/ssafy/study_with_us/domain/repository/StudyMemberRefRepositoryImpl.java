@@ -32,7 +32,7 @@ public class StudyMemberRefRepositoryImpl implements StudyMemberRefRepositoryCus
 
     @Override
     public StudyMemberRef getStudyMember(Long memberId, Long studyId) {
-        return jpaQueryFactory.selectFrom(studyMemberRef).where(memberIdEq(memberId),studyIdEq(studyId)).fetchOne();
+        return jpaQueryFactory.selectFrom(studyMemberRef).where(memberIdEq(memberId), studyIdEq(studyId)).fetchOne();
     }
 
     @Override

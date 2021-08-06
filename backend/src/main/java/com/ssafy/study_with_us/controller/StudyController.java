@@ -98,7 +98,7 @@ public class StudyController {
                 .studyIntro(jObject.has("studyIntro") ? jObject.getString("studyIntro") : null)
                 .security(jObject.has("security") ? jObject.getString("security") : null)
                 .themes(themes)
-                .profile(profile)
+                .profile(profile.entityToDto())
                 .build();
     }
 }
