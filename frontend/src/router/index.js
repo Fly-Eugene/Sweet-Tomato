@@ -4,9 +4,9 @@ import AccountLogin from '@/components/ModalContent/AccountLogin.vue'
 import AccountSignup from '@/components/ModalContent/AccountSignup'
 import Profile from '@/views/Profile'
 import StudyMain from '@/views/StudyMain'
-import Room from '@/views/Room'
 import Modal from '@/views/Modal'
 import DetailStudy from '@/views/DetailStudy'
+import OpenVidu from '@/views/Openvidu'
 
 const routes = [
   {
@@ -36,11 +36,6 @@ const routes = [
   },
 
   {
-    path: '/room',
-    name: 'Room',
-    component: Room
-  },
-  {
     path: '/modaltest',
     name: 'Modal',
     component: Modal,
@@ -51,6 +46,11 @@ const routes = [
     name: 'DetailStudy',
     component: DetailStudy,
     props: true
+  },
+  {
+    path: '/openvidu',
+    name: 'OpenVidu',
+    component: OpenVidu
   }
 
 ]
