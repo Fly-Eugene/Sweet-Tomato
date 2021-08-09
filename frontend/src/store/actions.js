@@ -124,14 +124,12 @@ export function getData (context, studyId) {
 
 export function getStudyTomato (context, studyId) {
   $axios({
-    method: 'post',
-    url: this.state.server_url + 'tomato/study',
-    params: {
-      studyId: studyId
-    }
+    method: 'get',
+    url: this.state.server_url + 'tomato/study/' + studyId,
   })
   .then(res => {
-    console.log(res.data)
+    console.log(res.data.data)
+    context.commit('GET_TOMATO', res.data.data)
   })
   .catch(err => {
     console.log(err)

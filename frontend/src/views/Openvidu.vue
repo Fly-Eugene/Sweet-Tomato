@@ -1,5 +1,6 @@
 <template>
 	<div id="main-container" class="container">
+		
 		<div id="join" v-if="!session">
 			<div id="img-div"></div>
 			<div id="join-dialog" class="jumbotron vertical-center">
@@ -29,9 +30,13 @@
 				<user-video :stream-manager="mainStreamManager"/>
 			</div>
 			<div id="video-container" class="col-md-6">
-				<user-video :stream-manager="publisher" @click.native="updateMainVideoStreamManager(publisher)"/>
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click.native="updateMainVideoStreamManager(sub)"/>
+				<user-video :stream-manager="publisher" @click="updateMainVideoStreamManager(publisher)"/>
+				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click="updateMainVideoStreamManager(sub)"/>
 			</div>
+			<div>
+				채팅보내기 : <input type="text">
+			</div>
+
 		</div>
 	</div>
 </template>
@@ -43,6 +48,7 @@ import UserVideo from '../components/Room/UserVideo';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const OPENVIDU_SERVER_URL = "https://15.164.227.85:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
+
 export default {
 	name: 'OpenVidu',
 	components: {
@@ -180,6 +186,7 @@ export default {
 					.catch(error => reject(error.response));
 			});
 		},
+
 	}
 }
 </script>

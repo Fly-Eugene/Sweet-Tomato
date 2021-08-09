@@ -28,3 +28,8 @@ export function GET_COMMENTS (state, res) {
 export function GET_DATA (state, res) {
   state.studyData = res
 }
+
+export function GET_TOMATO (state, res) {
+  state.totalTomato = res.totalSum
+  state.studyTomato = res.relevantsum
+}
