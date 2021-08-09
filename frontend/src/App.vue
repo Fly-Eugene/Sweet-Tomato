@@ -7,7 +7,7 @@
       <router-link :to="{name: 'AccountLogin'}">AccountLogin</router-link> |
       <router-link :to="{name: 'AccountSignup'}">Signup</router-link> |
       <router-link :to="{name: 'StudyMain'}">StudyMain</router-link> |
-      <!-- <router-link :to="{name: 'Room'}">Room</router-link> | -->
+      <router-link :to="{name: 'OpenVidu'}">OpenVidu</router-link> |
       <router-link :to="{name: 'Modal'}">Modal 확인</router-link> |
       <!-- 스터디 디테일 페이지에 대해 동적 라우터를 형성합니다. 현재 테스트 중이므로 스터디 1번으로 동적 라우팅 -->
       <router-link :to="{name: 'DetailStudy', params: {id: 1}}">Study Detail</router-link> |
