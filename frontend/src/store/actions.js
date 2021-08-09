@@ -58,7 +58,7 @@ export function getStudyImg (context, studyId) {
     method: 'get',
     url: this.state.server_url + 'profile/study',
     params: {
-      id: studyId
+      StudyId: studyId
     }
   })
   .then(res => {
@@ -69,9 +69,6 @@ export function getStudyImg (context, studyId) {
     console.log(err)
   })
 }
-
-
-
 
 export function createComment (context, arr) {
   const [studyId, input_value] = arr
@@ -107,3 +104,38 @@ export function getComments (context, studyId) {
     console.log(err)
   })
 }
+
+export function getData (context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'dataroom',
+    params: {
+      studyId : studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data.data)
+    context.commit('GET_DATA', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getStudyTomato (context, studyId) {
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'tomato/study',
+    params: {
+      studyId: studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+

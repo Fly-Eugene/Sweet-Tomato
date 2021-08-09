@@ -1,29 +1,49 @@
-.reference_section {
-  position: relative;
-  width: 1200px;
+
+.reference_content_sub {
+  position: absolute;
+  width: 995px;
+  height: 878px;
+  right: 0%;
+  bottom: 0%;
+
+  background: rgba(243, 241, 241, 0.8);
+  border-radius: 30px;
+}
+
+.reference_content {
+  position: absolute;
+  width: 987px;
   height: 864px;
-  margin-top: 50px;
+  right: 0%;
+  bottom: 0%;
 
-  .reference_content_sub {
-    position: absolute;
-    width: 995px;
-    height: 878px;
-    right: 0%;
-    bottom: 0%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
-    background: rgba(243, 241, 241, 0.8);
-    border-radius: 30px;
+  background: #FFFFFF;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px 30px 30px 30px;
+}
+
+.study_data {
+  // position: absolute;
+  width: 988px;
+  height: 106px;
+
+  display: flex;
+  justify-content: space-around;
+
+  border-bottom: 1px solid #000000;
+
+  .study_data_title {
+    font-family: 'Godo', sans-serif;
+    font-size: 30px;
   }
 
-  .reference_content {
-    position: absolute;
-    width: 987px;
-    height: 878px;
-    right: 0%;
-  
-    overflow-y: scroll;
-    background: #FFFFFF;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 30px 30px 30px 30px;
+  .study_data_writer {
+    font-family: 'Godo', sans-serif;
+    font-size: 20px;
+
   }
+
 }
