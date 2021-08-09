@@ -6,5 +6,6 @@ export default {
   studyImg : '',
   studyData: [],
   totalTomato : '',
-  studyTomato : ''
+  studyTomato : '',
+  myInfo : {}
 }
