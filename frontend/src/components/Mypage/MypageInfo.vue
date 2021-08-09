@@ -13,6 +13,7 @@
       </div>
     </article>
     <article class='mypage_right'>
+      <i class="fas fa-cog"></i>
       <div class="right_top">
         <div class="profile_img">
           <img src="@/assets/img/basic_profile.png" alt="">

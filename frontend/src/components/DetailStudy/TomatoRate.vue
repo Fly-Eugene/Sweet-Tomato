@@ -15,11 +15,7 @@ export default {
   setup() {
 
     const options = {}
-    
     const series =  [44, 55, 41, 17, 15]
-
-
-
 
     return {
       options,

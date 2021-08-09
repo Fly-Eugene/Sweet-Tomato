@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+$head-font: 'Godo', sans-serif;
+$content-font: 'Didact Gothic', sans-serif;
+
+.card_data {
+  position: relative;
+  width: 1050px;
+  height: 750px;  
+  border-radius: 30px;
+  margin-top: 7%;
+  font-family: $head-font;
+  float: left;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  // background-color: rgb(248, 247, 247);
+  // padding: 20px 0;
+}
+.page_nation {
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: 70px;
+  font-family: $head-font;
+  
+  span {
+    background-color: rgb(214, 214, 214);
+    border: 1px solid;
+    padding: 5px 13px;
+    margin: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    &:nth-child(1) {
+      background: #fff;
+      border-radius: 30px 5px 5px 30px;
+    }
+    &:nth-child(5) {
+      background: #fff;
+      border-radius: 5px 30px 30px 5px;
+    }
+  }
+}
