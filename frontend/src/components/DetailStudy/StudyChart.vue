@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import '@/assets/style/DetailStudy/cstudy_chart.scss'
+import '@/assets/style/DetailStudy/study_chart.scss'
 // import VueApexCharts from 'vue3-apexcharts'
 
 export default {

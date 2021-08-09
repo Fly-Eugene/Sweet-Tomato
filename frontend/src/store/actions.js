@@ -8,11 +8,11 @@ export function login (context, credentials) {
     data: credentials
   })
   .then(res => {
-    console.log(res.data)
+    console.log(res.data.data.member)
     localStorage.setItem('jwt', res.data.data.token)
     // const accessToken = localStorage.getItem('jwt')
     // $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-    
+    this.state.myInfo = res.data.data.member
     context.commit('CHANGE_ISLOGIN')
     router.push({ name : 'Home'})
   })

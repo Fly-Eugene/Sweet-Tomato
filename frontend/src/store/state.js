@@ -3,5 +3,6 @@ export default {
   isLogin : false,
   studyInfo : '',
   studyComments : [],
-  studyImg : ''
+  studyImg : '',
+  myInfo : {}
 }

@@ -8,6 +8,7 @@ import ErrorPage from '@/views/ErrorPage.vue'
 import Modal from '@/views/Modal'
 import DetailStudy from '@/views/DetailStudy'
 import OpenVidu from '@/views/Openvidu'
+import Room from '@/views/Room'
 
 const routes = [
   {
@@ -57,7 +58,12 @@ const routes = [
     path: '/openvidu',
     name: 'OpenVidu',
     component: OpenVidu
-  }
+  },
+  {
+    path: '/Room',
+    name: 'Room',
+    component: Room
+  },
 ]
 
 const router = createRouter({
