@@ -23,7 +23,8 @@ module.exports = {
     transpileDependencies:[
       'element-plus'
     ],
-    lintOnSave:false
+    lintOnSave:false,
+    outputDir: '../backend/src/main/resources/static'
   }
 
 

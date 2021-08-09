@@ -3,12 +3,11 @@ import Home from '@/views/Home.vue'
 import AccountLogin from '@/components/ModalContent/AccountLogin.vue'
 import AccountSignup from '@/components/ModalContent/AccountSignup'
 import StudyMain from '@/views/StudyMain'
-// import Room from '@/views/Room'
+import Mypage from '@/views/Mypage'
+import ErrorPage from '@/views/ErrorPage.vue'
 import Modal from '@/views/Modal'
 import DetailStudy from '@/views/DetailStudy'
-import Mypage from '@/views/Mypage'
-
-import ErrorPage from '@/views/ErrorPage.vue'
+import OpenVidu from '@/views/Openvidu'
 
 const routes = [
   {
@@ -37,11 +36,6 @@ const routes = [
     component: StudyMain
   },
 
-  // {
-  //   path: '/room',
-  //   name: 'Room',
-  //   component: Room
-  // },
   {
     path: '/modaltest',
     name: 'Modal',
@@ -54,13 +48,16 @@ const routes = [
     component: DetailStudy,
     props: true
   },
-
   {
     path: '/error',
     name: 'ErrorPage',
     component: ErrorPage,
   },
-
+  {
+    path: '/openvidu',
+    name: 'OpenVidu',
+    component: OpenVidu
+  }
 ]
 
 const router = createRouter({
