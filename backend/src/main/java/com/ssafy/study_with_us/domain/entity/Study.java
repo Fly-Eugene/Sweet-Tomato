@@ -1,9 +1,13 @@
 package com.ssafy.study_with_us.domain.entity;
 
+import com.ssafy.study_with_us.dto.StudyDto;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -26,6 +30,9 @@ public class Study {
     @OneToOne
     @JoinColumn(name = "profile_id")
     private StudyProfile profile;
+
+    @OneToMany(mappedBy = "study")
+    private List<StudyThemeRef> themes;
 
     public Study() {
     }
@@ -50,5 +57,16 @@ public class Study {
                 ", security='" + security + '\'' +
                 ", profile=" + profile +
                 '}';
+    }
+    public StudyDto entityToDto(){
+        return StudyDto.builder().id(id).studyName(studyName).studyIntro(studyIntro).studyLeader(studyLeader)
+                .security(security).profile(profile.entityToDto()).build();
+    }
+    public Set<String> listToSet(){
+        Set<String> results = new HashSet<>();
+        for (StudyThemeRef theme : themes) {
+            results.add(theme.getTheme().getThemeName());
+        }
+        return results;
     }
 }

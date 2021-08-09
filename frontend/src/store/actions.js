@@ -36,6 +36,44 @@ export function sendValidateEmail (context, email) {
   })
 }
 
+export function getStudyInfo (context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'study/detail',
+    // url: 'https://localhost:5000/study/detail',
+    params : {
+      id : studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data.data)
+    context.commit('GET_STUDY_INFO', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getStudyImg (context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'profile/study',
+    params: {
+      id: studyId
+    }
+  })
+  .then(res => {
+    // console.log(res.data)
+    context.commit('GET_STUDY_IMG', res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+
+
+
 export function createComment (context, arr) {
   const [studyId, input_value] = arr
   $axios({

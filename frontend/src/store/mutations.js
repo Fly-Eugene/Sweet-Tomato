@@ -9,6 +9,14 @@ export function CHANGE_ISLOGIN (state) {
   }
 }
 
+export function GET_STUDY_INFO (state, res) {
+  state.studyInfo = res
+}
+
+export function GET_STUDY_IMG(state, res) {
+  state.studyImg = res
+}
+
 export function CREATE_COMMENT (state, res) {
   state.studyComments.push(res)
 }
