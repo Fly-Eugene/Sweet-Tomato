@@ -13,6 +13,9 @@ import MypageTomato from '@/components/Mypage/MypageTomato'
 import MypageStudyTime from '@/components/Mypage/MypageStudyTime'
 import MypageStudyList from '@/components/Mypage/MypageStudyList'
 import '@/assets/style/mypage.scss'
+import { useStore } from 'vuex'
+// import { onMounted } from 'vue'
+
 export default {
   name: 'Mypage',
 
@@ -21,6 +24,18 @@ export default {
     MypageTomato,
     MypageStudyTime,
     MypageStudyList
+  },
+
+  setup() {
+    const store = useStore()
+
+    function check() {
+      console.log(store.state.myInfo)
+    }
+
+    return {
+      check
+    }
   }
 }
 </script>
