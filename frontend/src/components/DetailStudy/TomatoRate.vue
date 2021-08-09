@@ -107,12 +107,3 @@ export default {
 <style>
 
 </style>
-
-
-data: {
-  
-  series: [75],
-
-  
-  
-},

@@ -24,3 +24,7 @@ export function CREATE_COMMENT (state, res) {
 export function GET_COMMENTS (state, res) {
   state.studyComments = res
 }
+
+export function GET_DATA (state, res) {
+  state.studyData = res
+}

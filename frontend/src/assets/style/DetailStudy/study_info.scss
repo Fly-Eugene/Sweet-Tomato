@@ -52,14 +52,12 @@
     right: 0%;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-content: center;
-
-    // border: 1px solid;
-    // border-color: red;
+    align-items: center;
 
     .info_name{
-      position: absolute;
+      // position: absolute;
       width: 484px;
       height: 147px;
       
@@ -76,7 +74,7 @@
     }
 
     .info_tags {
-      position: absolute;
+      // position: absolute;
       width: 80%;
       height: 20%;
       top: 147px;
@@ -98,7 +96,6 @@
     }
 
     .info_content {
-      position: absolute;
       width: 80%;
       height: 20%;
       top: 55%;
@@ -111,10 +108,10 @@
     }
 
     .enter_btn {
-      position: absolute;
       width: 141px;
       height: 39px;
       bottom: 5%;
+      right: 40%;
 
       color: white;
       font-family: 'Godo', sans-serif;
