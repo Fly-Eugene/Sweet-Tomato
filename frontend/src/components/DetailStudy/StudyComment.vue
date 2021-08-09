@@ -1,7 +1,10 @@
 <template>
   <section class="comment_section">
     <aside class="comment_refer_btn_sub"></aside>
-    <aside class="comment_refer_btn">스터디 자료실 선택</aside>
+    <aside class="comment_refer_btn">
+      <button class="comment_btn" @click="$emit('onClickCommentBtn')">댓글</button>
+      <button class="study_data_btn" @click="$emit('onClickReferenceBtn')">자료실</button>
+    </aside>
     <article class="comment_content_sub"></article>
     <article class="comment_content"> 
       <li v-for="comment in state.comments" :key="comment.id" class="comment_box">{{ comment.content }}</li>

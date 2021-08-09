@@ -40,9 +40,8 @@ export function getStudyInfo (context, studyId) {
   $axios({
     method: 'get',
     url: this.state.server_url + 'study/detail',
-    // url: 'https://localhost:5000/study/detail',
     params : {
-      id : studyId
+      studyId : studyId
     }
   })
   .then(res => {
@@ -98,7 +97,7 @@ export function getComments (context, studyId) {
     method: 'get',
     url: this.state.server_url + 'comment',
     params: {
-      id: studyId
+      studyId: studyId
     }
   })
   .then(res => {
