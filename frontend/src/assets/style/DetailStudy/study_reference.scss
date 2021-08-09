@@ -1,0 +1,29 @@
+.reference_section {
+  position: relative;
+  width: 1200px;
+  height: 864px;
+  margin-top: 50px;
+
+  .reference_content_sub {
+    position: absolute;
+    width: 995px;
+    height: 878px;
+    right: 0%;
+    bottom: 0%;
+
+    background: rgba(243, 241, 241, 0.8);
+    border-radius: 30px;
+  }
+
+  .reference_content {
+    position: absolute;
+    width: 987px;
+    height: 878px;
+    right: 0%;
+  
+    overflow-y: scroll;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px 30px 30px 30px;
+  }
+}

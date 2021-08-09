@@ -4,20 +4,21 @@
     <!-- <StudyInfo :info='state.info' v-if='Object.keys(state.info).length'/> -->
     <TomatoRate/>
     <StudyChart/>
-    <StudyComment :studyId='id'/>
+    <StudyComment :studyId='id' v-if="comment_or_refer === 'comment'" @onClickCommentBtn="changeToComment" @onClickReferenceBtn="changeToRefer"/>
+    <StudyReference  v-if="comment_or_refer === 'refer'"/>
 
   </div>
 </template>
 
 <script>
 import '@/assets/style/detail_study.scss'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import StudyInfo from '@/components/DetailStudy/StudyInfo.vue'
 import StudyChart from '@/components/DetailStudy/StudyChart.vue'
 import TomatoRate from '@/components/DetailStudy/TomatoRate.vue'
 import StudyComment from '@/components/DetailStudy/StudyComment.vue'
-
+import StudyReference from '@/components/DetailStudy/StudyReference.vue'
 
 export default {
   name: "DetailStudy",
@@ -26,7 +27,7 @@ export default {
     StudyChart,
     TomatoRate,
     StudyComment,
-    // StudyReference
+    StudyReference
   },
 
   props : {
@@ -37,6 +38,17 @@ export default {
 
   setup(props) {
     const store = useStore()
+    const comment_or_refer = ref('comment')
+
+    function changeToComment() {
+      comment_or_refer.value = 'comment'
+    }
+
+    function changeToRefer() {
+      comment_or_refer.value = 'refer'
+    }
+
+
     
     onMounted(() => {
       console.log('onMounted 실행')
@@ -46,7 +58,10 @@ export default {
     })
 
     return {
-      // state,
+      comment_or_refer,
+      changeToComment,
+      changeToRefer
+
     }
   }
 

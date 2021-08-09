@@ -13,7 +13,7 @@
     height: 301px;
     top: 35%;
 
-    // background: black;
+    background: #F3F1F1;
     border-radius: 30px;
   }
 
@@ -26,6 +26,39 @@
     background: #FFFFFF;
     box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
     border-radius: 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .comment_btn {
+      width: 131px;
+      height: 150px;
+
+      font-family: 'Godo', sans-serif;
+      font-size: 20px;
+
+      border-radius: 30px 30px 0px 0px;
+      background: rgba(255, 32, 32, 0.2);
+      cursor: pointer;
+
+    }
+    
+    .study_data_btn {
+      width: 131px;
+      height: 150px;
+
+      font-family: 'Godo', sans-serif;
+      font-size: 20px;
+
+      border-radius: 0px 0px 30px 30px;
+      background-color: white;
+      cursor: pointer;
+      // background: rgba(255, 32, 32, 0.2);
+
+    }
+
   }
 
   .comment_content_sub {

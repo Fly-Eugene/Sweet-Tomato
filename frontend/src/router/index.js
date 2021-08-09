@@ -3,7 +3,7 @@ import Home from '@/views/Home.vue'
 import AccountLogin from '@/components/ModalContent/AccountLogin.vue'
 import AccountSignup from '@/components/ModalContent/AccountSignup'
 import StudyMain from '@/views/StudyMain'
-import Room from '@/views/Room'
+// import Room from '@/views/Room'
 import Modal from '@/views/Modal'
 import DetailStudy from '@/views/DetailStudy'
 import Mypage from '@/views/Mypage'
@@ -37,11 +37,11 @@ const routes = [
     component: StudyMain
   },
 
-  {
-    path: '/room',
-    name: 'Room',
-    component: Room
-  },
+  // {
+  //   path: '/room',
+  //   name: 'Room',
+  //   component: Room
+  // },
   {
     path: '/modaltest',
     name: 'Modal',
@@ -59,7 +59,7 @@ const routes = [
     path: '/error',
     name: 'ErrorPage',
     component: ErrorPage,
-  }
+  },
 
 ]
 
