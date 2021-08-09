@@ -8,4 +8,5 @@ import java.util.List;
 public interface FileRepository extends JpaRepository<FileEntity, Long> {
     FileEntity save(FileEntity fileEntity);
     List<FileEntity> getByDataRoomId(Long dataRoomId);
+    FileEntity getById(Long id);
 }
