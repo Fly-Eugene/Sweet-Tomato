@@ -30,4 +30,13 @@ public class FileService {
         }
         return results;
     }
+
+    public List<FileDto> getFiles(Long dataRoomId){
+        List<FileEntity> files = fileRepository.getByDataRoomId(dataRoomId);
+        List<FileDto> results = new ArrayList<>();
+        for (FileEntity file : files) {
+            results.add(file.entityToDto());
+        }
+        return results;
+    }
 }
