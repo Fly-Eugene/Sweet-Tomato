@@ -62,6 +62,9 @@ public class TomatoService {
         return tomatoPlanRepository.save(TomatoPlan.builder().goalTomato(params.getGoalTomato()).goalTime(params.getGoalTime()).study(studyRepository.getById(params.getStudyId())).tomatoDate(LocalDate.now()).build()).entityToDto();
     }
 
+    public TomatoPlanDto getGoal(Long tomatoPlanId){
+        return tomatoPlanRepository.getById(tomatoPlanId).entityToDto();
+    }
     private List<TomatoDto> getTomatoDtos(List<Tomato> tomatoes) {
         List<TomatoDto> results = new ArrayList<>();
         for (Tomato tomato : tomatoes) {

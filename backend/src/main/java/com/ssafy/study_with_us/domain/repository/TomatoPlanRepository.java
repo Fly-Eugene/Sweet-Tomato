@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TomatoPlanRepository extends JpaRepository<TomatoPlan, Long> {
     TomatoPlan save(TomatoPlan tomatoPlan);
+    TomatoPlan getById(Long tomatoPlanId);
 }

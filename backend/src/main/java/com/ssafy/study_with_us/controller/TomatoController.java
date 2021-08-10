@@ -41,8 +41,12 @@ public class TomatoController {
 
     @PostMapping("/goal")
     public Object addGoal(@RequestBody TomatoPlanDto params){
-        System.out.println("params = " + params);
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_TOMATO_GOAL).dataType("tomato_plan")
                 .data(tomatoService.addGoal(params)).build();
+    }
+    @GetMapping("/goal/{tomatoPlanId}")
+    public Object getGoal(@PathVariable("tomatoPlanId") Long tomatoPlanId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_GOAL).dataType("tomato_plan")
+                .data(tomatoService.getGoal(tomatoPlanId)).build();
     }
 }
