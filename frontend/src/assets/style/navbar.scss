@@ -24,6 +24,8 @@
       li {
         float: left;
         margin: 0 10px;
+        cursor: pointer;
+        
         .loginBtn {          
           display: inline-block;
           background-color: black;
@@ -34,6 +36,7 @@
           border-radius: 50px;
           color: #fff;
         }
+
       }
     }
   }

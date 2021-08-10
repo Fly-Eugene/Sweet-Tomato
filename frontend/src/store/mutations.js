@@ -3,6 +3,7 @@ export function CHANGE_ISLOGIN (state) {
   const check_jwt = localStorage.getItem('jwt')
   if (check_jwt) {
     state.isLogin = true
+
   }
   else {
     state.isLogin = false
@@ -27,4 +28,13 @@ export function GET_COMMENTS (state, res) {
 
 export function GET_DATA (state, res) {
   state.studyData = res
+}
+
+export function GET_DATA_SPECI (state, res) {
+  state.studyDataSpeci = res
+}
+
+export function GET_TOMATO (state, res) {
+  state.totalTomato = res.totalSum
+  state.studyTomato = res.relevantsum
 }

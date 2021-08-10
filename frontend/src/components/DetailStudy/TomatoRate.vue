@@ -7,14 +7,28 @@
 
 <script>
 import '@/assets/style/DetailStudy/tomato_rate.scss'
+import {useStore} from 'vuex'
+import { computed, reactive } from 'vue'
 
 export default {
   name: 'TomatoRate',
 
 
   setup() {
+    const store = useStore()
+    const state = reactive({
+      total_sum : computed(() => {
+        return store.state.studyTomato
+      }),
+      study_tomato : computed(() => {
+        return store.state.totalTomato
+      })
 
-    const series =  [44]
+    })
+
+    const series =  [state.total_sum/state.study_tomato]
+    console.log(state.total_sum, state.study_tomato)
+    
     const chartOptions = {
       chart: {
         height: 350,
@@ -95,6 +109,7 @@ export default {
     
 
     return {
+      state,
       chartOptions,
       series,
 
