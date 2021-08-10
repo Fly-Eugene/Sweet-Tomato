@@ -43,8 +43,8 @@ public class BlacklistService {
     }
 
     @Transactional
-    public void deleteBlacklist(Long blacklistId){
-        blacklistRepository.deleteById(blacklistId);
+    public void deleteBlacklist(Long studyId){
+        blacklistRepository.delete(studyId, getMemberId());
     }
 
     public Object getBlacklist(){
