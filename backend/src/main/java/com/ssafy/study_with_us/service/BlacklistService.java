@@ -11,6 +11,7 @@ import com.ssafy.study_with_us.domain.repository.StudyRepository;
 import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.dto.StudyMemberDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BlacklistService {
@@ -26,6 +27,7 @@ public class BlacklistService {
         this.studyMemberRefRepository = studyMemberRefRepository;
     }
 
+    @Transactional
     public Object addBlacklist(IdReqDto params) {
         // 스터디 멤버 삭제
         studyMemberRefRepository.withdraw(params);
@@ -36,4 +38,8 @@ public class BlacklistService {
         return blacklist.entityToDto();
     }
 
+    @Transactional
+    public void deleteBlacklist(Long blacklistId){
+        blacklistRepository.deleteById(blacklistId);
+    }
 }

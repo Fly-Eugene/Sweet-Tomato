@@ -2,10 +2,10 @@ package com.ssafy.study_with_us.controller;
 
 import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.service.BlacklistService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ssafy.study_with_us.util.response.ApiResult;
+import com.ssafy.study_with_us.util.response.ResponseMessage;
+import com.ssafy.study_with_us.util.response.StatusCode;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("blacklist")
@@ -16,9 +16,14 @@ public class BlacklistController {
         this.blacklistService = blacklistService;
     }
 
-    // ApiResult로
     @PostMapping
     public Object addBlacklist(@RequestBody IdReqDto params){
-        return blacklistService.addBlacklist(params);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.ADDED_BLACKLIST).dataType("blacklist").data(blacklistService.addBlacklist(params)).build();
+    }
+
+    @DeleteMapping("{blacklistId}")
+    public Object deleteBlacklist(@PathVariable("blacklistId") Long blacklistId){
+        blacklistService.deleteBlacklist(blacklistId);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_BLACKLIST).build();
     }
 }
