@@ -5,4 +5,5 @@ export default {
   studyComments : [],
   studyImg : '',
   studyData: [],
+  myInfo : {}
 }

@@ -12,6 +12,7 @@
       <!-- 스터디 디테일 페이지에 대해 동적 라우터를 형성합니다. 현재 테스트 중이므로 스터디 1번으로 동적 라우팅 -->
       <router-link :to="{name: 'DetailStudy', params: {id: 1}}">Study Detail</router-link> |
       <router-link :to="{name: 'Mypage'}">Mypage</router-link> |
+      <router-link :to="{name: 'Room'}">RoomCheck</router-link> |
     </div>
     
     <div class="innerHeader">
@@ -20,8 +21,6 @@
     <router-view/>
     <div class="footer">      
     </div>
-
-
   </div>
 
 </template>

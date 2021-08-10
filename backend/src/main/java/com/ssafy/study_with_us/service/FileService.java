@@ -22,9 +22,9 @@ public class FileService {
         this.fileUtil = fileUtil;
     }
 
-    public String getFilePath(Long fileId){
-        FileEntity file = fileRepository.getById(fileId);
-        return file.getPath() + file.getSysName();
+    public FileEntity getFile(Long fileId){
+        return fileRepository.getById(fileId);
+//        return file.getPath() + file.getSysName();
     }
 
     public List<FileDto> create(List<MultipartFile> files, DataRoom dataRoom) throws IOException {
