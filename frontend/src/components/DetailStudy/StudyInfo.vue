@@ -3,7 +3,7 @@
       <article class="info_left">
         <div class="info_img" :style="`background-image : url(${state.img_url})`"></div>
         <!-- <img class="info_img" :src="`${state.image_url}`"> -->
-        <button class="apply_btn">신청하기</button>
+        <button class="apply_btn" @click="onClickStudyApply">신청하기</button>
       </article>
       <article class="info_right">
         <div class="info_name">{{ state.info.studyName }}</div>
@@ -25,14 +25,14 @@ import { useStore } from 'vuex'
 export default {
   name: 'StudyInfo',
 
-  // props : {
-  //   info : {
-  //     type: Object,
-  //     required: true
-  //   }
-  // },
+  props: {
+    studyId: {
+      type: String,
+      required: true,
+    }
+  },
 
-  setup() {
+  setup(props) {
     const store = useStore()
     const state = reactive({
       info: computed(() => {
@@ -44,10 +44,14 @@ export default {
       })
     })
 
-    console.log(state.img_url, '이게 img_url 인데')
+    const onClickStudyApply = function() {
+      store.dispatch('studyApply', props.studyId)
+    }
+
 
     return {
-      state
+      state,
+      onClickStudyApply
     }
   }
 

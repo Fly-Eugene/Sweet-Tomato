@@ -1,5 +1,6 @@
 import $axios from 'axios'
 import router from '@/router'
+// import state from './state'
 
 export function login (context, credentials) {
   $axios({
@@ -10,8 +11,6 @@ export function login (context, credentials) {
   .then(res => {
     console.log(res.data.data.member)
     localStorage.setItem('jwt', res.data.data.token)
-    // const accessToken = localStorage.getItem('jwt')
-    // $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
     this.state.myInfo = res.data.data.member
     context.commit('CHANGE_ISLOGIN')
     router.push({ name : 'Home'})
@@ -20,6 +19,11 @@ export function login (context, credentials) {
     alert('로그인 오류입니다')
     console.log(err)
   })
+}
+
+export function logout(context) {
+  localStorage.removeItem('jwt')
+  context.commit('CHANGE_ISLOGIN')
 }
 
 export function sendValidateEmail (context, email) {
@@ -52,6 +56,23 @@ export function getStudyInfo (context, studyId) {
     console.log(err)
   })
 }
+
+export function studyApply (context, studyId) {
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'study/join',
+    data: {
+      studyId: studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
 
 export function getStudyImg (context, studyId) {
   $axios({
@@ -121,6 +142,33 @@ export function getData (context, studyId) {
     console.log(err)
   })
 }
+
+export function getDataSpeci (context, dataId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'dataroom/detail/' + dataId
+  })
+  .then(res => {
+    context.commit('GET_DATA_SPECI', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getDownloadFile (context, fileId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'file/download/' + fileId
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
 
 export function getStudyTomato (context, studyId) {
   $axios({

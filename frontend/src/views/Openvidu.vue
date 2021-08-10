@@ -1,25 +1,28 @@
 <template>
 	<div id="main-container" class="container">
-		
+
 		<div id="join" v-if="!session">
-			<div id="img-div"></div>
-			<div id="join-dialog" class="jumbotron vertical-center">
-				<h1>Join a video session</h1>
-				<div class="form-group">
-					<p>
-						<label>Participant</label>
-						<input v-model="myUserName" class="form-control" type="text" required>
-					</p>
-					<p>
-						<label>Session</label>
-						<input v-model="mySessionId" class="form-control" type="text" required>
-					</p>
-					<p class="text-center">
-						<button class="btn btn-lg btn-success" @click="joinSession()">Join!</button>
-					</p>
+			<article class="join_container">
+				<!-- <div id="img-div"></div> -->
+				<div id="join-dialog" class="jumbotron vertical-center">
+					<h1 class="join_phrase">Join Study</h1>
+					<div class="form-group">
+						<p>
+							<!-- <label>Participant</label> -->
+							<input placeholder="닉네임을 입력해주세요" v-model="myUserName" class="form-control participant_input" type="text" required>
+						</p>
+						<p>
+							<!-- <label>Session</label> -->
+							<input v-model="mySessionId" class="form-control session_input" type="text" required>
+						</p>
+						<p class="text-center">
+							<button class="btn btn-lg btn-success join_btn" @click="joinSession()">Join!</button>
+						</p>
+					</div>
 				</div>
-			</div>
+			</article>
 		</div>
+
 
 		<div id="session" v-if="session">
 			<div id="session-header">
@@ -33,11 +36,15 @@
 				<user-video :stream-manager="publisher" @click="updateMainVideoStreamManager(publisher)"/>
 				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click="updateMainVideoStreamManager(sub)"/>
 			</div>
+
+			<SideOptions :chatContents="chatContents"/>
 			<div>
-				채팅보내기 : <input type="text">
+				채팅보내기 : <input type="text" v-model="chat_value" @keyup.enter="onEnterChat">
 			</div>
 
 		</div>
+
+		
 	</div>
 </template>
 
@@ -45,6 +52,10 @@
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import UserVideo from '../components/Room/UserVideo';
+import '@/assets/style/openvidu.scss'
+import SideOptions from '@/components/Room/SideOptions.vue'
+
+
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 const OPENVIDU_SERVER_URL = "https://15.164.227.85:4443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
@@ -53,6 +64,7 @@ export default {
 	name: 'OpenVidu',
 	components: {
 		UserVideo,
+		SideOptions,
 	},
 	data () {
 		return {
@@ -63,6 +75,10 @@ export default {
 			subscribers: [],
 			mySessionId: 'SessionA',
 			myUserName: 'Participant' + Math.floor(Math.random() * 100),
+			chat_value: '',
+
+			// 임시적 채팅내용
+			chatContents: []
 		}
 	},
 	methods: {
@@ -114,8 +130,19 @@ export default {
 						console.log('There was an error connecting to the session:', error.code, error.message);
 					});
 			});
+			
+			// ======================= 채팅 커스텀 시작 ==============================
+			this.session.on('signal', (event) => {
+				this.chatContents.push(event.data)
+				console.log('event.data', event.data)
+				console.log('event.from.connetctionId', event.from.connectionId)  // 여기서 userId 뽑을 수 있다.
+				console.log('localOptions', event.from.localOptions)
+			})
+			// ======================= 커스텀 끝 ==============================
+
 			window.addEventListener('beforeunload', this.leaveSession)
 		},
+
 		leaveSession () {
 			// --- Leave the session by calling 'disconnect' method over the Session object ---
 			if (this.session) this.session.disconnect();
@@ -129,6 +156,21 @@ export default {
 		updateMainVideoStreamManager (stream) {
 			if (this.mainStreamManager === stream) return;
 			this.mainStreamManager = stream;
+		},
+
+		onEnterChat () {
+			this.session.signal({
+				data: this.chat_value,
+				to: []
+			})
+			.then(() => {
+				console.log('Message successfully sent')
+				this.chat_value = ''
+			})
+			.catch(err => {
+				console.log(err)
+			})
+
 		},
 		/**
 		 * --------------------------
