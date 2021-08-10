@@ -26,4 +26,10 @@ public class BlacklistController {
         blacklistService.deleteBlacklist(blacklistId);
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_BLACKLIST).build();
     }
+
+    @GetMapping
+    public Object getBlacklist(){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_BLACKLIST).dataType("blacklist_studies")
+                .data(blacklistService.getBlacklist()).build();
+    }
 }
