@@ -62,6 +62,16 @@ public class TomatoService {
         return tomatoPlanRepository.save(TomatoPlan.builder().goalTomato(params.getGoalTomato()).goalTime(params.getGoalTime()).study(studyRepository.getById(params.getStudyId())).tomatoDate(LocalDate.now()).build()).entityToDto();
     }
 
+    public TomatoPlanDto updateGoal(TomatoPlanDto params){
+        TomatoPlan tomatoPlan = tomatoPlanRepository.getById(params.getTomatoPlanId());
+        return tomatoPlanRepository.save(TomatoPlan.builder()
+                .id(params.getTomatoPlanId())
+                .goalTomato(params.getGoalTomato() == null ? tomatoPlan.getGoalTomato() : params.getGoalTomato())
+                .goalTime(params.getGoalTime() == null ? tomatoPlan.getGoalTime() : params.getGoalTime())
+                .study(tomatoPlan.getStudy())
+                .tomatoDate(LocalDate.now()).build()).entityToDto();
+    }
+
     public TomatoPlanDto getGoal(Long tomatoPlanId){
         return tomatoPlanRepository.getById(tomatoPlanId).entityToDto();
     }

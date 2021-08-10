@@ -1,6 +1,7 @@
 package com.ssafy.study_with_us.controller;
 
 import com.ssafy.study_with_us.domain.entity.Tomato;
+import com.ssafy.study_with_us.domain.entity.TomatoPlan;
 import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.dto.TomatoDto;
 import com.ssafy.study_with_us.dto.TomatoPlanDto;
@@ -43,6 +44,11 @@ public class TomatoController {
     public Object addGoal(@RequestBody TomatoPlanDto params){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_TOMATO_GOAL).dataType("tomato_plan")
                 .data(tomatoService.addGoal(params)).build();
+    }
+    @PatchMapping("/goal")
+    public Object updateGoal(@RequestBody TomatoPlanDto params){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY_TOMATO_GOAL).dataType("tomato_plan")
+                .data(tomatoService.updateGoal(params)).build();
     }
     @GetMapping("/goal/{tomatoPlanId}")
     public Object getGoal(@PathVariable("tomatoPlanId") Long tomatoPlanId){
