@@ -16,6 +16,7 @@ public class BlacklistController {
         this.blacklistService = blacklistService;
     }
 
+    // ApiResult로
     @PostMapping
     public Object addBlacklist(@RequestBody IdReqDto params){
         return blacklistService.addBlacklist(params);
