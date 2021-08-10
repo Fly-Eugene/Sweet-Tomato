@@ -3,16 +3,21 @@
   
   width: 1050px;
   height: 435px;
-  margin-top: 50px;
+  margin-top: 150px;
 
-  border: 1px solid;
-  border-color: red;
+  // border: 1px solid;
+  // border-color: red;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   
   .tomato_header{
-    position: absolute;
+    // position: absolute;
     width: 346px;
     height: 51px;
-    left: 35%;
+    // left: 35%;
 
 
     font-family: 'Godo', sans-serif;

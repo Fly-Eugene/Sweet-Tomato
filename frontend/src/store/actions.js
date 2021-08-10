@@ -8,11 +8,11 @@ export function login (context, credentials) {
     data: credentials
   })
   .then(res => {
-    console.log(res.data)
+    console.log(res.data.data.member)
     localStorage.setItem('jwt', res.data.data.token)
     // const accessToken = localStorage.getItem('jwt')
     // $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
-    
+    this.state.myInfo = res.data.data.member
     context.commit('CHANGE_ISLOGIN')
     router.push({ name : 'Home'})
   })
@@ -30,6 +30,40 @@ export function sendValidateEmail (context, email) {
   })
   .then(res => {
     alert(res.data.msg)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getStudyInfo (context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'study/detail',
+    params : {
+      studyId : studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data.data)
+    context.commit('GET_STUDY_INFO', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getStudyImg (context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'profile/study',
+    params: {
+      StudyId: studyId
+    }
+  })
+  .then(res => {
+    // console.log(res.data)
+    context.commit('GET_STUDY_IMG', res.data)
   })
   .catch(err => {
     console.log(err)
@@ -60,7 +94,7 @@ export function getComments (context, studyId) {
     method: 'get',
     url: this.state.server_url + 'comment',
     params: {
-      id: studyId
+      studyId: studyId
     }
   })
   .then(res => {
@@ -70,3 +104,38 @@ export function getComments (context, studyId) {
     console.log(err)
   })
 }
+
+export function getData (context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'dataroom',
+    params: {
+      studyId : studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data.data)
+    context.commit('GET_DATA', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getStudyTomato (context, studyId) {
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'tomato/study',
+    params: {
+      studyId: studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+

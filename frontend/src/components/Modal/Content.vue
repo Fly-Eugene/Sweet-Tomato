@@ -13,15 +13,6 @@
           default body
         </slot>
       </div>
-
-      <div class="modal-footer">
-        <slot name="footer">
-          default footer
-          <button class="modal-button" @click="$emit('closeSample')">
-            OK
-          </button>
-        </slot>
-      </div>
     </div>
   </div>
 </template>
