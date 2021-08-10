@@ -3,6 +3,7 @@ package com.ssafy.study_with_us.controller;
 import com.ssafy.study_with_us.dto.IdReqDto;
 import com.ssafy.study_with_us.service.BlacklistService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class BlacklistController {
     }
 
     @PostMapping
-    public Object addBlacklist(IdReqDto params){
+    public Object addBlacklist(@RequestBody IdReqDto params){
         return blacklistService.addBlacklist(params);
     }
 }
