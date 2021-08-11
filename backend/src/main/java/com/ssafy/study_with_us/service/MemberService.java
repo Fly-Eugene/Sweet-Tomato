@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -98,7 +100,7 @@ public class MemberService {
         return studyMember == null? false : true;
     }
 
-    public Object addTime(StudyTimeDto params){
+    public StudyTimeDto addTime(StudyTimeDto params){
         // 여기서 studyTime null이면 만들어주고 아니면 받아온 시간 더해줌
         StudyTime studyTime = studyTimeRepository.getStudyTimeByMember_IdAndStudyDate(getMemberId(), LocalDate.now());
         StudyTime result = null;
@@ -113,6 +115,14 @@ public class MemberService {
                     .member(studyTime.getMember()).build());
         }
         return result.entityToDto();
+    }
+    public List<StudyTimeDto> getTimeList(){
+        List<StudyTime> studyTimeList = studyTimeRepository.getByMemberId(getMemberId());
+        List<StudyTimeDto> results = new ArrayList<>();
+        for (StudyTime studyTime : studyTimeList) {
+            results.add(studyTime.entityToDto());
+        }
+        return results;
     }
     private Long getMemberId() {
         String s = SecurityUtil.getCurrentUsername().get();

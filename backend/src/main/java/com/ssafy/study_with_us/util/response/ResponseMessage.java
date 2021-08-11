@@ -20,6 +20,7 @@ public class ResponseMessage {
     public static final String CONNECTED_STUDY = "스터디 입장 성공";
     public static final String SEARCHED_RECENTLY_STUDIES = "최근 스터디 조회";
     public static final String ADDED_STUDY_TIME = "스터디 시간 추가 성공";
+    public static final String SEARCHED_STUDY_TIME_LIST = "스터디 시간 리스트 조회 성공";
 
 
     public static final String CREATED_COMMENT = "댓글 생성 성공";

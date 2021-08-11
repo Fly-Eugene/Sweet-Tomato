@@ -116,4 +116,8 @@ public class MemberController {
 //      후에 params.getStudyTime() == null 이면 예외처리 해줘야함
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.ADDED_STUDY_TIME).dataType("member_study").data(memberService.addTime(params)).build();
     }
+    @GetMapping("/time")
+    public Object getTimeList(){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TIME_LIST).dataType("study_time_list").data(memberService.getTimeList()).build();
+    }
 }
