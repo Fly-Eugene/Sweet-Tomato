@@ -2,6 +2,42 @@ import $axios from 'axios'
 import router from '@/router'
 // import state from './state'
 
+// export function checkNav (context) {
+//   if(document.location.pathname === '/openvidu'){
+//     context.commit('CHECK_NAV', false)
+//   } else {
+//     context.commit('CHECK_NAV', true)
+//   }
+// }
+
+export function hideNav (context) {
+  context.commit('SHOW_NAV', false)
+}
+
+export function showNav (context) {
+  context.commit('SHOW_NAV', true)
+}
+
+export function hideTomato (context) {
+  context.commit('SHOW_TOMATO', false)
+}
+
+export function showTomato (context) {
+  context.commit('SHOW_TOMATO', true)
+}
+
+
+export function checkLogin (context) {
+  const accessToken = localStorage.getItem('jwt')
+  context.commit('CHANGE_ISLOGIN')
+
+  if (accessToken) {
+    $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+  } else {
+    $axios.defaults.headers.common['Authorization'] = null
+  }
+}
+
 export function login (context, credentials) {
   $axios({
     method: 'post',
@@ -149,6 +185,7 @@ export function getDataSpeci (context, dataId) {
     url: this.state.server_url + 'dataroom/detail/' + dataId
   })
   .then(res => {
+    console.log(res.data.data)
     context.commit('GET_DATA_SPECI', res.data.data)
   })
   .catch(err => {
@@ -159,10 +196,30 @@ export function getDataSpeci (context, dataId) {
 export function getDownloadFile (context, fileId) {
   $axios({
     method: 'get',
-    url: this.state.server_url + 'file/download/' + fileId
+    url: this.state.server_url + 'file/download/' + fileId,
+    responseType : 'arraybuffer',
   })
   .then(res => {
     console.log(res.data)
+    console.log(res.headers)
+    const url = window.URL.createObjectURL(new Blob([res.data]), {type: res.headers['content-type']})
+    const link = document.createElement('a')
+    const contentDisposition = res.headers['content-disposition']    // 파일 이름이라고 한다
+
+    let fileName = 'unkown'
+    if (contentDisposition) {
+      const [fileNameMatch] = contentDisposition.split(';').filter(str => str.includes('filename'));
+      if (fileNameMatch) {
+        [, fileName] = fileNameMatch.split('=')
+      }
+    }
+
+    link.href = url
+    link.setAttribute('download', `${fileName}`)
+    document.body.appendChild(link)
+    link.click()
+    link.remove()
+
   })
   .catch(err => {
     console.log(err)

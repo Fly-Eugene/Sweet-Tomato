@@ -24,6 +24,7 @@ import '@/assets/style/Modal/modal.scss'
 import ModalContent from '@/components/Modal/Content.vue'
 import MakeStudy from '@/components/Modal/MakeStudy.vue'
 import {onMounted, reactive } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
   name: "Modal",
@@ -34,12 +35,14 @@ export default {
   },
 
   setup() {
+    const store = useStore()
     const state = reactive({
       showModalSample : false,
       makeStudyModal : false
     }) 
 
     onMounted(() => {
+      store.dispatch('checkLogin')
       state.showModal = false,
       state.makeStudyModal = false
     })

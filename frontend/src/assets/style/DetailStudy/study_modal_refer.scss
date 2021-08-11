@@ -1,0 +1,44 @@
+.modal_refer_header {
+  position: absolute;
+  height: 10%;
+  width: 80%;
+  padding: 10px;
+  
+}
+
+.modal_refer_file {
+  position: absolute;
+  height: 10%;
+  width: 80%;
+  top: 10%;
+  padding: 10px;
+}
+
+.modal_refer_content {
+  position: absolute;
+  height: 50%;
+  width: 80%;
+  top: 30%;
+  padding: 10px;
+}
+
+.modal_refer_close_btn {
+  position: absolute;
+  width: 147px;
+  height: 49px;
+  right: 7%;
+  bottom: 5%;
+
+  font-family: 'Godo', sans-serif;
+  font-size: 25px;
+  cursor: pointer;
+
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.modal_refer_font {
+  font-family: 'ELAND_Choice_M' ;
+  font-size: 17px;
+}

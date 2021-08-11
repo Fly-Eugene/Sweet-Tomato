@@ -75,12 +75,6 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import axios from 'axios';
-import { OpenVidu } from 'openvidu-browser';
-import UserVideo from '../components/Room/UserVideo';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-=======
 import axios from "axios";
 import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/Room/UserVideo";
@@ -88,7 +82,7 @@ import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
->>>>>>> 1bf721045221e41fbb2d6a236a66bc0c19d28d0d
+
 const OPENVIDU_SERVER_URL = "https://i5b106.p.ssafy.io:443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
@@ -282,5 +276,13 @@ export default {
       });
     },
   },
+	mounted() {
+		this.$store.dispatch('checkLogin')
+		this.$store.dispatch('hideNav')
+	},
+	unmounted() {
+		this.$store.dispatch('showNav')
+	}
+
 };
 </script>

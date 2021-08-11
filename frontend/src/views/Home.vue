@@ -19,6 +19,8 @@ import '@/assets/style/Home.scss'
 import HomeMain from '@/components/Home/HomeMain'
 import HomeMiddle from '@/components/Home/HomeMiddle'
 import HomeBottom from '@/components/Home/HomeBottom'
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
 
 export default {
   name: 'Home',
@@ -26,6 +28,15 @@ export default {
     HomeMain,
     HomeMiddle,
     HomeBottom
+  },
+
+  setup() {
+    const store = useStore()
+    
+    onMounted(() => {
+      store.dispatch('checkLogin')
+    })
   }
+
 }
 </script>

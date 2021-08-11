@@ -10,6 +10,8 @@
 import '../assets/style/study_main.scss'
 import StudySearch from '@/components/StudyMain/StudySearch.vue'
 import StudyCards from '@/components/StudyMain/StudyCards.vue'
+import { useStore } from 'vuex'
+import { onMounted } from 'vue'
 
 export default {
   name: "StudyMain",
@@ -17,6 +19,14 @@ export default {
   components: {
     StudySearch,
     StudyCards
+  },
+
+  setup(){
+    const store = useStore()
+
+    onMounted(() => {
+      store.dispatch('checkLogin')
+    })
   }
 }
 </script>
