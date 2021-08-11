@@ -2,16 +2,16 @@ package com.ssafy.study_with_us.service;
 
 import com.ssafy.study_with_us.domain.entity.*;
 import com.ssafy.study_with_us.domain.repository.*;
-import com.ssafy.study_with_us.dto.IdReqDto;
-import com.ssafy.study_with_us.dto.ProfileDto;
-import com.ssafy.study_with_us.dto.StudyDto;
-import com.ssafy.study_with_us.dto.StudyMemberDto;
+import com.ssafy.study_with_us.dto.*;
 import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class StudyService {
@@ -20,17 +20,19 @@ public class StudyService {
     private final ThemeRepository themeRepository;
     private final StudyThemeRefRepository studyThemeRefRepository;
     private final StudyMemberRefRepository studyMemberRefRepository;
+    private final ScheduleRepository scheduleRepository;
 
-    public StudyService(StudyRepository studyRepository, MemberRepository memberRepository, ThemeRepository themeRepository, StudyThemeRefRepository studyThemeRefRepository, StudyMemberRefRepository studyMemberRefRepository) {
+    public StudyService(StudyRepository studyRepository, MemberRepository memberRepository, ThemeRepository themeRepository, StudyThemeRefRepository studyThemeRefRepository, StudyMemberRefRepository studyMemberRefRepository, ScheduleRepository scheduleRepository) {
         this.studyRepository = studyRepository;
         this.memberRepository = memberRepository;
         this.themeRepository = themeRepository;
         this.studyThemeRefRepository = studyThemeRefRepository;
         this.studyMemberRefRepository = studyMemberRefRepository;
+        this.scheduleRepository = scheduleRepository;
     }
 
     // 가입, params.memberId null이면 직접 가입 => 토큰에서 정보 얻어옴, null이 아니면 초대 => 받은 아이디 정보로 가입
-    public Object joinMember(IdReqDto params){
+    public StudyMemberDto joinMember(IdReqDto params){
         StudyMemberRef studyMemberRef = studyMemberRefRepository.save(StudyMemberRef.builder()
                 .member(memberRepository.getById(params.getMemberId() == null ? getMemberId() : params.getMemberId()))
                 .study(studyRepository.getById(params.getStudyId()))
@@ -53,13 +55,13 @@ public class StudyService {
     * 3. 해시태그 목록 set으로 가져옴
     * 4. 만들어진 스터디 id + themes로(해시태그들) 맵핑 테이블에 저장
     */
-    public Object create(StudyDto params){
+    public StudyDto create(StudyDto params){
         Study study = saveStudy(params);
         studyMemberRefRepository.save(StudyMemberRef.builder()
                 .study(study)
                 .member(memberRepository.getById(getMemberId())).build());
         makeThemes(params.getThemes(), study);
-        return study;
+        return study.entityToDto();
     }
 
     // 여기 insert, delete 모듈화 가능할듯 일단 돌아가게 만들고 후에 수정
@@ -150,7 +152,7 @@ public class StudyService {
         }
     }
 
-    public Object searchStudyByThemes(List<String> themes, Integer page){
+    public List<StudyDto> searchStudyByThemes(List<String> themes, Integer page){
         List<Long> studyIds = studyThemeRefRepository.searchStudyByThemes(themes, page);
         List<StudyDto> results = new ArrayList<>();
         for (Long studyId : studyIds) {
@@ -159,7 +161,7 @@ public class StudyService {
         return results;
     }
 
-    public Object connectStudy(Long studyId){
+    public StudyMemberDto connectStudy(Long studyId){
         StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), studyId);
         StudyMemberRef result = studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId()).member(studyMember.getMember())
                 .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build());
@@ -169,13 +171,18 @@ public class StudyService {
                 .recentlyConnectionTime(result.getRecentlyConnectionTime()).build();
     }
 
-    public Object getRecentlyStudies(){
+    public List<StudyMemberDto> getRecentlyStudies(){
         List<StudyMemberRef> recentlyStudies = studyMemberRefRepository.getRecentlyStudies(getMemberId());
         List<StudyMemberDto> results = new ArrayList<>();
         for (StudyMemberRef recentlyStudy : recentlyStudies) {
             results.add(recentlyStudy.entityToDto());
         }
         return results;
+    }
+
+    public ScheduleDto createSchedule(ScheduleDto params){
+        return scheduleRepository.save(Schedule.builder().study(studyRepository.getById(params.getStudyId()))
+                .scheduleDate(params.getScheduleDate()).info(params.getInfo()).build()).entityToDto();
     }
 
     private Long getMemberId() {
