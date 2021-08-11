@@ -14,7 +14,7 @@ import MypageStudyTime from '@/components/Mypage/MypageStudyTime'
 import MypageStudyList from '@/components/Mypage/MypageStudyList'
 import '@/assets/style/mypage.scss'
 import { useStore } from 'vuex'
-// import { onMounted } from 'vue'
+import { onMounted } from 'vue'
 
 export default {
   name: 'Mypage',
@@ -32,6 +32,10 @@ export default {
     function check() {
       console.log(store.state.myInfo)
     }
+
+    onMounted(() => {
+      store.dispatch('checkLogin')
+    })
 
     return {
       check

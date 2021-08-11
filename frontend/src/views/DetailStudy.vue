@@ -35,18 +35,14 @@ export default {
     const store = useStore()
 
     onMounted(() => {
-      console.log('onMounted 실행')
+      store.dispatch('checkLogin')
       store.dispatch('getStudyInfo', props.id)
-      // store.dispatch('getStudyImg', props.id )
       store.dispatch('getComments', props.id)
       store.dispatch('getData', props.id)
       store.dispatch('getStudyTomato', props.id)
     })
 
     return {
-      // comment_or_refer,
-      // changeToComment,
-      // changeToRefer
 
     }
   }
