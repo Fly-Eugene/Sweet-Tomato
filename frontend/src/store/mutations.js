@@ -37,4 +37,5 @@ export function GET_DATA_SPECI (state, res) {
 export function GET_TOMATO (state, res) {
   state.totalTomato = res.totalSum
   state.studyTomato = res.relevantsum
+  state.tomatoes = res.tomatoes
 }

@@ -9,5 +9,6 @@ export default {
   totalTomato : '',
   studyTomato : '',
   myInfo : {},
-  checkflag: ''
+  checkflag: '',
+  tomatoes: []
 }
