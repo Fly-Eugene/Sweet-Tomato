@@ -8,5 +8,6 @@ export default {
   studyDataSpeci: '',
   totalTomato : '',
   studyTomato : '',
-  myInfo : {}
+  myInfo : {},
+  checkflag: ''
 }

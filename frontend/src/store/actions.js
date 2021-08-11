@@ -73,6 +73,21 @@ export function studyApply (context, studyId) {
   })
 }
 
+export function studyResign (context, studyId) {
+  $axios({
+    method: 'delete',
+    url: this.state.server_url + 'study/withdraw',
+    data: {
+      studyId: studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
 
 export function getStudyImg (context, studyId) {
   $axios({
