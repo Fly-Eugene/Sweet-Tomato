@@ -1,6 +1,6 @@
 <template>
   <div class="detail_study_all">
-    <StudyInfo />
+    <StudyInfo :studyId='id'/>
     <TomatoRate/>
     <StudyChart/>
     <StudyCommentNRefer :studyId='id'/>
@@ -37,7 +37,7 @@ export default {
     onMounted(() => {
       console.log('onMounted 실행')
       store.dispatch('getStudyInfo', props.id)
-      store.dispatch('getStudyImg', props.id )
+      // store.dispatch('getStudyImg', props.id )
       store.dispatch('getComments', props.id)
       store.dispatch('getData', props.id)
       store.dispatch('getStudyTomato', props.id)

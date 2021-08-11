@@ -28,6 +28,9 @@
 import '@/assets/style/app.scss'
 import Navbar from '@/views/Navbar.vue'
 import $axios from 'axios'
+import { useStore } from 'vuex'
+import { computed, reactive } from 'vue'
+
 export default {
   name: 'App',
 
@@ -36,9 +39,22 @@ export default {
   },
 
   setup() {
-    const accessToken = localStorage.getItem('jwt')
-    if (accessToken) {
-      $axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`
+    const state = reactive({
+      accessToken : computed(() => {
+        return localStorage.getItem('jwt')
+      })
+    })
+
+    const store = useStore()
+    
+    if (state.accessToken) {
+      store.state.isLogin = true
+    } else {
+      store.isLogin = false
+    }
+
+    if (state.accessToken) {
+      $axios.defaults.headers.common['Authorization'] = `Bearer ${state.accessToken}`
     } else {
       $axios.defaults.headers.common['Authorization'] = null
     }
