@@ -1,234 +1,279 @@
 <template>
-	<div id="main-container" class="container">
+  <div id="main-container" class="container">
+    <div id="join" v-if="!session">
+      <article class="join_container">
+        <!-- <div id="img-div"></div> -->
+        <div id="join-dialog" class="jumbotron vertical-center">
+          <h1 class="join_phrase">Join Study</h1>
+          <div class="form-group">
+            <p>
+              <!-- <label>Participant</label> -->
+              <input
+                placeholder="닉네임을 입력해주세요"
+                v-model="myUserName"
+                class="form-control participant_input"
+                type="text"
+                required
+              />
+            </p>
+            <p>
+              <!-- <label>Session</label> -->
+              <input
+                v-model="mySessionId"
+                class="form-control session_input"
+                type="text"
+                required
+              />
+            </p>
+            <p class="text-center">
+              <button
+                class="btn btn-lg btn-success join_btn"
+                @click="joinSession()"
+              >
+                Join!
+              </button>
+            </p>
+          </div>
+        </div>
+      </article>
+    </div>
 
-		<div id="join" v-if="!session">
-			<article class="join_container">
-				<!-- <div id="img-div"></div> -->
-				<div id="join-dialog" class="jumbotron vertical-center">
-					<h1 class="join_phrase">Join Study</h1>
-					<div class="form-group">
-						<p>
-							<!-- <label>Participant</label> -->
-							<input placeholder="닉네임을 입력해주세요" v-model="myUserName" class="form-control participant_input" type="text" required>
-						</p>
-						<p>
-							<!-- <label>Session</label> -->
-							<input v-model="mySessionId" class="form-control session_input" type="text" required>
-						</p>
-						<p class="text-center">
-							<button class="btn btn-lg btn-success join_btn" @click="joinSession()">Join!</button>
-						</p>
-					</div>
-				</div>
-			</article>
-		</div>
+    <div id="session" v-if="session">
+      <div id="session-header">
+        <h1 id="session-title">{{ mySessionId }}</h1>
+        <input
+          class="btn btn-large btn-danger"
+          type="button"
+          id="buttonLeaveSession"
+          @click="leaveSession"
+          value="Leave session"
+        />
+      </div>
+      <div id="main-video" class="col-md-6">
+        <user-video :stream-manager="mainStreamManager" />
+      </div>
+      <div id="video-container" class="col-md-6">
+        <user-video
+          :stream-manager="publisher"
+          @click="updateMainVideoStreamManager(publisher)"
+        />
+        <user-video
+          v-for="sub in subscribers"
+          :key="sub.stream.connection.connectionId"
+          :stream-manager="sub"
+          @click="updateMainVideoStreamManager(sub)"
+        />
+      </div>
 
-
-		<div id="session" v-if="session">
-			<div id="session-header">
-				<h1 id="session-title">{{ mySessionId }}</h1>
-				<input class="btn btn-large btn-danger" type="button" id="buttonLeaveSession" @click="leaveSession" value="Leave session">
-			</div>
-			<div id="main-video" class="col-md-6">
-				<user-video :stream-manager="mainStreamManager"/>
-			</div>
-			<div id="video-container" class="col-md-6">
-				<user-video :stream-manager="publisher" @click="updateMainVideoStreamManager(publisher)"/>
-				<user-video v-for="sub in subscribers" :key="sub.stream.connection.connectionId" :stream-manager="sub" @click="updateMainVideoStreamManager(sub)"/>
-			</div>
-
-			<SideOptions :chatContents="chatContents"/>
-			<div>
-				채팅보내기 : <input type="text" v-model="chat_value" @keyup.enter="onEnterChat">
-			</div>
-
-		</div>
-
-		
-	</div>
+      <SideOptions :chatContents="chatContents" />
+      <div>
+        채팅보내기 :
+        <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { OpenVidu } from 'openvidu-browser';
-import UserVideo from '../components/Room/UserVideo';
-import '@/assets/style/openvidu.scss'
-import SideOptions from '@/components/Room/SideOptions.vue'
+import axios from "axios";
+import { OpenVidu } from "openvidu-browser";
+import UserVideo from "../components/Room/UserVideo";
+import "@/assets/style/openvidu.scss";
+import SideOptions from "@/components/Room/SideOptions.vue";
 
-
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-const OPENVIDU_SERVER_URL = "https://15.164.227.85:4443";
+axios.defaults.headers.post["Content-Type"] = "application/json";
+const OPENVIDU_SERVER_URL = "https://i5b106.p.ssafy.io:443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
-	name: 'OpenVidu',
-	components: {
-		UserVideo,
-		SideOptions,
-	},
-	data () {
-		return {
-			OV: undefined,
-			session: undefined,
-			mainStreamManager: undefined,
-			publisher: undefined,
-			subscribers: [],
-			mySessionId: 'SessionA',
-			myUserName: 'Participant' + Math.floor(Math.random() * 100),
-			chat_value: '',
+  name: "OpenVidu",
+  components: {
+    UserVideo,
+    SideOptions,
+  },
+  data() {
+    return {
+      OV: undefined,
+      session: undefined,
+      mainStreamManager: undefined,
+      publisher: undefined,
+      subscribers: [],
+      mySessionId: "SessionA",
+      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      chat_value: "",
 
-			// 임시적 채팅내용
-			chatContents: []
-		}
-	},
-	methods: {
-		joinSession () {
-			// --- Get an OpenVidu object ---
-			this.OV = new OpenVidu();
-			// --- Init a session ---
-			this.session = this.OV.initSession();
-			// --- Specify the actions when events take place in the session ---
-			// On every new Stream received...
-			this.session.on('streamCreated', ({ stream }) => {
-				const subscriber = this.session.subscribe(stream);
-				this.subscribers.push(subscriber);
-			});
-			// On every Stream destroyed...
-			this.session.on('streamDestroyed', ({ stream }) => {
-				const index = this.subscribers.indexOf(stream.streamManager, 0);
-				if (index >= 0) {
-					this.subscribers.splice(index, 1);
-				}
-			});
-			// On every asynchronous exception...
-			this.session.on('exception', ({ exception }) => {
-				console.warn(exception);
-			});
-			// --- Connect to the session with a valid user token ---
-			// 'getToken' method is simulating what your server-side should do.
-			// 'token' parameter should be retrieved and returned by your own backend
-			this.getToken(this.mySessionId).then(token => {
-				this.session.connect(token, { clientData: this.myUserName })
-					.then(() => {
-						// --- Get your own camera stream with the desired properties ---
-						let publisher = this.OV.initPublisher(undefined, {
-							audioSource: undefined, // The source of audio. If undefined default microphone
-							videoSource: undefined, // The source of video. If undefined default webcam
-							publishAudio: true,  	// Whether you want to start publishing with your audio unmuted or not
-							publishVideo: true,  	// Whether you want to start publishing with your video enabled or not
-							resolution: '640x480',  // The resolution of your video
-							frameRate: 30,			// The frame rate of your video
-							insertMode: 'APPEND',	// How the video is inserted in the target element 'video-container'
-							mirror: false       	// Whether to mirror your local video or not
-						});
-						this.mainStreamManager = publisher;
-						this.publisher = publisher;
-						// --- Publish your stream ---
-						this.session.publish(this.publisher);
-					})
-					.catch(error => {
-						console.log('There was an error connecting to the session:', error.code, error.message);
-					});
-			});
-			
-			// ======================= 채팅 커스텀 시작 ==============================
-			this.session.on('signal', (event) => {
-				this.chatContents.push(event.data)
-				console.log('event.data', event.data)
-				console.log('event.from.connetctionId', event.from.connectionId)  // 여기서 userId 뽑을 수 있다.
-				console.log('localOptions', event.from.localOptions)
-			})
-			// ======================= 커스텀 끝 ==============================
+      // 임시적 채팅내용
+      chatContents: [],
+    };
+  },
+  methods: {
+    joinSession() {
+      // --- Get an OpenVidu object ---
+      this.OV = new OpenVidu();
+      // --- Init a session ---
+      this.session = this.OV.initSession();
+      // --- Specify the actions when events take place in the session ---
+      // On every new Stream received...
+      this.session.on("streamCreated", ({ stream }) => {
+        const subscriber = this.session.subscribe(stream);
+        this.subscribers.push(subscriber);
+      });
+      // On every Stream destroyed...
+      this.session.on("streamDestroyed", ({ stream }) => {
+        const index = this.subscribers.indexOf(stream.streamManager, 0);
+        if (index >= 0) {
+          this.subscribers.splice(index, 1);
+        }
+      });
+      // On every asynchronous exception...
+      this.session.on("exception", ({ exception }) => {
+        console.warn(exception);
+      });
+      // --- Connect to the session with a valid user token ---
+      // 'getToken' method is simulating what your server-side should do.
+      // 'token' parameter should be retrieved and returned by your own backend
+      this.getToken(this.mySessionId).then((token) => {
+        this.session
+          .connect(token, { clientData: this.myUserName })
+          .then(() => {
+            // --- Get your own camera stream with the desired properties ---
+            let publisher = this.OV.initPublisher(undefined, {
+              audioSource: undefined, // The source of audio. If undefined default microphone
+              videoSource: undefined, // The source of video. If undefined default webcam
+              publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
+              publishVideo: true, // Whether you want to start publishing with your video enabled or not
+              resolution: "640x480", // The resolution of your video
+              frameRate: 30, // The frame rate of your video
+              insertMode: "APPEND", // How the video is inserted in the target element 'video-container'
+              mirror: false, // Whether to mirror your local video or not
+            });
+            this.mainStreamManager = publisher;
+            this.publisher = publisher;
+            // --- Publish your stream ---
+            this.session.publish(this.publisher);
+          })
+          .catch((error) => {
+            console.log(
+              "There was an error connecting to the session:",
+              error.code,
+              error.message
+            );
+          });
+      });
 
-			window.addEventListener('beforeunload', this.leaveSession)
-		},
+      // ======================= 채팅 커스텀 시작 ==============================
+      this.session.on("signal", (event) => {
+        this.chatContents.push(event.data);
+        console.log("event.data", event.data);
+        console.log("event.from.connetctionId", event.from.connectionId); // 여기서 userId 뽑을 수 있다.
+        console.log("localOptions", event.from.localOptions);
+      });
+      // ======================= 커스텀 끝 ==============================
 
-		leaveSession () {
-			// --- Leave the session by calling 'disconnect' method over the Session object ---
-			if (this.session) this.session.disconnect();
-			this.session = undefined;
-			this.mainStreamManager = undefined;
-			this.publisher = undefined;
-			this.subscribers = [];
-			this.OV = undefined;
-			window.removeEventListener('beforeunload', this.leaveSession);
-		},
-		updateMainVideoStreamManager (stream) {
-			if (this.mainStreamManager === stream) return;
-			this.mainStreamManager = stream;
-		},
+      window.addEventListener("beforeunload", this.leaveSession);
+    },
 
-		onEnterChat () {
-			this.session.signal({
-				data: this.chat_value,
-				to: []
-			})
-			.then(() => {
-				console.log('Message successfully sent')
-				this.chat_value = ''
-			})
-			.catch(err => {
-				console.log(err)
-			})
+    leaveSession() {
+      // --- Leave the session by calling 'disconnect' method over the Session object ---
+      if (this.session) this.session.disconnect();
+      this.session = undefined;
+      this.mainStreamManager = undefined;
+      this.publisher = undefined;
+      this.subscribers = [];
+      this.OV = undefined;
+      window.removeEventListener("beforeunload", this.leaveSession);
+    },
+    updateMainVideoStreamManager(stream) {
+      if (this.mainStreamManager === stream) return;
+      this.mainStreamManager = stream;
+    },
 
-		},
-		/**
-		 * --------------------------
-		 * SERVER-SIDE RESPONSIBILITY
-		 * --------------------------
-		 * These methods retrieve the mandatory user token from OpenVidu Server.
-		 * This behavior MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
-		 * the API REST, openvidu-java-client or openvidu-node-client):
-		 *   1) Initialize a Session in OpenVidu Server	(POST /openvidu/api/sessions)
-		 *   2) Create a Connection in OpenVidu Server (POST /openvidu/api/sessions/<SESSION_ID>/connection)
-		 *   3) The Connection.token must be consumed in Session.connect() method
-		 */
-		getToken (mySessionId) {
-			return this.createSession(mySessionId).then(sessionId => this.createToken(sessionId));
-		},
-		// See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessions
-		createSession (sessionId) {
-			return new Promise((resolve, reject) => {
-				axios
-					.post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions`, JSON.stringify({
-						customSessionId: sessionId,
-					}), {
-						auth: {
-							username: 'OPENVIDUAPP',
-							password: OPENVIDU_SERVER_SECRET,
-						},
-					})
-					.then(response => response.data)
-					.then(data => resolve(data.id))
-					.catch(error => {
-						if (error.response.status === 409) {
-							resolve(sessionId);
-						} else {
-							console.warn(`No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}`);
-							if (window.confirm(`No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}\n\nClick OK to navigate and accept it. If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${OPENVIDU_SERVER_URL}"`)) {
-								location.assign(`${OPENVIDU_SERVER_URL}/accept-certificate`);
-							}
-							reject(error.response);
-						}
-					});
-			});
-		},
-		// See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessionsltsession_idgtconnection
-		createToken (sessionId) {
-			return new Promise((resolve, reject) => {
-				axios
-					.post(`${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`, {}, {
-						auth: {
-							username: 'OPENVIDUAPP',
-							password: OPENVIDU_SERVER_SECRET,
-						},
-					})
-					.then(response => response.data)
-					.then(data => resolve(data.token))
-					.catch(error => reject(error.response));
-			});
-		},
-
-	}
-}
+    onEnterChat() {
+      this.session
+        .signal({
+          data: this.chat_value,
+          to: [],
+        })
+        .then(() => {
+          console.log("Message successfully sent");
+          this.chat_value = "";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    /**
+     * --------------------------
+     * SERVER-SIDE RESPONSIBILITY
+     * --------------------------
+     * These methods retrieve the mandatory user token from OpenVidu Server.
+     * This behavior MUST BE IN YOUR SERVER-SIDE IN PRODUCTION (by using
+     * the API REST, openvidu-java-client or openvidu-node-client):
+     *   1) Initialize a Session in OpenVidu Server	(POST /openvidu/api/sessions)
+     *   2) Create a Connection in OpenVidu Server (POST /openvidu/api/sessions/<SESSION_ID>/connection)
+     *   3) The Connection.token must be consumed in Session.connect() method
+     */
+    getToken(mySessionId) {
+      return this.createSession(mySessionId).then((sessionId) =>
+        this.createToken(sessionId)
+      );
+    },
+    // See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessions
+    createSession(sessionId) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(
+            `${OPENVIDU_SERVER_URL}/openvidu/api/sessions`,
+            JSON.stringify({
+              customSessionId: sessionId,
+            }),
+            {
+              auth: {
+                username: "OPENVIDUAPP",
+                password: OPENVIDU_SERVER_SECRET,
+              },
+            }
+          )
+          .then((response) => response.data)
+          .then((data) => resolve(data.id))
+          .catch((error) => {
+            if (error.response.status === 409) {
+              resolve(sessionId);
+            } else {
+              console.warn(
+                `No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}`
+              );
+              if (
+                window.confirm(
+                  `No connection to OpenVidu Server. This may be a certificate error at ${OPENVIDU_SERVER_URL}\n\nClick OK to navigate and accept it. If no certificate warning is shown, then check that your OpenVidu Server is up and running at "${OPENVIDU_SERVER_URL}"`
+                )
+              ) {
+                location.assign(`${OPENVIDU_SERVER_URL}/accept-certificate`);
+              }
+              reject(error.response);
+            }
+          });
+      });
+    },
+    // See https://docs.openvidu.io/en/stable/reference-docs/REST-API/#post-openviduapisessionsltsession_idgtconnection
+    createToken(sessionId) {
+      return new Promise((resolve, reject) => {
+        axios
+          .post(
+            `${OPENVIDU_SERVER_URL}/openvidu/api/sessions/${sessionId}/connection`,
+            {},
+            {
+              auth: {
+                username: "OPENVIDUAPP",
+                password: OPENVIDU_SERVER_SECRET,
+              },
+            }
+          )
+          .then((response) => response.data)
+          .then((data) => resolve(data.token))
+          .catch((error) => reject(error.response));
+      });
+    },
+  },
+};
 </script>

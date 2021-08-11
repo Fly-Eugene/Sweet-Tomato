@@ -30,7 +30,6 @@ public class FileController {
         FileEntity file = fileService.getFile(fileId);
         Path path = new File(file.getPath() + file.getSysName()).toPath();
         FileSystemResource resource = new FileSystemResource(path);
-        System.out.println("file.getOrgName() = " + file.getOrgName());
         return ResponseEntity.ok()
 //                .contentType(MediaType.parseMediaType(Files.probeContentType(path)))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + new String(file.getOrgName().getBytes("UTF-8"), "ISO-8859-1") + "\"")
