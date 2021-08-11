@@ -91,7 +91,6 @@ public class MemberService {
                 .username(member.getUsername())
                 .age(member.getAge())
                 .department(member.getDepartment())
-                .studytime(member.getStudytime())
                 .profile(member.getProfile()).build());
     }
 

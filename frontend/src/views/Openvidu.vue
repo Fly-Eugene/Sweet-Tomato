@@ -82,6 +82,7 @@ import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
+
 const OPENVIDU_SERVER_URL = "https://i5b106.p.ssafy.io:443";
 const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
@@ -275,5 +276,13 @@ export default {
       });
     },
   },
+	mounted() {
+		this.$store.dispatch('checkLogin')
+		this.$store.dispatch('hideNav')
+	},
+	unmounted() {
+		this.$store.dispatch('showNav')
+	}
+
 };
 </script>

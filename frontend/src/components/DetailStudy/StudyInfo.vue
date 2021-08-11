@@ -61,6 +61,12 @@ export default {
         console.log(err)
       })
     })
+
+    const server_url = store.state.server_url
+    const study_profile_url = server_url + 'profile/study?studyId=' + props.studyId
+
+
+
     const onClickStudyApply = function() {
       store.dispatch('studyApply', props.studyId)
       store.state.checkflag = true;
@@ -73,7 +79,8 @@ export default {
     return {
       state,
       onClickStudyApply,
-      onClickStudyResign
+      onClickStudyResign,
+      study_profile_url
     }
   }
 

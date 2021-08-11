@@ -1,9 +1,15 @@
+export function SHOW_NAV (state, boolean) {
+  state.nav_show = boolean
+}
+
+export function SHOW_TOMATO (state, boolean) {
+  state.start_page_tomato_show = boolean
+}
 
 export function CHANGE_ISLOGIN (state) {
   const check_jwt = localStorage.getItem('jwt')
   if (check_jwt) {
     state.isLogin = true
-
   }
   else {
     state.isLogin = false

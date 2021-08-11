@@ -6,10 +6,9 @@
     </div>
     <div class="pomodoro_content">
       <PomodoroSetting/>
-      <PomodoroState/>
-      <PomodoroTimer/>
+      <!-- <PomodoroState/> -->
+      <!-- <PomodoroTimer/> -->
     </div>
-    <!-- <v-show></v-show> -->
   </div>
 </template>
 

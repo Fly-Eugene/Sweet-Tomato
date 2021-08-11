@@ -10,6 +10,7 @@
     display: flex;
     justify-content: space-between;
     font-weight: 600;
+    
     span:last-child  {
       font-weight: 400;
       display: block;
@@ -22,6 +23,7 @@
       color: #fff;
     }
   }
+
   .setting_content {
     img {      
       position: absolute;
@@ -42,6 +44,56 @@
       &:last-child {
         left: 68%;
       }
+    }
+    
+    .setting_goal{
+      position: absolute;
+      width: 90%;
+      height: 15%;
+      left: 5%;
+      top: 25%;
+      
+      font-size: 25px;
+
+      background: #F1EBEB;
+      border-radius: 30px;
+
+      p {
+        margin: 10px;
+      }
+
+      #select_goal {
+        position: absolute;
+        width: 80%;
+        height: 25%;
+        left: 10%;
+        bottom: 10%;
+      }
+    }
+
+    .setting_time {
+      @extend .setting_goal;
+      top: 50%;
+
+      #select_time {
+        @extend #select_goal
+      }
+    }
+    
+    .setting_btn {
+      position: absolute;
+      width: 50%;
+      height: 7%;
+      left: 25%;
+      bottom: 10%;
+
+      font-family: 'Godo', sans-serif;
+      font-size: 20px;
+      color: #fff;
+
+      background-color: #F16666;
+      border: none;
+      border-radius: 15px;
     }
   }
 }
