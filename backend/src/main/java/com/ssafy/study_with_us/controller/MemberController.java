@@ -108,4 +108,9 @@ public class MemberController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.PWD_MAIL_SUCCESS).dataType("String").data(msg).build();
     }
 
+    @GetMapping("/studycheck/{studyId}")
+    public Object isStudy(@PathVariable("studyId") Long studyId){
+        return memberService.isStudy(studyId);
+    }
+
 }

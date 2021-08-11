@@ -3,10 +3,13 @@ package com.ssafy.study_with_us.service;
 import com.ssafy.study_with_us.domain.entity.Member;
 import com.ssafy.study_with_us.domain.entity.MemberProfile;
 import com.ssafy.study_with_us.domain.entity.Profile;
+import com.ssafy.study_with_us.domain.entity.StudyMemberRef;
 import com.ssafy.study_with_us.domain.repository.MemberRepository;
 import com.ssafy.study_with_us.domain.repository.ProfileRepository;
+import com.ssafy.study_with_us.domain.repository.StudyMemberRefRepository;
 import com.ssafy.study_with_us.dto.MemberDto;
 import com.ssafy.study_with_us.dto.ProfileDto;
+import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,11 +21,13 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final ProfileRepository profileRepository;
+    private final StudyMemberRefRepository studyMemberRefRepository;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, ProfileRepository profileRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder, ProfileRepository profileRepository, StudyMemberRefRepository studyMemberRefRepository) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.profileRepository = profileRepository;
+        this.studyMemberRefRepository = studyMemberRefRepository;
     }
 
     @Transactional
@@ -83,5 +88,14 @@ public class MemberService {
                 .department(member.getDepartment())
                 .studytime(member.getStudytime())
                 .profile(member.getProfile()).build());
+    }
+
+    public Boolean isStudy(Long studyId){
+        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), studyId);
+        return studyMember == null? false : true;
+    }
+    private Long getMemberId() {
+        String s = SecurityUtil.getCurrentUsername().get();
+        return memberRepository.findByEmail(s).get().getId();
     }
 }
