@@ -3,10 +3,8 @@ package com.ssafy.study_with_us.controller;
 import com.ssafy.study_with_us.domain.entity.Member;
 import com.ssafy.study_with_us.domain.entity.MemberProfile;
 import com.ssafy.study_with_us.domain.entity.Profile;
-import com.ssafy.study_with_us.dto.FileReqDto;
-import com.ssafy.study_with_us.dto.MemberDto;
-import com.ssafy.study_with_us.dto.MemberResDto;
-import com.ssafy.study_with_us.dto.ProfileDto;
+import com.ssafy.study_with_us.domain.entity.StudyTime;
+import com.ssafy.study_with_us.dto.*;
 import com.ssafy.study_with_us.service.AuthorityService;
 import com.ssafy.study_with_us.service.MailService;
 import com.ssafy.study_with_us.service.MemberService;
@@ -113,4 +111,9 @@ public class MemberController {
         return memberService.isStudy(studyId);
     }
 
+    @PostMapping("/time")
+    public Object addTime(@RequestBody StudyTimeDto params){
+//      후에 params.getStudyTime() == null 이면 예외처리 해줘야함
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.ADDED_STUDY_TIME).dataType("member_study").data(memberService.addTime(params)).build();
+    }
 }
