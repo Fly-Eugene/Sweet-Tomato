@@ -1,5 +1,4 @@
 <template>
-  <div>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <div id="nav">
     <router-link :to="{name: 'Home'}">Home</router-link> |

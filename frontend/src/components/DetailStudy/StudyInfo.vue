@@ -12,7 +12,7 @@
           <span class="info_tag" v-for="tag in state.info.themes" :key="tag">{{ tag }}</span>
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
-        <button class="enter_btn ">입장하기</button>
+        <button class="enter_btn " v-if="state.checkflag">입장하기</button>
       </article>
   </section>
 </template>

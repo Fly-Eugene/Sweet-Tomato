@@ -22,15 +22,13 @@ public class QSchedule extends EntityPathBase<Schedule> {
 
     public static final QSchedule schedule = new QSchedule("schedule");
 
-    public final StringPath content = createString("content");
-
-    public final DatePath<java.time.LocalDate> date = createDate("date", java.time.LocalDate.class);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final QStudy study;
+    public final StringPath info = createString("info");
 
-    public final StringPath title = createString("title");
+    public final DatePath<java.time.LocalDate> scheduleDate = createDate("scheduleDate", java.time.LocalDate.class);
+
+    public final QStudy study;
 
     public QSchedule(String variable) {
         this(Schedule.class, forVariable(variable), INITS);
