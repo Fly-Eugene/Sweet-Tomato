@@ -7,7 +7,9 @@ import com.ssafy.study_with_us.util.SecurityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -180,6 +182,15 @@ public class StudyService {
         return results;
     }
 
+    public List<ScheduleDto> getSchedules(Long studyId, LocalDate startDate){
+        LocalDate endDate = YearMonth.from(startDate).atEndOfMonth();
+        List<Schedule> schedules = scheduleRepository.getScheduleByStudyIdAndScheduleDateBetween(studyId, startDate, endDate);
+        ArrayList<ScheduleDto> results = new ArrayList<>();
+        for (Schedule schedule : schedules) {
+            results.add(schedule.entityToDto());
+        }
+        return results;
+    }
     @Transactional
     public ScheduleDto saveSchedule(ScheduleDto params){
         return scheduleRepository.save(Schedule.builder().id(params.getScheduleId())

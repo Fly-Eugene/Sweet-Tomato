@@ -12,6 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -77,11 +79,17 @@ public class StudyController {
     @GetMapping("/recently")
     public Object getRecentlyStudies(){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_RECENTLY_STUDIES).dataType("study").data(studyService.getRecentlyStudies()).build();
-
     }
 
+    @GetMapping("/schedule/{yearMonth}")
+    public Object getSchedules(@PathVariable("yearMonth") String yearMonth,
+                                  @RequestParam Long studyId){
+        LocalDate startDate = LocalDate.parse(yearMonth+"01", DateTimeFormatter.ofPattern("yyyyMMdd"));
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_SCHEDULE).dataType("schedules").data(studyService.getSchedules(studyId, startDate)).build();
+    }
     @PostMapping("/schedule")
     public Object createSchedule(@RequestBody ScheduleDto params){
+        System.out.println("params = " + params);
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_SCHEDULE).dataType("schedule").data(studyService.saveSchedule(params)).build();
     }
     @PatchMapping("/schedule")
