@@ -82,8 +82,18 @@ public class StudyController {
 
     @PostMapping("/schedule")
     public Object createSchedule(@RequestBody ScheduleDto params){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_SCHEDULE).dataType("schedule").data(studyService.createSchedule(params)).build();
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_SCHEDULE).dataType("schedule").data(studyService.saveSchedule(params)).build();
     }
+    @PatchMapping("/schedule")
+    public Object updateSchedule(@RequestBody ScheduleDto params){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_SCHEDULE).dataType("schedule").data(studyService.saveSchedule(params)).build();
+    }
+    @DeleteMapping("/schedule/{scheduleId}")
+    public Object deleteSchedule(@PathVariable("scheduleId") Long scheduleId){
+        studyService.deleteSchedule(scheduleId);
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_SCHEDULE).build();
+    }
+
     private StudyDto getStudyDtoAtFile(FileReqDto params) throws IOException {
         Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성

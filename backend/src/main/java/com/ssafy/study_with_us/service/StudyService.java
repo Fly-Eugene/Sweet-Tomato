@@ -180,9 +180,16 @@ public class StudyService {
         return results;
     }
 
-    public ScheduleDto createSchedule(ScheduleDto params){
-        return scheduleRepository.save(Schedule.builder().study(studyRepository.getById(params.getStudyId()))
+    @Transactional
+    public ScheduleDto saveSchedule(ScheduleDto params){
+        return scheduleRepository.save(Schedule.builder().id(params.getScheduleId())
+                .study(studyRepository.getById(params.getStudyId()))
                 .scheduleDate(params.getScheduleDate()).info(params.getInfo()).build()).entityToDto();
+    }
+
+    @Transactional
+    public void deleteSchedule(Long scheduleId){
+        scheduleRepository.delete(scheduleRepository.getById(scheduleId));
     }
 
     private Long getMemberId() {
