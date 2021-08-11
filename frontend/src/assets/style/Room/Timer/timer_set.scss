@@ -1,0 +1,27 @@
+.timer_set {
+  // border: 1px solid;
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  height: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input {
+    font-family: 'Godo', sans-serif;
+    margin: 0 10px;
+    width: 8%;
+    height: 25%;
+    padding-left: 18px;
+    font-size: 30px;
+    // border: 0;
+    color: black;
+  }
+  span {
+    margin-right: 15px;
+    font-size: 30px;
+    color: black;
+  }
+}

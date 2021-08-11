@@ -9,7 +9,6 @@
       <PomodoroState/>
       <PomodoroTimer/>
     </div>
-    <!-- <v-show></v-show> -->
   </div>
 </template>
 
