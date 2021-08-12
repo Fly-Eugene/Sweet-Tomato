@@ -93,6 +93,26 @@ export function getStudyInfo (context, studyId) {
   })
 }
 
+export function editStudyInfo (context, frm) {
+  console.log(frm)
+  $axios({
+    method: 'patch',
+    url: this.state.server_url + 'study',
+    data: frm,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  .then(res => {
+    console.log(res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+
+
 export function studyApply (context, studyId) {
   $axios({
     method: 'post',
@@ -119,23 +139,6 @@ export function studyResign (context, studyId) {
   })
   .then(res => {
     console.log(res.data)
-  })
-  .catch(err => {
-    console.log(err)
-  })
-}
-
-export function getStudyImg (context, studyId) {
-  $axios({
-    method: 'get',
-    url: this.state.server_url + 'profile/study',
-    params: {
-      StudyId: studyId
-    }
-  })
-  .then(res => {
-    // console.log(res.data)
-    context.commit('GET_STUDY_IMG', res.data)
   })
   .catch(err => {
     console.log(err)
@@ -241,7 +244,6 @@ export function getDownloadFile (context, fileId) {
   })
 }
 
-
 export function getStudyTomato (context, studyId) {
   $axios({
     method: 'get',
@@ -255,5 +257,8 @@ export function getStudyTomato (context, studyId) {
     console.log(err)
   })
 }
+
+
+
 
 
