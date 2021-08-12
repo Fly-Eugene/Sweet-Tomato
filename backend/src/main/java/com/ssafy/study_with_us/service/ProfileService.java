@@ -32,6 +32,7 @@ public class ProfileService {
     }
 
     public StudyProfile studyProfileCreate(MultipartFile mf) throws IOException {
+        if(mf.getSize() == 0) return null;
         File imageFile = fileUtil.setImage(mf);
         return studyProfileRepository.save(StudyProfile.builder()
                 .id(null)
@@ -43,6 +44,7 @@ public class ProfileService {
     }
     @Transactional
     public MemberProfile memberProfileCreate(MultipartFile mf) throws IOException {
+        if(mf.getSize() == 0) return null;
         File imageFile = fileUtil.setImage(mf);
         return memberProfileRepository.save(MemberProfile.builder()
                 .id(null)

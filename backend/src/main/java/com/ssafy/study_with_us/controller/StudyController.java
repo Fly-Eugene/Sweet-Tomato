@@ -102,12 +102,10 @@ public class StudyController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_SCHEDULE).build();
     }
 
+//  image파일 아니면 에러 처리 해줘야함
     private StudyDto getStudyDtoAtFile(FileReqDto params) throws IOException {
-        Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성
-        if (params.getFiles().size() > 0) {
-            profile = profileService.studyProfileCreate(params.getFiles().get(0));
-        }
+        Profile profile = profileService.studyProfileCreate(params.getFiles().get(0));
         // study
         JSONObject jObject = new JSONObject(params.getJsonData());
         Set<String> themes = new HashSet<>();
@@ -123,7 +121,7 @@ public class StudyController {
                 .studyIntro(jObject.has("studyIntro") ? jObject.getString("studyIntro") : null)
                 .security(jObject.has("security") ? jObject.getString("security") : null)
                 .themes(themes)
-                .profile(profile.entityToDto())
+                .profile(profile == null ? null : profile.entityToDto())
                 .build();
     }
 }

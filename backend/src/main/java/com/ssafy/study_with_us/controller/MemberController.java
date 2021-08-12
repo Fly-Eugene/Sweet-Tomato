@@ -37,11 +37,8 @@ public class MemberController {
     //  회원가입
     @PostMapping("/join")
     public Object join(FileReqDto params) throws IOException {
-        Profile profile = null;
         // 파일 정보 있으면 받은 정보로 생성
-        if (params.getFiles().size() > 0) {
-            profile = profileService.memberProfileCreate(params.getFiles().get(0));
-        }
+        Profile profile = profileService.memberProfileCreate(params.getFiles().get(0));
         // member
         JSONObject jObject = new JSONObject(params.getJsonData());
 
