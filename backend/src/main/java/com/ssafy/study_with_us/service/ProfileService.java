@@ -55,10 +55,10 @@ public class ProfileService {
                 .build());
     }
 
-    public String getProfile(Long studyId){
+    public String getProfile(Long studyId, Long memberId){
         Long profileId = null;
         if(studyId == null){
-            profileId = memberRepository.getById(getMemberId()).getProfile().getId();
+            profileId = memberRepository.getById(memberId == null ? getMemberId() : memberId).getProfile().getId();
         } else {
             profileId = studyRepository.getById(studyId).getProfile().getId();
         }
