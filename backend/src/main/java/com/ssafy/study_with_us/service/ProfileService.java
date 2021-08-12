@@ -31,6 +31,7 @@ public class ProfileService {
         this.fileUtil = fileUtil;
     }
 
+    @Transactional
     public StudyProfile studyProfileCreate(MultipartFile mf) throws IOException {
         if(mf.getSize() == 0) return null;
         File imageFile = fileUtil.setImage(mf);
