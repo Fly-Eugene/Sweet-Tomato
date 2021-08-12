@@ -56,14 +56,13 @@ public class ProfileService {
     }
 
     public String getProfile(Long studyId, Long memberId){
-        Long profileId = null;
+        Profile profile = null;
         if(studyId == null){
-            profileId = memberRepository.getById(memberId == null ? getMemberId() : memberId).getProfile().getId();
+            profile = memberRepository.getById(memberId == null ? getMemberId() : memberId).getProfile();
         } else {
-            profileId = studyRepository.getById(studyId).getProfile().getId();
+            profile = studyRepository.getById(studyId).getProfile();
         }
-        Profile profile = profileRepository.getById(profileId);
-        return profile.getPath() + profile.getImage();
+        return profile == null ? null : (profile.getPath() + profile.getImage());
     }
 
     private Long getMemberId() {

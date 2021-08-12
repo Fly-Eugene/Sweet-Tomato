@@ -101,7 +101,7 @@ public class StudyService {
         }
         // profile 얻어오기
         StudyProfile getProfile = studyRepository.getProfile(studyId);
-        Profile profile = StudyProfile.builder()
+        Profile profile = getProfile == null ? null : StudyProfile.builder()
                 .id(getProfile.getId())
                 .imageOrgName(getProfile.getImageOrgName())
                 .path(getProfile.getPath())
@@ -114,7 +114,7 @@ public class StudyService {
                 .studyLeader(study.getStudyLeader())
                 .security(study.getSecurity())
                 .themes(themes)
-                .profile(profile.entityToDto())
+                .profile(profile == null ? null : profile.entityToDto())
                 .build();
     }
 
@@ -122,11 +122,12 @@ public class StudyService {
         List<Study> studies = studyMemberRefRepository.getByMemberId(getMemberId(), page);
         List<StudyDto> results = new ArrayList<>();
         for (Study study : studies) {
+            Profile profile = study.getProfile();
             results.add(StudyDto.builder().id(study.getId()).studyName(study.getStudyName())
                     .studyLeader(study.getStudyLeader()).security(study.getSecurity())
                     .studyIntro(study.getStudyIntro())
                     .themes(study.listToSet())
-                    .profile(study.getProfile().entityToDto())
+                    .profile(profile == null ? null :profile.entityToDto())
                     .build());
         }
         return results;
@@ -215,7 +216,7 @@ public class StudyService {
                 .studyIntro(params.getStudyIntro())
                 .studyLeader(getMemberId())
                 .security(params.getSecurity())
-                .profile(StudyProfile.builder().id(profile.getId()).imageOrgName(profile.getImageOrgName()).image(profile.getImage())
+                .profile(profile == null ? null : StudyProfile.builder().id(profile.getId()).imageOrgName(profile.getImageOrgName()).image(profile.getImage())
                         .path(profile.getPath()).thumbnail(profile.getThumbnail()).build())
                 .build());
     }

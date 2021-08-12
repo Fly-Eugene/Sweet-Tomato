@@ -81,7 +81,7 @@ public class MemberController {
             MemberProfile memberProfile = member.getProfile();
 //            ProfileDto profileDto = new ProfileDto(memberProfile.getId(), memberProfile.getImage(), memberProfile.getThumbnail(), memberProfile.getPath());
 //            MemberDto memberDto = new MemberDto(member.getId(), member.getEmail(), member.getPassword(), member.getUsername(), member.getAge(), member.getDepartment(), member.getStudytime(), profileDto);
-            ProfileDto profileDto = ProfileDto.builder().id(memberProfile.getId()).imageOrgName(memberProfile.getImageOrgName()).image(memberProfile.getImage()).thumbnail(memberProfile.getThumbnail()).path(memberProfile.getPath()).build();
+            ProfileDto profileDto = memberProfile == null ? null : ProfileDto.builder().id(memberProfile.getId()).imageOrgName(memberProfile.getImageOrgName()).image(memberProfile.getImage()).thumbnail(memberProfile.getThumbnail()).path(memberProfile.getPath()).build();
             memberResDto = MemberResDto.builder().id(member.getId()).age(member.getAge()).department(member.getDepartment()).email(member.getEmail()).password(member.getPassword()).username(member.getUsername()).profile(profileDto).build();
         }catch (Exception e){
             return ApiResult.builder().status(StatusCode.UNAUTHORIZED).message(ResponseMessage.NOT_FOUND_MEMBER).dataType("String").data(email).build();
