@@ -1,17 +1,28 @@
 <template>
   <div class="study_modal_mask">
     <div class="study_modal_container">
-      <p class="modal_font" >제목</p>
-      <div>{{ state.study_data_speci.subject }}</div>
+      <div class="modal_refer_header">
+        <p class="modal_font">{{ state.study_data_speci.subject }}</p>
+        <p class="modal_refer_font modal_refer_writer">작성자 넣기</p>
+        <p class="modal_refer_font">{{ state.study_data_speci.files[0].regTime.split('T')[0] }}</p>
+        <hr>
+      </div>
+      
 
-      <p class="modal_font">첨부파일</p>
-      <div>{{ state.study_data_speci.files[0].orgName}}</div>
-      <button @click="onClickDownload">다운로드</button>
+      <div class="modal_refer_file">
+        <p class="modal_font">첨부파일</p>
+        <a :href="`${download_url}`" class="modal_refer_font">{{ state.study_data_speci.files[0].orgName}}</a>
+        <hr>
+      </div>
+      
 
-      <p class="modal_font">내용</p>
-      <div>{{ state.study_data_speci.content }}</div>
+      <div class="modal_refer_content">
+        <div class="modal_refer_font">{{ state.study_data_speci.content }}</div>
+        <hr>
+      </div>
+      
 
-      <button @click="$emit('close')">닫기</button>
+      <button @click="$emit('close')" class="modal_refer_close_btn">닫기</button>
     </div>
   </div>
 </template>
@@ -26,11 +37,15 @@ export default {
 
   setup(){
     const store = useStore()
+
     const state = reactive({
       study_data_speci : computed(() => {
         return store.state.studyDataSpeci
       })
     })
+
+    const server_url = store.state.server_url
+    const download_url = server_url + 'file/download/' + state.study_data_speci.files[0].id
 
     function onClickDownload() {
       store.dispatch('getDownloadFile', state.study_data_speci.files[0].id)
@@ -38,6 +53,7 @@ export default {
 
     return {
       state,
+      download_url,
       onClickDownload
 
     }

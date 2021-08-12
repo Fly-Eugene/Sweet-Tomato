@@ -8,11 +8,54 @@
 <script>
 import '@/assets/style/DetailStudy/study_chart.scss'
 // import VueApexCharts from 'vue3-apexcharts'
+import { useStore } from 'vuex'
+import { reactive } from 'vue'
+import { computed } from '@vue/runtime-core'
 
 export default {
   name: 'StudyChart',
-
   setup() {
+    const store = useStore()
+    function currentDate(){
+      var date = new Date();
+      var month = leadingZeros(date.getMonth() + 1, 2);
+      var today = date.getFullYear() + "-" + month + "-" + leadingZeros(date.getDate(),2);
+      console.log(today);
+      return today;
+    }
+
+    function leadingZeros(n, digits){
+      var zero = '';
+      n = n.toString();
+      if(n.length < digits){
+        for(var i = 0; i < digits - n.length; i++)
+          zero += '0';
+      }
+      return zero + n;
+    }
+    function calculateDate(number){
+      const res = []
+      for(var i = 0; i < 18; i++){
+        res[i] = 0;
+      }
+      var tomatoes = store.state.tomatoes;
+      console.log(tomatoes)
+      var today = new Date(currentDate());
+      console.log(store.state.tomatoes);
+      for(var i = 0; i < tomatoes.length; i++){
+          var day1 = new Date(tomatoes[i].date);
+          var dateDiff = Math.ceil((today - day1) / (1000*3600*24));
+          var temp = dateDiff % 7;
+          console.log(temp)
+          console.log(number)
+          if(number == temp){
+            res[18 - Math.ceil(dateDiff/7)] = tomatoes[i].count;
+          } 
+      }
+      console.log(res);
+      return res;
+    }
+    
     function generateData(cnt, min, max) {
       let i
       const res = []
@@ -26,25 +69,25 @@ export default {
 
     const series = [
       { name: 'Metric1',
-        data: generateData(18, 0, 90)
+        data: calculateDate(0)
       },
       { name: 'Metric2',
-        data: generateData(18, 0, 90)
+        data: calculateDate(1)
       },
       { name: 'Metric3',
-        data: generateData(18, 0, 90)
+        data: calculateDate(2)
       },
       { name: 'Metric4',
-        data: generateData(18, 0, 90)
+        data: calculateDate(3)
       },
       { name: 'Metric5',
-        data: generateData(18, 0, 90)
+        data: calculateDate(4)
       },
       { name: 'Metric6',
-        data: generateData(18, 0, 90)
+        data: calculateDate(5)
       },
       { name: 'Metric7',
-        data: generateData(18, 0, 90)
+        data: calculateDate(6)
       }
     ]
 

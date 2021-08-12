@@ -34,6 +34,8 @@ public class QStudy extends EntityPathBase<Study> {
 
     public final StringPath studyName = createString("studyName");
 
+    public final ListPath<StudyThemeRef, QStudyThemeRef> themes = this.<StudyThemeRef, QStudyThemeRef>createList("themes", StudyThemeRef.class, QStudyThemeRef.class, PathInits.DIRECT2);
+
     public QStudy(String variable) {
         this(Study.class, forVariable(variable), INITS);
     }

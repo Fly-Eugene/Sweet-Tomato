@@ -11,42 +11,46 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QStudyMemberRef is a Querydsl query type for StudyMemberRef
+ * QDataRoom is a Querydsl query type for DataRoom
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QStudyMemberRef extends EntityPathBase<StudyMemberRef> {
+public class QDataRoom extends EntityPathBase<DataRoom> {
 
-    private static final long serialVersionUID = 1587270309L;
+    private static final long serialVersionUID = -1952916934L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QStudyMemberRef studyMemberRef = new QStudyMemberRef("studyMemberRef");
+    public static final QDataRoom dataRoom = new QDataRoom("dataRoom");
+
+    public final StringPath content = createString("content");
+
+    public final ListPath<FileEntity, QFileEntity> files = this.<FileEntity, QFileEntity>createList("files", FileEntity.class, QFileEntity.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QMember member;
 
-    public final DateTimePath<java.time.LocalDateTime> recentlyConnectionTime = createDateTime("recentlyConnectionTime", java.time.LocalDateTime.class);
-
     public final QStudy study;
 
-    public QStudyMemberRef(String variable) {
-        this(StudyMemberRef.class, forVariable(variable), INITS);
+    public final StringPath subject = createString("subject");
+
+    public QDataRoom(String variable) {
+        this(DataRoom.class, forVariable(variable), INITS);
     }
 
-    public QStudyMemberRef(Path<? extends StudyMemberRef> path) {
+    public QDataRoom(Path<? extends DataRoom> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QStudyMemberRef(PathMetadata metadata) {
+    public QDataRoom(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QStudyMemberRef(PathMetadata metadata, PathInits inits) {
-        this(StudyMemberRef.class, metadata, inits);
+    public QDataRoom(PathMetadata metadata, PathInits inits) {
+        this(DataRoom.class, metadata, inits);
     }
 
-    public QStudyMemberRef(Class<? extends StudyMemberRef> type, PathMetadata metadata, PathInits inits) {
+    public QDataRoom(Class<? extends DataRoom> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
         this.study = inits.isInitialized("study") ? new QStudy(forProperty("study"), inits.get("study")) : null;
