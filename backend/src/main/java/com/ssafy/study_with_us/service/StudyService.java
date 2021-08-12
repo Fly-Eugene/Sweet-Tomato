@@ -79,7 +79,7 @@ public class StudyService {
 
     // 여기 insert, delete 모듈화 가능할듯 일단 돌아가게 만들고 후에 수정
     @Transactional
-    public Object update(FileReqDto params) throws IOException {
+    public StudyDto update(FileReqDto params) throws IOException {
         Study study = saveStudyAtFile(params);
 
         Set<String> getThemes = new HashSet<>();
@@ -98,7 +98,7 @@ public class StudyService {
         }
         makeThemes(insertThemes, study);
         removeThemes(deleteThemes, study);
-        return null;
+        return study.entityToDto();
     }
 
 
