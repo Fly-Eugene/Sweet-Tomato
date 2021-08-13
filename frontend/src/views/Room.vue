@@ -2,7 +2,7 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <OpenVidu :studyId='studyId' :leave='state.leave' />
+        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat'/>
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
@@ -13,6 +13,7 @@
         </div>
         <div v-if="state.dialog[2]">
           <!-- <Chatting/> -->
+          <!-- <SideOptions/> -->
         </div>
         <div v-if="state.dialog[3]">
           <Pomodoro/>
@@ -43,6 +44,7 @@ import OpenVidu from '@/views/Openvidu'
 import Pomodoro from '@/components/Room/Pomodoro'
 import Timer from '@/components/Room/Timer'
 import RoomFooter from '@/components/Room/RoomFooter'
+import SideOptions from '@/components/Room/SideOptions'
 import '@/assets/style/room_wrapper.scss'
 import { reactive } from '@vue/reactivity'
 
@@ -59,6 +61,7 @@ export default {
     Pomodoro,
     Timer,
     RoomFooter,
+    SideOptions
   },
 
   setup() {
@@ -66,7 +69,8 @@ export default {
       // 0: 정보 / 1: 참여자 / 2: 채팅 / 3: 뽀모도로 / 4: 캘린더 / 5: 타이머
       dialog: {0: false, 1: false, 2: false, 3: false, 4: false, 5: false},
       rightOn: false,
-      leave: false
+      leave: false,
+      chat: false
     })
     
     function closeEveryDialog () {
@@ -92,6 +96,7 @@ export default {
       closeEveryDialog()
       state.rightOn = true
       state.dialog[2] = true
+      state.chat = true
     }
     function onClosePomodoro () {
       closeEveryDialog()

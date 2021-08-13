@@ -41,13 +41,10 @@
     <div id="session" v-if="session">
       <div id="session-header">
         <!-- <h1 id="session-title">{{ studyId }}</h1> -->
-        <!-- <input
-          class="btn btn-large leave_btn"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
+        <input
           v-model="leave"
-        /> -->
+          style="display:none"
+        />
       </div>
       <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
@@ -65,7 +62,7 @@
         />
       </div>
 
-      <SideOptions :chatContents="chatContents" />
+      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="closeChat"/>
       <div>
         채팅보내기 :
         <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" />
@@ -95,6 +92,9 @@ export default {
       type: String,
     },
     leave: {
+      type: Boolean
+    },
+    chat:{
       type: Boolean
     }
   },
@@ -204,7 +204,7 @@ export default {
     onEnterChat() {
       this.session
         .signal({
-          data: this.chat_value,
+          data: this.state.myInfo.username + " " + this.chat_value + " " + this.currentTime(),
           to: [],
         })
         .then(() => {
@@ -214,6 +214,19 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    closeChat(){
+      console.log('닫아라')
+      this.chat = false;
+    },
+    currentTime(){
+      var date = new Date();
+      var hours = ('0' + date.getHours()).slice(-2); 
+      var minutes = ('0' + date.getMinutes()).slice(-2);
+
+      var time = hours + ':' + minutes;
+      console.log(time);
+      return time;
     },
     /**
      * --------------------------
@@ -297,8 +310,9 @@ export default {
 	},
   computed:{
     leave: function(){
+      console.log(this.leave)
       if(this.leave) { this.leaveSession() }
-    }
+    },
   },
   setup(props){
     const store = useStore()
@@ -308,9 +322,8 @@ export default {
         return store.state.myInfo;
       })
     })
-  
     return {
-      state,
+      state
     }
   },
 
