@@ -1,44 +1,97 @@
 .modal_refer_header {
   position: absolute;
   height: 10%;
-  width: 80%;
-  padding: 10px;
-  
+  width: 90%;
+
+  #refer_title {
+    position: absolute;
+    font-family: 'Godo', sans-serif;
+    font-size: 25px;
+    padding-top: 10px;
+  }
+
+  #refer_writer {
+    position: absolute;
+    top: 50%;
+    font-family: 'ELAND_Choice_M';
+    font-size: 18px;
+  }
+
+  #refer_time {
+    position: absolute;
+    top: 80%;
+    font-family: 'ELAND_Choice_M';
+    font-size: 18px;
+  }
 }
 
 .modal_refer_file {
   position: absolute;
   height: 10%;
-  width: 80%;
-  top: 10%;
-  padding: 10px;
+  width: 90%;
+  top: 15%;
+
+  #refer_file {
+    position: absolute;
+    font-family: 'Godo', sans-serif;
+    font-size: 25px;
+    padding-top: 10px;
+  }
+
+  #refer_file_name {
+    position: absolute;
+    top: 60%;
+    left: 0%;
+    font-family: 'ELAND_Choice_M';
+    font-size: 18px;
+    
+  }
+
 }
 
 .modal_refer_content {
   position: absolute;
-  height: 50%;
-  width: 80%;
+  min-height: 30%;
+  width: 90%;
   top: 30%;
-  padding: 10px;
+
+  #refer_content {
+    position: absolute;
+    font-family: 'ELAND_Choice_M';
+    font-size: 18px;
+    padding-top: 10px;
+  }
+
 }
 
 .modal_refer_close_btn {
   position: absolute;
-  width: 147px;
-  height: 49px;
-  right: 7%;
-  bottom: 5%;
+  width: 120px;
+  height: 40px;
+  right: 3%;
+  bottom: 3%;
 
-  font-family: 'Godo', sans-serif;
-  font-size: 25px;
+  font-family: "Godo", sans-serif;
+  font-size: 20px;
   cursor: pointer;
 
   border: 2px solid #000000;
   box-sizing: border-box;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
-.modal_refer_font {
-  font-family: 'ELAND_Choice_M' ;
-  font-size: 17px;
+.modal_refer_edit_btn {
+  position: absolute;
+  width: 120px;
+  height: 40px;
+  right: 18%;
+  bottom: 3%;
+
+  font-family: "Godo", sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 10px;
 }

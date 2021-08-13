@@ -1,18 +1,19 @@
 <template>
   <section class="info_card">
       <article class="info_left">
-        <div class="info_img" :style="`background-image : url(${state.img_url})`"></div>
-        <!-- <img class="info_img" :src="`${study_profile_url}`"> -->
+        <img class="info_img" :src="`${study_profile_url}`">
         <button class="apply_btn" @click="onClickStudyApply" v-if="!state.checkflag">신청하기</button>
         <button class="apply_btn" @click="onClickStudyResign" v-if="state.checkflag">탈퇴하기</button>
       </article>
       <article class="info_right">
+        <i class="fas fa-cog" @click="$emit('onClickEdit')"></i>
         <div class="info_name">{{ state.info.studyName }}</div>
         <div class="info_tags">
           <span class="info_tag" v-for="tag in state.info.themes" :key="tag">{{ tag }}</span>
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
-        <button class="enter_btn " v-if="state.checkflag">입장하기</button>
+        <router-link :to="{name: 'Room', params: {studyId: studyId}}" v-if="state.checkflag" class="enter_btn ">입장하기</router-link>
+        <!-- <button class="enter_btn " v-if="state.checkflag" @click="enterRoom">입장하기</button> -->
       </article>
   </section>
 </template>
@@ -39,11 +40,6 @@ export default {
       info: computed(() => {
         return store.state.studyInfo
       }),
-
-      img_url : computed(()=> {
-        return store.state.studyImg
-      }),
-
       checkflag: computed(() => {
         return store.state.checkflag
       })
@@ -54,7 +50,6 @@ export default {
         url: store.state.server_url + 'member/studycheck/' + props.studyId
       })
       .then(res => {
-        console.log('스터디가입' + res.data)
         store.state.checkflag = res.data
       })
       .catch(err => {

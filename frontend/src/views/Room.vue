@@ -2,7 +2,7 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <!-- <OpenVidu/> -->
+        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat'/>
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
@@ -13,9 +13,10 @@
         </div>
         <div v-if="state.dialog[2]">
           <!-- <Chatting/> -->
+          <!-- <SideOptions/> -->
         </div>
         <div v-if="state.dialog[3]">
-          <Pomodoro/>
+          <Pomodoro @closeBtn="closeEveryDialog"/>
         </div>
         <div v-if="state.dialog[4]">
           <!-- <Calander/> -->
@@ -32,34 +33,44 @@
         @closeChatting="onCloseChatting"
         @closePomodoro="onClosePomodoro"
         @closeCalander="onCloseCalander"
-        @closeTimer="onCloseTimer"/>
+        @closeTimer="onCloseTimer"
+        @leaveRoom="onLeaveRoom"/>
     </section>
   </section>
 </template>
 
 <script>
-// import OpenVidu from '@/views/OpenVidu'
+import OpenVidu from '@/views/Openvidu'
 import Pomodoro from '@/components/Room/Pomodoro'
 import Timer from '@/components/Room/Timer'
 import RoomFooter from '@/components/Room/RoomFooter'
+import SideOptions from '@/components/Room/SideOptions'
 import '@/assets/style/room_wrapper.scss'
 import { reactive } from '@vue/reactivity'
 
 export default {
   name: 'Room',
-
+  props : {
+    studyId : {
+      type: String,
+      required: true
+    }
+  },
   components: {
-    // OpenVidu,
+    OpenVidu,
     Pomodoro,
     Timer,
     RoomFooter,
+    SideOptions
   },
 
   setup() {
     const state = reactive({
       // 0: 정보 / 1: 참여자 / 2: 채팅 / 3: 뽀모도로 / 4: 캘린더 / 5: 타이머
       dialog: {0: false, 1: false, 2: false, 3: false, 4: false, 5: false},
-      rightOn: false
+      rightOn: false,
+      leave: false,
+      chat: false
     })
     
     function closeEveryDialog () {
@@ -85,6 +96,7 @@ export default {
       closeEveryDialog()
       state.rightOn = true
       state.dialog[2] = true
+      state.chat = true
     }
     function onClosePomodoro () {
       closeEveryDialog()
@@ -101,7 +113,10 @@ export default {
       state.rightOn = true
       state.dialog[5] = true
     }
-
+    function onLeaveRoom () {
+      state.leave = true
+      console.log('닫음')
+    }
     return {
       onCloseRoomInfo,
       onCloseParticipants,
@@ -110,6 +125,7 @@ export default {
       onCloseCalander,
       onCloseTimer,
       closeEveryDialog,
+      onLeaveRoom,
       state
     }
   },

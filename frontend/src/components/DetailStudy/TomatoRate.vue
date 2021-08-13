@@ -18,15 +18,15 @@ export default {
     const store = useStore()
     const state = reactive({
       total_sum : computed(() => {
-        return store.state.studyTomato
+        return store.state.totalTomato
       }),
       study_tomato : computed(() => {
-        return store.state.totalTomato
+        return store.state.studyTomato
       })
 
     })
 
-    const series =  [state.total_sum/state.study_tomato]
+    const series =  [state.study_tomato/state.total_sum * 100]
     console.log(state.total_sum, state.study_tomato)
     
     const chartOptions = {

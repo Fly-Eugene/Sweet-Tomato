@@ -1,11 +1,13 @@
 <template>
   <article class="comment_content_sub"></article>
   <article class="comment_content"> 
-    <li v-for="comment in state.comments" :key="comment.id" class="comment_box">{{ comment.content }}</li>
+    <div v-for="comment in state.comments" :key="comment.id" >
+      <li :class="[{comment_box_me : state.myInfo.id == comment.memberId}, {comment_box: state.myInfo.id != comment.memberId} ]">{{ comment.content }}</li>
+    </div>
   </article>
 
   <input v-model="input_value" @keyup.enter="createComment" type="text" class="comment_input" placeholder="스터디에 대한 의견을 남겨주세요">
-  <button @click="createComment" class="enter_btn">연필모양</button>
+  <button @click="createComment" class="enter_btn"><img style="width: 40px; height:40px" src="@/assets/img/pencil.png" alt=""></button>
 </template>
 
 <script>
@@ -28,6 +30,10 @@ export default {
     const state = reactive({
       comments : computed(() => {
       return store.state.studyComments
+      }),
+      myInfo: computed(() => {
+        console.log(store.state.myInfo)
+        return store.state.myInfo;
       })
     })
 

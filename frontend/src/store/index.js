@@ -12,5 +12,6 @@ export default createStore({
   state,
   mutations,
   actions,
-  getters
+  getters,
+  plugins: [ createPersistedState()],
 })

@@ -54,7 +54,7 @@
               <p>{{ groupError }}</p>
             </div>
             <footer>
-              <span class="checkword">이 사이트의 이용방침에 동의합니다</span>
+              <label><input type="checkbox" class="checkword" name="agreement" value="agree">이 사이트의 이용방침에 동의합니다</label>
             </footer>
             <button class="signupBtn">회원 가입</button>
           </form>        
@@ -72,12 +72,14 @@ import { useForm, useField } from 'vee-validate'
 import { computed, reactive } from '@vue/runtime-core'
 import { useStore } from 'vuex' 
 import $axios from 'axios'
+import { useRouter } from 'vue-router'
 
 export default {
   name: "AccountSignup",
 
   setup() {
     const store = useStore()
+    const router = useRouter()
     const state = reactive({
       selectedFile: null,
       profile_image: '',
@@ -123,7 +125,7 @@ export default {
         }
       })
       .then(function () {
-        alert('회원가입 성공 !')
+        router.push({name: 'AccountLogin'})
       })
       .catch(function (err) {
         alert(err)

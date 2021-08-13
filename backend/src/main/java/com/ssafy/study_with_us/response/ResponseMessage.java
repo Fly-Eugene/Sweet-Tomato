@@ -1,4 +1,4 @@
-package com.ssafy.study_with_us.util.response;
+package com.ssafy.study_with_us.response;
 
 public class ResponseMessage {
     public static final String CREATED_MEMBER = "회원 가입 성공";
@@ -47,6 +47,7 @@ public class ResponseMessage {
     public static final String DELETED_BLACKLIST = "블랙리스트 삭제 성공";
     public static final String SEARCHED_BLACKLIST = "블랙리스트 삭제 성공";
 
+    public static final String NOTHING_PROFILE = "프로필 없음";
     public static final String INTERNAL_SERVER_ERROR = "서버 내부 에러";
     public static final String DB_ERROR = "데이터베이스 에러";
 }

@@ -19,19 +19,19 @@ public class ProfileService {
     private final MemberProfileRepository memberProfileRepository;
     private final MemberRepository memberRepository;
     private final StudyRepository studyRepository;
-    private final ProfileRepository profileRepository;
     private final FileUtil fileUtil;
 
-    public ProfileService(StudyProfileRepository studyProfileRepository, MemberProfileRepository memberProfileRepository, MemberRepository memberRepository, StudyRepository studyRepository, ProfileRepository profileRepository, FileUtil fileUtil) {
+    public ProfileService(StudyProfileRepository studyProfileRepository, MemberProfileRepository memberProfileRepository, MemberRepository memberRepository, StudyRepository studyRepository, FileUtil fileUtil) {
         this.studyProfileRepository = studyProfileRepository;
         this.memberProfileRepository = memberProfileRepository;
         this.memberRepository = memberRepository;
         this.studyRepository = studyRepository;
-        this.profileRepository = profileRepository;
         this.fileUtil = fileUtil;
     }
 
+    @Transactional
     public StudyProfile studyProfileCreate(MultipartFile mf) throws IOException {
+        if(mf.getSize() == 0) return null;
         File imageFile = fileUtil.setImage(mf);
         return studyProfileRepository.save(StudyProfile.builder()
                 .id(null)
@@ -43,6 +43,7 @@ public class ProfileService {
     }
     @Transactional
     public MemberProfile memberProfileCreate(MultipartFile mf) throws IOException {
+        if(mf.getSize() == 0) return null;
         File imageFile = fileUtil.setImage(mf);
         return memberProfileRepository.save(MemberProfile.builder()
                 .id(null)
@@ -53,15 +54,14 @@ public class ProfileService {
                 .build());
     }
 
-    public String getProfile(Long studyId){
-        Long profileId = null;
+    public String getProfile(Long studyId, Long memberId){
+        Profile profile = null;
         if(studyId == null){
-            profileId = memberRepository.getById(getMemberId()).getProfile().getId();
+            profile = memberRepository.getById(memberId == null ? getMemberId() : memberId).getProfile();
         } else {
-            profileId = studyRepository.getById(studyId).getProfile().getId();
+            profile = studyRepository.getById(studyId).getProfile();
         }
-        Profile profile = profileRepository.getById(profileId);
-        return profile.getPath() + profile.getImage();
+        return profile == null ? null : (profile.getPath() + profile.getImage());
     }
 
     private Long getMemberId() {

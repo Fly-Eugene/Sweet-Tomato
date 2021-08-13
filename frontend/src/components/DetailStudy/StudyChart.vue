@@ -16,6 +16,11 @@ export default {
   name: 'StudyChart',
   setup() {
     const store = useStore()
+    const state = reactive({
+      tomatoes : computed(() => {
+      return store.state.tomatoes
+      })
+    })
     function currentDate(){
       var date = new Date();
       var month = leadingZeros(date.getMonth() + 1, 2);
@@ -38,18 +43,17 @@ export default {
       for(var i = 0; i < 18; i++){
         res[i] = 0;
       }
-      var tomatoes = store.state.tomatoes;
-      console.log(tomatoes)
+      var tomatoes = state.tomatoes;
       var today = new Date(currentDate());
-      console.log(store.state.tomatoes);
       for(var i = 0; i < tomatoes.length; i++){
           var day1 = new Date(tomatoes[i].date);
           var dateDiff = Math.ceil((today - day1) / (1000*3600*24));
           var temp = dateDiff % 7;
-          console.log(temp)
           console.log(number)
+          console.log('차이', dateDiff)
+          console.log(dateDiff/7)
           if(number == temp){
-            res[18 - Math.ceil(dateDiff/7)] = tomatoes[i].count;
+            res[17 - Math.floor(dateDiff/7)] += tomatoes[i].count;
           } 
       }
       console.log(res);

@@ -191,22 +191,29 @@ $content-font: 'Didact Gothic', sans-serif;
             overflow: hidden;
 
             .checkword {
-              margin-top: 20px;
-              margin-bottom: 20px;
+              height: 15px;
+              width: 15px;
+              
+              margin-top: 25px;
+              margin-bottom: 25px;
+              font-size: 14px;
+              background-color: #eee;
+
               font-family: $content-font;
               padding-left: 8px;
+              border: 2px solid;
               display: inline-block;
-              font-size: 14px;
+              
 
-              &::before {
-                content: '';
-                position: absolute;
-                width: 10px;
-                height: 10px;
-                border: 2px solid;
-                left: 12%;
-                top: 85.6%;
-              }
+              // &::before {
+              //   content: '';
+              //   position: absolute;
+              //   width: 10px;
+              //   height: 10px;
+              //   border: 2px solid;
+              //   left: 12%;
+              //   top: 85.6%;
+              // }
             }
 
           }

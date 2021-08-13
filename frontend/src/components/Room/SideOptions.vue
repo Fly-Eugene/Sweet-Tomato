@@ -1,6 +1,16 @@
 <template>
   <div class="side_option_container">
-    <li v-for="chat in chatContents" :key="chat">{{ chat }}</li>
+    <div class="chat_header">
+      <span>채팅</span>
+      <span @click="$emit('closeBtn')">X</span>
+    </div>
+    <div class="chat_content">
+      <li v-for="chat in chatContents" :key="chat">
+        {{ chat.split(' ')[0] }}
+        {{ chat.split(' ')[1] }}
+        {{ chat.split(' ')[2]}}
+      </li>
+    </div>
   </div>
 </template>
 

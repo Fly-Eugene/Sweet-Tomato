@@ -1,13 +1,13 @@
 .container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
+  // position: relative;
+  // width: 100vw;
+  // height: 100vh;
   background-color: black;
 
   .join_container {
     position: absolute;
-    width: 961px;
-    height: 673px;
+    width: 700px;
+    height: 400px;
     top: 15%;
     left: 30%;
     background: #FFFFFF;
@@ -24,9 +24,9 @@
       position: absolute;
       width: 356px;
       height: 77px;
-      top: 20%;
-      left: 30%;
-      
+      top: 35%;
+      left: 25%;
+      font-size: 20px;
       padding: 15px;
       border: 2px solid #000000;
       box-sizing: border-box;
@@ -50,7 +50,7 @@
       position: absolute;
       width: 174px;
       height: 59px;
-      left: 40%;
+      left: 37%;
       bottom: 7%;
 
       font-family: 'Godo', sans-serif;
@@ -62,4 +62,24 @@
       cursor: pointer;
     }
   }
+}
+.leave_btn{
+  width: 174px;
+  height: 59px;
+
+  font-family: 'Godo', sans-serif;
+  font-size: 20px;
+
+  background: #FFA5A5;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.user_name{
+  font-size: 20px;
+  color: rgb(201, 201, 201);
+  font-family: 'Godo', sans-serif;
+}
+#session-header{
+  margin: 100px;
 }

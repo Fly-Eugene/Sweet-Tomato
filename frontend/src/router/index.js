@@ -57,12 +57,14 @@ const routes = [
   {
     path: '/openvidu',
     name: 'OpenVidu',
-    component: OpenVidu
+    component: OpenVidu,
+    props: true
   },
   {
     path: '/Room',
     name: 'Room',
-    component: Room
+    component: Room,
+    props: true
   },
 ]
 

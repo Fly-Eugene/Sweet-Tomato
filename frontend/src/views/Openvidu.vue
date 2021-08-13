@@ -10,21 +10,21 @@
               <!-- <label>Participant</label> -->
               <input
                 placeholder="닉네임을 입력해주세요"
-                v-model="myUserName"
+                v-model="state.myInfo.username"
                 class="form-control participant_input"
                 type="text"
                 required
               />
             </p>
-            <p>
-              <!-- <label>Session</label> -->
+            <!-- <p>
+              <label>Session</label>
               <input
-                v-model="mySessionId"
+                v-model="id"
                 class="form-control session_input"
                 type="text"
                 required
               />
-            </p>
+            </p> -->
             <p class="text-center">
               <button
                 class="btn btn-lg btn-success join_btn"
@@ -40,19 +40,16 @@
 
     <div id="session" v-if="session">
       <div id="session-header">
-        <h1 id="session-title">{{ mySessionId }}</h1>
+        <!-- <h1 id="session-title">{{ studyId }}</h1> -->
         <input
-          class="btn btn-large btn-danger"
-          type="button"
-          id="buttonLeaveSession"
-          @click="leaveSession"
-          value="Leave session"
+          v-model="leave"
+          style="display:none"
         />
       </div>
-      <div id="main-video" class="col-md-6">
+      <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
-      </div>
-      <div id="video-container" class="col-md-6">
+      </div> -->
+      <div id="video-container" class="col-md-6" style="display:flex; flex-wrap:wrap">
         <user-video
           :stream-manager="publisher"
           @click="updateMainVideoStreamManager(publisher)"
@@ -65,7 +62,7 @@
         />
       </div>
 
-      <SideOptions :chatContents="chatContents" />
+      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="closeChat"/>
       <div>
         채팅보내기 :
         <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" />
@@ -80,6 +77,8 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/Room/UserVideo";
 import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
+import { useStore } from 'vuex'
+import { ref, reactive, computed } from 'vue'
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -88,6 +87,17 @@ const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
   name: "OpenVidu",
+  props : {
+    studyId : {
+      type: String,
+    },
+    leave: {
+      type: Boolean
+    },
+    chat:{
+      type: Boolean
+    }
+  },
   components: {
     UserVideo,
     SideOptions,
@@ -99,16 +109,17 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      // mySessionId: '',
+      // myUserName: '',
       chat_value: "",
-
       // 임시적 채팅내용
       chatContents: [],
     };
   },
   methods: {
     joinSession() {
+      console.log(this.studyId);
+      console.log(this.state.myInfo.username)
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -133,9 +144,9 @@ export default {
       // --- Connect to the session with a valid user token ---
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
-      this.getToken(this.mySessionId).then((token) => {
+      this.getToken(this.studyId).then((token) => {
         this.session
-          .connect(token, { clientData: this.myUserName })
+          .connect(token, { clientData: this.state.myInfo.username })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
             let publisher = this.OV.initPublisher(undefined, {
@@ -183,6 +194,7 @@ export default {
       this.subscribers = [];
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
+      this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
     },
     updateMainVideoStreamManager(stream) {
       if (this.mainStreamManager === stream) return;
@@ -192,7 +204,7 @@ export default {
     onEnterChat() {
       this.session
         .signal({
-          data: this.chat_value,
+          data: this.state.myInfo.username + " " + this.chat_value + " " + this.currentTime(),
           to: [],
         })
         .then(() => {
@@ -202,6 +214,19 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    closeChat(){
+      console.log('닫아라')
+      this.chat = false;
+    },
+    currentTime(){
+      var date = new Date();
+      var hours = ('0' + date.getHours()).slice(-2); 
+      var minutes = ('0' + date.getMinutes()).slice(-2);
+
+      var time = hours + ':' + minutes;
+      console.log(time);
+      return time;
     },
     /**
      * --------------------------
@@ -282,7 +307,25 @@ export default {
 	},
 	unmounted() {
 		this.$store.dispatch('showNav')
-	}
+	},
+  computed:{
+    leave: function(){
+      console.log(this.leave)
+      if(this.leave) { this.leaveSession() }
+    },
+  },
+  setup(props){
+    const store = useStore()
+    const state = reactive({
+      myInfo: computed(() => {
+        console.log(store.state.myInfo)
+        return store.state.myInfo;
+      })
+    })
+    return {
+      state
+    }
+  },
 
 };
 </script>
