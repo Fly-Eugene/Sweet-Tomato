@@ -1,14 +1,22 @@
 <template>
   <div class="study_modal_mask">
     <div class="study_modal_container">
-      <p class="modal_font" >제목</p>
-      <input type="text" class="modal_header_input" v-model="data_subject">
 
-      <p class="modal_font">첨부파일</p>
-      <input type="file" class="modal_file_input" id="file">
+      <div class="study_modal_header">
+        <p class="modal_title" >제목</p>
+        <input type="text" class="modal_title_input" v-model="data_subject">
+      </div>
 
-      <p class="modal_font">내용</p>
-      <textarea name="" id="" cols="30" rows="10" class="modal_content_input" v-model="data_content" ></textarea>
+      <div class="study_modal_file">
+        <p class="modal_file">첨부파일</p>
+        <input type="file" class="modal_file_input" id="file">
+      </div>
+
+      <div class="study_modal_content">
+        <p class="modal_content">내용</p>
+        <textarea name="" id="" cols="30" rows="10" class="modal_content_input" v-model="data_content" ></textarea>
+      </div>
+
 
       <button class="cancle_btn" @click="$emit('close')">취소</button>
       <button class="save_btn" @click="onSubmitData">저장</button>
