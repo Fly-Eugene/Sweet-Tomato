@@ -1,4 +1,4 @@
-package com.ssafy.study_with_us.util.response;
+package com.ssafy.study_with_us.response;
 
 public class StatusCode {
     public static final int OK = 200;

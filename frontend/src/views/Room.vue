@@ -16,7 +16,7 @@
           <!-- <SideOptions/> -->
         </div>
         <div v-if="state.dialog[3]">
-          <Pomodoro/>
+          <Pomodoro @closeBtn="closeEveryDialog"/>
         </div>
         <div v-if="state.dialog[4]">
           <!-- <Calander/> -->

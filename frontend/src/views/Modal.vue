@@ -1,7 +1,7 @@
 <template>
 <div>
   <button id="show-modal" @click="state.showModalSample = true">Show Modal Sample</button>
-  <button id="show-modal" @click="state.makeStudyModal = true">Make Study Modal</button>
+  <button id="show-modal" @click="onClickMakeStudy">Make Study Modal</button>
 <!-- <div v-if="showModal"> -->
   <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
   
@@ -39,7 +39,18 @@ export default {
     const state = reactive({
       showModalSample : false,
       makeStudyModal : false
-    }) 
+    })
+
+    function onClickMakeStudy(){
+      if (store.state.isLogin === true ) {
+        state.makeStudyModal = true
+      }
+      else {
+        alert('로그인 후 이용 바랍니다.')
+      }
+      
+
+    }
 
     onMounted(() => {
       store.dispatch('checkLogin')
@@ -50,6 +61,7 @@ export default {
 
     return {
       state,
+      onClickMakeStudy
 
     }
   }

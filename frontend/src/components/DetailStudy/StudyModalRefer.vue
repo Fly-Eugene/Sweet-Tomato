@@ -20,7 +20,7 @@
         <div id="refer_content">{{ state.study_data_speci.content }}</div>
       </div>
       
-
+      <button @click="$emit('clickEdit')" class="modal_refer_edit_btn">수정</button>
       <button @click="$emit('close')" class="modal_refer_close_btn">닫기</button>
     </div>
   </div>

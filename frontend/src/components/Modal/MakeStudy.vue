@@ -45,6 +45,7 @@
 <script>
 import '@/assets/style/Modal/make_study.scss'
 import {reactive, ref} from 'vue'
+import { useRouter } from 'vue-router'
 import $axios from 'axios'
 
 export default {
@@ -53,6 +54,7 @@ export default {
   setup() {
 
     // const store = useStore()
+    const router = useRouter()
     const state = reactive({
       selectedFile: null,
       profile_image: '',
@@ -88,10 +90,12 @@ export default {
         }
       })
       .then(res => {
-        console.log(res)
+        // console.log(res.data)
+        router.push({name:'DetailStudy', params: {id: res.data.data.id}})
       })
       .catch( err => {
         console.log(err)
+        alert('스터디를 생성하지 못했습니다. 다시 시도하시기 바랍니다.')
       })
     
     }
