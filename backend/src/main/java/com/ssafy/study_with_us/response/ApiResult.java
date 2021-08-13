@@ -1,10 +1,7 @@
-package com.ssafy.study_with_us.util.response;
+package com.ssafy.study_with_us.response;
 
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 public class ApiResult<T> {

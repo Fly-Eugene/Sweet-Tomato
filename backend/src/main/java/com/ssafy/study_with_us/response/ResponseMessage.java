@@ -1,4 +1,4 @@
-package com.ssafy.study_with_us.util.response;
+package com.ssafy.study_with_us.response;
 
 public class ResponseMessage {
     public static final String CREATED_MEMBER = "회원 가입 성공";
