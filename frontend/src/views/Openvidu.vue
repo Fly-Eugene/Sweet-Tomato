@@ -10,21 +10,21 @@
               <!-- <label>Participant</label> -->
               <input
                 placeholder="닉네임을 입력해주세요"
-                v-model="myUserName"
+                v-model="state.myInfo.username"
                 class="form-control participant_input"
                 type="text"
                 required
               />
             </p>
-            <p>
-              <!-- <label>Session</label> -->
+            <!-- <p>
+              <label>Session</label>
               <input
-                v-model="mySessionId"
+                v-model="id"
                 class="form-control session_input"
                 type="text"
                 required
               />
-            </p>
+            </p> -->
             <p class="text-center">
               <button
                 class="btn btn-lg btn-success join_btn"
@@ -40,19 +40,19 @@
 
     <div id="session" v-if="session">
       <div id="session-header">
-        <h1 id="session-title">{{ mySessionId }}</h1>
+        <!-- <h1 id="session-title">{{ studyId }}</h1> -->
         <input
-          class="btn btn-large btn-danger"
+          class="btn btn-large leave_btn"
           type="button"
           id="buttonLeaveSession"
           @click="leaveSession"
-          value="Leave session"
+          value="나가기"
         />
       </div>
-      <div id="main-video" class="col-md-6">
+      <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
-      </div>
-      <div id="video-container" class="col-md-6">
+      </div> -->
+      <div id="video-container" class="col-md-6" style="display:flex">
         <user-video
           :stream-manager="publisher"
           @click="updateMainVideoStreamManager(publisher)"
@@ -80,6 +80,8 @@ import { OpenVidu } from "openvidu-browser";
 import UserVideo from "../components/Room/UserVideo";
 import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
+import { useStore } from 'vuex'
+import { ref, reactive, computed } from 'vue'
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -88,6 +90,11 @@ const OPENVIDU_SERVER_SECRET = "MY_SECRET";
 
 export default {
   name: "OpenVidu",
+  props : {
+    studyId : {
+      type: String,
+    }
+  },
   components: {
     UserVideo,
     SideOptions,
@@ -99,8 +106,8 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      mySessionId: "SessionA",
-      myUserName: "Participant" + Math.floor(Math.random() * 100),
+      // mySessionId: '',
+      // myUserName: '',
       chat_value: "",
 
       // 임시적 채팅내용
@@ -109,6 +116,8 @@ export default {
   },
   methods: {
     joinSession() {
+      console.log(this.studyId);
+      console.log(this.state.myInfo.username)
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -133,9 +142,9 @@ export default {
       // --- Connect to the session with a valid user token ---
       // 'getToken' method is simulating what your server-side should do.
       // 'token' parameter should be retrieved and returned by your own backend
-      this.getToken(this.mySessionId).then((token) => {
+      this.getToken(this.studyId).then((token) => {
         this.session
-          .connect(token, { clientData: this.myUserName })
+          .connect(token, { clientData: this.state.myInfo.username })
           .then(() => {
             // --- Get your own camera stream with the desired properties ---
             let publisher = this.OV.initPublisher(undefined, {
@@ -282,7 +291,19 @@ export default {
 	},
 	unmounted() {
 		this.$store.dispatch('showNav')
-	}
+	},
+  setup(props){
+    const store = useStore()
+    const state = reactive({
+      myInfo: computed(() => {
+        console.log(store.state.myInfo)
+        return store.state.myInfo;
+      })
+    })
+    return {
+      state
+    }
+  },
 
 };
 </script>

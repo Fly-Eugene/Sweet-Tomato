@@ -2,7 +2,7 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <!-- <OpenVidu/> -->
+        <OpenVidu :studyId='studyId'/>
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-// import OpenVidu from '@/views/OpenVidu'
+import OpenVidu from '@/views/Openvidu'
 import Pomodoro from '@/components/Room/Pomodoro'
 import Timer from '@/components/Room/Timer'
 import RoomFooter from '@/components/Room/RoomFooter'
@@ -47,9 +47,14 @@ import { reactive } from '@vue/reactivity'
 
 export default {
   name: 'Room',
-
+  props : {
+    studyId : {
+      type: String,
+      required: true
+    }
+  },
   components: {
-    // OpenVidu,
+    OpenVidu,
     Pomodoro,
     Timer,
     RoomFooter,

@@ -1,8 +1,8 @@
 <template>
   <section class="info_card">
       <article class="info_left">
-        <div class="info_img" :style="`background-image : url(${state.img_url})`"></div>
-        <!-- <img class="info_img" :src="`${state.image_url}`"> -->
+        <!-- <div class="info_img" :style="`background-image : url(${study_profile_url})`"></div> -->
+        <img class="info_img" :src="`${study_profile_url}`">
         <button class="apply_btn" @click="onClickStudyApply" v-if="!state.checkflag">신청하기</button>
         <button class="apply_btn" @click="onClickStudyResign" v-if="state.checkflag">탈퇴하기</button>
       </article>
@@ -12,7 +12,8 @@
           <span class="info_tag" v-for="tag in state.info.themes" :key="tag">{{ tag }}</span>
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
-        <button class="enter_btn " v-if="state.checkflag">입장하기</button>
+        <router-link :to="{name: 'Room', params: {studyId: studyId}}" v-if="state.checkflag" class="enter_btn ">입장하기</router-link>
+        <!-- <button class="enter_btn " v-if="state.checkflag" @click="enterRoom">입장하기</button> -->
       </article>
   </section>
 </template>

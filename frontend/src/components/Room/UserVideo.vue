@@ -1,12 +1,13 @@
 <template>
 <div v-if="streamManager">
 	<ov-video :stream-manager="streamManager"/>
-	<div><p>{{ clientData }}</p></div>
+	<div>{{ clientData }}</div>
 </div>
 </template>
 
 <script>
 import OvVideo from './OvVideo';
+import "@/assets/style/openvidu.scss";
 export default {
 	name: 'UserVideo',
 	components: {

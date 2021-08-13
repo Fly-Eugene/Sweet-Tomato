@@ -2,7 +2,7 @@
   <div class="room_footer_center">    
     <i class="fas fa-phone-alt" ></i>
     <i class="fas fa-video"></i>
-    <i class="fas fa-share-alt"></i>
+    <!-- <i class="fas fa-share-alt"></i> -->
     <i class="fas fa-times-circle"></i>
   </div>
   <div class="room_footer_right">
