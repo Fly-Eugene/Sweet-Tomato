@@ -2,7 +2,7 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <OpenVidu :studyId='studyId'/>
+        <OpenVidu :studyId='studyId' :leave='state.leave' />
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
@@ -32,7 +32,8 @@
         @closeChatting="onCloseChatting"
         @closePomodoro="onClosePomodoro"
         @closeCalander="onCloseCalander"
-        @closeTimer="onCloseTimer"/>
+        @closeTimer="onCloseTimer"
+        @leaveRoom="onLeaveRoom"/>
     </section>
   </section>
 </template>
@@ -64,7 +65,8 @@ export default {
     const state = reactive({
       // 0: 정보 / 1: 참여자 / 2: 채팅 / 3: 뽀모도로 / 4: 캘린더 / 5: 타이머
       dialog: {0: false, 1: false, 2: false, 3: false, 4: false, 5: false},
-      rightOn: false
+      rightOn: false,
+      leave: false
     })
     
     function closeEveryDialog () {
@@ -106,7 +108,10 @@ export default {
       state.rightOn = true
       state.dialog[5] = true
     }
-
+    function onLeaveRoom () {
+      state.leave = true
+      console.log('닫음')
+    }
     return {
       onCloseRoomInfo,
       onCloseParticipants,
@@ -115,6 +120,7 @@ export default {
       onCloseCalander,
       onCloseTimer,
       closeEveryDialog,
+      onLeaveRoom,
       state
     }
   },

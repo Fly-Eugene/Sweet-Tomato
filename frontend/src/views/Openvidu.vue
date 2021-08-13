@@ -41,18 +41,18 @@
     <div id="session" v-if="session">
       <div id="session-header">
         <!-- <h1 id="session-title">{{ studyId }}</h1> -->
-        <input
+        <!-- <input
           class="btn btn-large leave_btn"
           type="button"
           id="buttonLeaveSession"
           @click="leaveSession"
-          value="나가기"
-        />
+          v-model="leave"
+        /> -->
       </div>
       <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
       </div> -->
-      <div id="video-container" class="col-md-6" style="display:flex">
+      <div id="video-container" class="col-md-6" style="display:flex; flex-wrap:wrap">
         <user-video
           :stream-manager="publisher"
           @click="updateMainVideoStreamManager(publisher)"
@@ -93,6 +93,9 @@ export default {
   props : {
     studyId : {
       type: String,
+    },
+    leave: {
+      type: Boolean
     }
   },
   components: {
@@ -109,7 +112,6 @@ export default {
       // mySessionId: '',
       // myUserName: '',
       chat_value: "",
-
       // 임시적 채팅내용
       chatContents: [],
     };
@@ -192,6 +194,7 @@ export default {
       this.subscribers = [];
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
+      this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
     },
     updateMainVideoStreamManager(stream) {
       if (this.mainStreamManager === stream) return;
@@ -292,6 +295,11 @@ export default {
 	unmounted() {
 		this.$store.dispatch('showNav')
 	},
+  computed:{
+    leave: function(){
+      if(this.leave) { this.leaveSession() }
+    }
+  },
   setup(props){
     const store = useStore()
     const state = reactive({
@@ -300,8 +308,9 @@ export default {
         return store.state.myInfo;
       })
     })
+  
     return {
-      state
+      state,
     }
   },
 

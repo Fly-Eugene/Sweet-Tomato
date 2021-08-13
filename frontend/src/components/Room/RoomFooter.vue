@@ -3,7 +3,7 @@
     <i class="fas fa-phone-alt" ></i>
     <i class="fas fa-video"></i>
     <!-- <i class="fas fa-share-alt"></i> -->
-    <i class="fas fa-times-circle"></i>
+    <i class="fas fa-times-circle" @click="$emit('leaveRoom')"></i>
   </div>
   <div class="room_footer_right">
     <i class="fas fa-info-circle" @click="$emit('closeRoomInfo')"></i>
