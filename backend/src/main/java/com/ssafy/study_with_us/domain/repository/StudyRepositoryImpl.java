@@ -46,7 +46,7 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom{
 
     @Override
     public List<Study> getPublicStudies(Integer page) {
-        return jpaQueryFactory.selectFrom(study).where(securityEq("public")).offset((page-1) * pagingSize).limit(pagingSize).fetch();
+        return jpaQueryFactory.selectFrom(study).where(securityEq("public")).offset((page-1) * pagingSize).orderBy(study.studyName.asc()).limit(pagingSize).fetch();
     }
 
     @Override
