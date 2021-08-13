@@ -2,23 +2,22 @@
   <div class="study_modal_mask">
     <div class="study_modal_container">
       <div class="modal_refer_header">
-        <p class="modal_font">{{ state.study_data_speci.subject }}</p>
-        <p class="modal_refer_font modal_refer_writer">작성자 넣기</p>
-        <p class="modal_refer_font">{{ state.study_data_speci.files[0].regTime.split('T')[0] }}</p>
-        <hr>
+        <p id="refer_title">{{ state.study_data_speci.subject }}</p>
+        <p id="refer_writer">{{ state.study_data_speci.member['username']}}</p>
+        <p id="refer_time">{{ state.study_data_speci.files[0].regTime.split('T')[0] }}</p>
       </div>
       
 
       <div class="modal_refer_file">
-        <p class="modal_font">첨부파일</p>
-        <a :href="`${download_url}`" class="modal_refer_font">{{ state.study_data_speci.files[0].orgName}}</a>
         <hr>
+        <p id="refer_file">첨부파일</p>
+        <a :href="`${download_url}`" id="refer_file_name">{{ state.study_data_speci.files[0].orgName}}</a>
       </div>
       
 
       <div class="modal_refer_content">
-        <div class="modal_refer_font">{{ state.study_data_speci.content }}</div>
         <hr>
+        <div id="refer_content">{{ state.study_data_speci.content }}</div>
       </div>
       
 

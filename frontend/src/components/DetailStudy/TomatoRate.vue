@@ -26,7 +26,7 @@ export default {
 
     })
 
-    const series =  [state.total_sum/state.study_tomato]
+    const series =  [state.study_tomato / state.total_sum]
     console.log(state.total_sum, state.study_tomato)
     
     const chartOptions = {
