@@ -130,7 +130,7 @@ public class StudyService {
     }
 
     public List<StudyDto> getStudyList(Integer page){
-        List<Study> studies = studyMemberRefRepository.getByMemberId(getMemberId(), page);
+        List<Study> studies = studyRepository.getPublicStudies(page);
         List<StudyDto> results = new ArrayList<>();
         for (Study study : studies) {
             Profile profile = study.getProfile();
