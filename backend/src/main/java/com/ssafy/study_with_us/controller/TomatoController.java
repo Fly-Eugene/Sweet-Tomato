@@ -1,14 +1,11 @@
 package com.ssafy.study_with_us.controller;
 
-import com.ssafy.study_with_us.domain.entity.Tomato;
-import com.ssafy.study_with_us.domain.entity.TomatoPlan;
-import com.ssafy.study_with_us.dto.StudyDto;
 import com.ssafy.study_with_us.dto.TomatoDto;
 import com.ssafy.study_with_us.dto.TomatoPlanDto;
 import com.ssafy.study_with_us.service.TomatoService;
-import com.ssafy.study_with_us.util.response.ApiResult;
-import com.ssafy.study_with_us.util.response.ResponseMessage;
-import com.ssafy.study_with_us.util.response.StatusCode;
+import com.ssafy.study_with_us.response.ApiResult;
+import com.ssafy.study_with_us.response.ResponseMessage;
+import com.ssafy.study_with_us.response.StatusCode;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
