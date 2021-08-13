@@ -1,14 +1,5 @@
 import $axios from 'axios'
 import router from '@/router'
-// import state from './state'
-
-// export function checkNav (context) {
-//   if(document.location.pathname === '/openvidu'){
-//     context.commit('CHECK_NAV', false)
-//   } else {
-//     context.commit('CHECK_NAV', true)
-//   }
-// }
 
 export function hideNav (context) {
   context.commit('SHOW_NAV', false)

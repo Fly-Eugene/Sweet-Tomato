@@ -35,7 +35,7 @@
 import '@/assets/style/app.scss'
 import Navbar from '@/views/Navbar.vue'
 import { useStore } from 'vuex'
-import { computed, onMounted, onUnmounted, reactive} from 'vue'
+import { computed, onMounted, reactive} from 'vue'
 
 export default {
   name: 'App',
@@ -51,19 +51,12 @@ export default {
       nav_show : computed(()=> {
         return store.state.nav_show
       }),
-      // tomato_show : computed(() => {
-      //   return store.state.start_page_tomato_show
-      // })
     })
 
     onMounted(() => {
       store.dispatch('checkLogin')
-      // store.dispatch('showTomato')
     })
 
-    onUnmounted(() => {
-      // store.dispatch('hideTomato')
-    })
 
     
     return {

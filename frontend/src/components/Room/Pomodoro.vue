@@ -2,7 +2,7 @@
   <div class="pomodoro_box">
     <div class="pomodoro_header">
       <span>뽀모도로</span>
-      <span>X</span>
+      <span @click="$emit('closeBtn')">X</span>
     </div>
     <div class="pomodoro_content">
       <PomodoroSetting/>
