@@ -2,7 +2,7 @@
   <section class="info_card">
       <article class="info_left">
         <div class="info_img" :style="`background-image : url(${state.img_url})`"></div>
-        <!-- <img class="info_img" :src="`${state.image_url}`"> -->
+        <!-- <img class="info_img" :src="`${study_profile_url}`"> -->
         <button class="apply_btn" @click="onClickStudyApply" v-if="!state.checkflag">신청하기</button>
         <button class="apply_btn" @click="onClickStudyResign" v-if="state.checkflag">탈퇴하기</button>
       </article>
@@ -64,8 +64,6 @@ export default {
 
     const server_url = store.state.server_url
     const study_profile_url = server_url + 'profile/study?studyId=' + props.studyId
-
-
 
     const onClickStudyApply = function() {
       store.dispatch('studyApply', props.studyId)

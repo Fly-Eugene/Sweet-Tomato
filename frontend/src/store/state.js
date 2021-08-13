@@ -12,5 +12,11 @@ export default {
   studyTomato : '',
   myInfo : {},
   checkflag: '',
-  tomatoes: []
+  tomatoes: [],
+  myTomato: '',
+  everyTomato: '',
+  myStudyTime: [],
+  myRecentStudy: [],
+  studyHashtag: [],
+  searchedStudies: []
 }

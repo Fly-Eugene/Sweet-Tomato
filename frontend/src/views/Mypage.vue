@@ -34,7 +34,10 @@ export default {
     }
 
     onMounted(() => {
+      store.dispatch('getRecentStudy')
       store.dispatch('checkLogin')
+      store.dispatch('getMyTomato')
+      store.dispatch('getMyStudyTime')
     })
 
     return {

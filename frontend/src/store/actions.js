@@ -256,4 +256,60 @@ export function getStudyTomato (context, studyId) {
   })
 }
 
+export function getMyTomato ({ commit }) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'tomato'
+  })
+  .then(res => {
+    commit('GET_MY_TOMATO', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
 
+export function getMyStudyTime({ commit }) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'member/time'
+  })
+  .then(res => {
+    // console.log(res)
+    commit('GET_MY_STUDY_TIME', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getRecentStudy({ commit }) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'study/recently'
+  })
+  .then(res => {
+    // console.log(res)
+    commit('GET_RECENT_STUDY', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function searchStudy({ commit }, hashtag) {
+  this.state.studyHashtag = hashtag.themes
+  
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'study/search',
+    data: hashtag
+  })
+  .then(res => {
+    console.log(res)
+    commit('SEARCH_STUDY', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}

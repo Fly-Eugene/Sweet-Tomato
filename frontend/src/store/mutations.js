@@ -45,3 +45,20 @@ export function GET_TOMATO (state, res) {
   state.studyTomato = res.relevantsum
   state.tomatoes = res.tomatoes
 }
+
+export function GET_MY_TOMATO(state, res) {
+  state.myTomato = res.relevantSum
+  state.everyTomato = res.totalSum
+}
+
+export function GET_MY_STUDY_TIME(state, res) {
+  state.myStudyTime = res
+}
+
+export function GET_RECENT_STUDY(state, res) {
+  state.myRecentStudy = res
+}
+
+export function SEARCH_STUDY(state, res) {
+  state.searchedStudies = res
+}

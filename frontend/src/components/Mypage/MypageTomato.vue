@@ -5,8 +5,8 @@
     <div class="tomato">
       <img src="@/assets/img/tomato1.svg" alt="">
       <div class="tomato_cnt">
-        <p>128개</p>
-        <p>(평균 48개)</p>
+        <p>{{ state.myTomato }} 개</p>
+        <p>(전체 {{ state.everyTomato }}개)</p>
       </div>
     </div>
   </section>
@@ -14,19 +14,29 @@
 
 <script>
 import '@/assets/style/Mypage/mypage_tomato.scss'
-import { onMounted } from '@vue/runtime-core';
+import { onMounted, reactive, computed } from '@vue/runtime-core';
+import { useStore } from 'vuex';
 
 export default {
   name: 'MypageTomato',
 
   setup() {
+    const store = useStore()
+    const state = reactive({
+      myTomato: computed(() => {
+        return store.state.myTomato
+      }),
+      everyTomato: computed(() => {
+        return store.state.everyTomato
+      })
+    })
     const options = {
       chart: {
         height: 480,
         type: "radialBar",
       },
 
-      series: [67],
+      series: [(state.myTomato/state.everyTomato) * 100],
       colors: ["#20E647"],
       plotOptions: {
         radialBar: {
@@ -71,13 +81,13 @@ export default {
       },
       labels: ["Progress"]
     };
-    
     onMounted(() => {
       var chart = new
       ApexCharts(document.querySelector('#chart'), options);
       chart.render()
     })
     return {
+      state,
       options,
     }
   }
