@@ -1,6 +1,7 @@
 <template>
   <div class="detail_study_all">
-    <StudyInfo :studyId='id'/>
+    <StudyInfo :studyId='id' @onClickEdit="state.onInfoEdit = true"/>
+    <StudyInfoEdit v-if="state.onInfoEdit === true" :studyId='id' @onClickClose="state.onInfoEdit = false"/>
     <TomatoRate/>
     <StudyChart/>
     <StudyCommentNRefer :studyId='id'/>
@@ -9,17 +10,20 @@
 
 <script>
 import '@/assets/style/detail_study.scss'
-import { onMounted} from 'vue'
+import { onMounted, reactive} from 'vue'
 import { useStore } from 'vuex'
 import StudyInfo from '@/components/DetailStudy/StudyInfo.vue'
+import StudyInfoEdit from '@/components/DetailStudy/StudyInfoEdit.vue'
 import StudyChart from '@/components/DetailStudy/StudyChart.vue'
 import TomatoRate from '@/components/DetailStudy/TomatoRate.vue'
 import StudyCommentNRefer from '@/components/DetailStudy/StudyCommentNRefer.vue'
+
 
 export default {
   name: "DetailStudy",
   components: {
     StudyInfo,
+    StudyInfoEdit,
     StudyChart,
     TomatoRate,
     StudyCommentNRefer
@@ -33,6 +37,9 @@ export default {
 
   setup(props) {
     const store = useStore()
+    const state = reactive({
+      onInfoEdit : false
+    })
 
     onMounted(() => {
       store.dispatch('checkLogin')
@@ -43,7 +50,7 @@ export default {
     })
 
     return {
-
+      state,
     }
   }
 

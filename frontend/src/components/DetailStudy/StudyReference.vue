@@ -4,7 +4,7 @@
   <article class="reference_content">
     <div class="study_data" v-for="data in state.study_data" :key="data.id" @click="onClickStudyDataSpeci(data)">
       <div class="study_data_title">{{ data.subject }}</div>
-      <div class="study_data_writer">작성자 : {{ data.memberId }}</div>
+      <div class="study_data_writer">작성자 : {{ data.member.username }}</div>
     </div>
   </article>
 </template>

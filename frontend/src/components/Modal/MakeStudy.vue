@@ -67,9 +67,7 @@ export default {
     function upload(e) {
       const file = e.target.files;
       state.selectedFile = file[0]
-      console.log(file[0])
       const url = URL.createObjectURL(file[0])
-      console.log(url);
       state.profile_image = url
     }
 
@@ -82,7 +80,8 @@ export default {
       const frm = new FormData()
       const photoFile = document.getElementById("file")
       frm.append("files", photoFile.files[0])
-      frm.append("jsonData", JSON.stringify({ studyName: study_name.value, studyIntro : study_content.value, secutiry: state.study_security, themes: hash_tag_list.value}))
+      frm.append("jsonData", JSON.stringify({ studyName: study_name.value, studyIntro : study_content.value, security: state.study_security, themes: hash_tag_list.value}))
+      console.log(frm)
       $axios.post("https://localhost:5000/study", frm, {
         headers: {
           'Content-Type': 'multipart/form-data'

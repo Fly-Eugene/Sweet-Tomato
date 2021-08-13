@@ -26,24 +26,27 @@
 }
 
 .study_data {
-  // position: absolute;
-  width: 988px;
+  width: 930px;
   height: 106px;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-left: 2%;
 
   border-bottom: 1px solid #000000;
   cursor: pointer;
 
   .study_data_title {
+    margin-top: 4%;
     font-family: 'Godo', sans-serif;
     font-size: 30px;
   }
 
   .study_data_writer {
+
     font-family: 'Godo', sans-serif;
     font-size: 20px;
+    margin-top: 5%;
 
   }
 
