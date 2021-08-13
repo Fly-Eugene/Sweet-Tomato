@@ -13,4 +13,5 @@ public interface StudyRepositoryCustom {
     StudyProfile getProfile(Long studyId);
     void remove(String theme, Long studyID);
     List<Study> getPublicStudies(Integer page);
+    Long getPublicStudiesCount();
 }

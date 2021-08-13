@@ -2,10 +2,10 @@ package com.ssafy.study_with_us.domain.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.ssafy.study_with_us.domain.entity.QStudy;
 import com.ssafy.study_with_us.domain.entity.Study;
 import com.ssafy.study_with_us.domain.entity.StudyProfile;
 import com.ssafy.study_with_us.domain.entity.Theme;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,9 +17,11 @@ import static com.ssafy.study_with_us.domain.entity.QTheme.theme;
 @Repository
 public class StudyRepositoryImpl implements StudyRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
+    private final Long pagingSize;
 
-    public StudyRepositoryImpl(JPAQueryFactory jpaQueryFactory) {
+    public StudyRepositoryImpl(JPAQueryFactory jpaQueryFactory, @Value("${paging.size}")Long pagingSize) {
         this.jpaQueryFactory = jpaQueryFactory;
+        this.pagingSize = pagingSize;
     }
 
     @Override
@@ -44,7 +46,12 @@ public class StudyRepositoryImpl implements StudyRepositoryCustom{
 
     @Override
     public List<Study> getPublicStudies(Integer page) {
-        return jpaQueryFactory.selectFrom(study).where(securityEq("public")).offset((page-1)*6).limit(6).fetch();
+        return jpaQueryFactory.selectFrom(study).where(securityEq("public")).offset((page-1) * pagingSize).limit(pagingSize).fetch();
+    }
+
+    @Override
+    public Long getPublicStudiesCount() {
+        return jpaQueryFactory.selectFrom(study).where(securityEq("public")).fetchCount();
     }
 
     private BooleanExpression securityEq(String security){
