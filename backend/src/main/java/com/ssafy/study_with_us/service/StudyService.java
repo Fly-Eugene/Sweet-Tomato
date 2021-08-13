@@ -171,13 +171,18 @@ public class StudyService {
         }
     }
 
-    public List<StudyDto> searchStudyByThemes(List<String> themes, Integer page){
+    public Object searchStudyByThemes(List<String> themes, Integer page){
         List<Long> studyIds = studyThemeRefRepository.searchStudyByThemes(themes, page);
+        Long studyCnt = studyThemeRefRepository.countStudyByThemes(themes);
+        Long totalPage = studyCnt / pagingSize + (studyCnt % pagingSize == 0 ? 0 : 1);
+        Map<String, Object> map = new HashMap<>();
         List<StudyDto> results = new ArrayList<>();
         for (Long studyId : studyIds) {
             results.add(getDetail(studyId));
         }
-        return results;
+        map.put("studies", results);
+        map.put("totalPage", totalPage);
+        return map;
     }
 
     public StudyMemberDto connectStudy(Long studyId){
