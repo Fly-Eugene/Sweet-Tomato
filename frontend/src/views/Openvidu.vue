@@ -49,7 +49,7 @@
       <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
       </div> -->
-      <div id="video-container" class="col-md-6" style="display:flex; flex-wrap:wrap">
+      <div id="video-container" class="col-md-6" style="display:flex; flex-wrap:wrap; overflow-y:auto; height:73vh">
         <user-video
           :stream-manager="publisher"
           @click="updateMainVideoStreamManager(publisher)"
@@ -62,10 +62,11 @@
         />
       </div>
 
-      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="closeChat"/>
-      <div>
-        채팅보내기 :
-        <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" />
+      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')" />
+      <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
+        {{this.state.myInfo.username}} :
+        <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" id="chat_value"/>
+        <img src="@/assets/img/enter.png" style="width: 7%; cursor:pointer" @click="onEnterChat"/>
       </div>
     </div>
   </div>
@@ -114,12 +115,28 @@ export default {
       chat_value: "",
       // 임시적 채팅내용
       chatContents: [],
+      startTime: Date
     };
   },
   methods: {
     joinSession() {
+      var now = new Date();
+      this.startTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
+      axios({
+        method: 'post',
+        url: 'https://localhost:5000/study/connection',
+        data: {studyId: this.studyId}
+      })
+      .then(res => {
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
       console.log(this.studyId);
       console.log(this.state.myInfo.username)
+      this.state.participants.push(this.state.myInfo);
+      console.log(this.state.participants);
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -187,6 +204,20 @@ export default {
 
     leaveSession() {
       // --- Leave the session by calling 'disconnect' method over the Session object ---
+      var now = new Date();
+      var endTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
+      var elapsedMSec = endTime.getTime() - this.startTime.getTime();
+      var elapsedMin = elapsedMSec / 1000 / 60;
+      axios({
+        method: 'post',
+        url: 'https://localhost:5000/member/time',
+        data: {studyTime: elapsedMin}
+      })
+      .then(res => {
+      })
+      .catch(err => {
+        console.log(err)
+      })
       if (this.session) this.session.disconnect();
       this.session = undefined;
       this.mainStreamManager = undefined;
@@ -194,6 +225,7 @@ export default {
       this.subscribers = [];
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
+      this.state.participants.splice(this.state.participants.indexOf(this.state.myInfo),1);
       this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
     },
     updateMainVideoStreamManager(stream) {
@@ -204,7 +236,7 @@ export default {
     onEnterChat() {
       this.session
         .signal({
-          data: this.state.myInfo.username + " " + this.chat_value + " " + this.currentTime(),
+          data: this.state.myInfo.username + "&$" + this.chat_value + "&$" + this.currentTime(),
           to: [],
         })
         .then(() => {
@@ -214,10 +246,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
-    closeChat(){
-      console.log('닫아라')
-      this.chat = false;
     },
     currentTime(){
       var date = new Date();
@@ -320,6 +348,10 @@ export default {
       myInfo: computed(() => {
         console.log(store.state.myInfo)
         return store.state.myInfo;
+      }),
+      participants: computed(() => {
+        console.log(store.state.participants)
+        return store.state.participants;
       })
     })
     return {

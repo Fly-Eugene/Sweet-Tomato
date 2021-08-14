@@ -1,0 +1,27 @@
+.participants_box{
+  position: absolute;
+  width: 23%;
+  height: 83%;
+  border-radius: 50px;
+  background-color: #fff;
+  font-family: 'Godo', sans-serif;
+  right: 2%;
+  top: 2%;
+  text-align: left;
+
+  .participants_header {
+    margin: 25px 40px;
+    font-size: 35px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Godo', sans-serif;
+    span:last-child  {      
+      cursor: pointer;
+    };
+  }
+  .participants_content {
+    position: absolute;
+    height: 90%;
+    width: 100%;
+  }  
+}

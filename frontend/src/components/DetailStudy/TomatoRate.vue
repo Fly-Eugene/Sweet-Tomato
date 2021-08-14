@@ -26,7 +26,7 @@ export default {
 
     })
 
-    const series =  [state.study_tomato/state.total_sum * 100]
+    const series =  [Math.round(state.study_tomato/state.total_sum * 100)]
     console.log(state.total_sum, state.study_tomato)
     
     const chartOptions = {

@@ -2,14 +2,14 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat'/>
+        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat' @closeBtn="closeEveryDialog"/>
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
           <!-- <RoomInfo/> -->
         </div>
         <div v-if="state.dialog[1]">
-          <!-- <Participants/> -->
+          <Participants @closeBtn="closeEveryDialog"/>
         </div>
         <div v-if="state.dialog[2]">
           <!-- <Chatting/> -->
@@ -45,6 +45,7 @@ import Pomodoro from '@/components/Room/Pomodoro'
 import Timer from '@/components/Room/Timer'
 import RoomFooter from '@/components/Room/RoomFooter'
 import SideOptions from '@/components/Room/SideOptions'
+import Participants from '@/components/Room/Participants'
 import '@/assets/style/room_wrapper.scss'
 import { reactive } from '@vue/reactivity'
 
@@ -61,7 +62,8 @@ export default {
     Pomodoro,
     Timer,
     RoomFooter,
-    SideOptions
+    SideOptions,
+    Participants
   },
 
   setup() {
@@ -79,6 +81,7 @@ export default {
           state.dialog[key] = false
         }
       }
+      state.chat = false
       state.rightOn = false
     }
 
