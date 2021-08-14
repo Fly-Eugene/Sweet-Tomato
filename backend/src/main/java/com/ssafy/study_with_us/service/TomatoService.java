@@ -56,6 +56,10 @@ public class TomatoService {
         return TomatoResDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(params))
                 .tomatoes(getTomatoDtos(tomatoRepository.getTomatoes(params))).build();
     }
+    public TomatoResDto getTodayTomatoes(TomatoDto params){
+        return TomatoResDto.builder().totalSum(tomatoRepository.getTotalSum()).relevantSum(tomatoRepository.getRelevantSum(params))
+                .tomatoes(getTomatoDtos(tomatoRepository.getTodayTomatoes(params))).build();
+    }
 
     public TomatoPlanDto addGoal(TomatoPlanDto params){
         return tomatoPlanRepository.save(TomatoPlan.builder().goalTomato(params.getGoalTomato()).goalTime(params.getGoalTime()).study(studyRepository.getById(params.getStudyId())).tomatoDate(LocalDate.now()).build()).entityToDto();
