@@ -32,6 +32,10 @@ public class TomatoController {
     public Object getTomatoes(@PathVariable("studyId") Long studyId){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATOES).dataType("tomatoes_by_study").data(tomatoService.getTomatoes(TomatoDto.builder().studyId(studyId).build())).build();
     }
+    @GetMapping("/today/study/{studyId}")
+    public Object getTodayTomatoes(@PathVariable("studyId") Long studyId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATOES).dataType("tomatoes_by_today_study").data(tomatoService.getTodayTomatoes(TomatoDto.builder().studyId(studyId).build())).build();
+    }
     @GetMapping
     public Object getTomatoes(){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_MEMBER_TOMATOES).dataType("tomatoes_by_member").data(tomatoService.getTomatoes()).build();
