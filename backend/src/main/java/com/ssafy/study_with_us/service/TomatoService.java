@@ -71,8 +71,13 @@ public class TomatoService {
                 .tomatoDate(LocalDate.now()).build()).entityToDto();
     }
 
-    public TomatoPlanDto getGoal(Long tomatoPlanId){
-        return tomatoPlanRepository.getById(tomatoPlanId).entityToDto();
+    public List<TomatoPlanDto> getGoal(Long studyId){
+        List<TomatoPlan> tomatoPlans = tomatoPlanRepository.getByStudyId(studyId);
+        List<TomatoPlanDto> results = new ArrayList<>();
+        for (TomatoPlan tomatoPlan : tomatoPlans) {
+            results.add(tomatoPlan.entityToDto());
+        }
+        return results;
     }
     private List<TomatoDto> getTomatoDtos(List<Tomato> tomatoes) {
         List<TomatoDto> results = new ArrayList<>();
