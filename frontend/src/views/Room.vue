@@ -16,7 +16,7 @@
           <!-- <SideOptions/> -->
         </div>
         <div v-if="state.dialog[3]">
-          <Pomodoro @closeBtn="closeEveryDialog"/>
+          <Pomodoro :studyId='studyId' @closeBtn="closeEveryDialog"/>
         </div>
         <div v-if="state.dialog[4]">
           <!-- <Calander/> -->
@@ -70,7 +70,7 @@ export default {
     RoomInfo
   },
 
-  setup() {
+  setup(props) {
     const state = reactive({
       // 0: 정보 / 1: 참여자 / 2: 채팅 / 3: 뽀모도로 / 4: 캘린더 / 5: 타이머
       dialog: {0: false, 1: false, 2: false, 3: false, 4: false, 5: false},
@@ -80,6 +80,8 @@ export default {
       audio: true,
       video: true
     })
+
+    console.log(props.studyId)
     
     function closeEveryDialog () {
       for (var key in state.dialog) {

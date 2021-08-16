@@ -64,6 +64,7 @@ export default {
     const study_name = ref('')
     const hash_tag = ref('')
     const hash_tag_list = ref([])
+    const hash_tag_list_value = ref([])
     const study_content = ref('')
 
     function upload(e) {
@@ -75,6 +76,7 @@ export default {
 
     const onEnter = function() {
       hash_tag_list.value.push('#' + hash_tag.value)
+      hash_tag_list_value.value.push(hash_tag.value)
       hash_tag.value = ''
     }
 
@@ -82,7 +84,7 @@ export default {
       const frm = new FormData()
       const photoFile = document.getElementById("file")
       frm.append("files", photoFile.files[0])
-      frm.append("jsonData", JSON.stringify({ studyName: study_name.value, studyIntro : study_content.value, security: state.study_security, themes: hash_tag_list.value}))
+      frm.append("jsonData", JSON.stringify({ studyName: study_name.value, studyIntro : study_content.value, security: state.study_security, themes: hash_tag_list_value.value}))
       console.log(frm)
       $axios.post("https://localhost:5000/study", frm, {
         headers: {
