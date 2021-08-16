@@ -38,7 +38,7 @@
       font-size: 20px;
 
       background: #E94846;
-      border: 1px solid #000000;
+      // border: 1px solid #000000;
       box-sizing: border-box;
       border-radius: 30px;
       cursor: pointer;
@@ -87,10 +87,11 @@
       // position: absolute;
       width: 80%;
       height: 20%;
-      top: 147px;
+      margin-bottom: 20px;
 
-      // border: 1px solid;
-      // border-color: red;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
 
 
       .info_tag {
@@ -100,7 +101,7 @@
 
         font-family: 'Godo', sans-serif;
         background: #EC9191;
-        border: 2px solid #000000;
+        // border: 2px solid #000000;
         border-radius: 20px;
       }
     }
@@ -108,13 +109,10 @@
     .info_content {
       width: 80%;
       height: 20%;
-      top: 55%;
 
       font-family: 'Godo', sans-serif;
       font-size: 20px;
 
-      // border: 1px solid;
-      // border-color: red;
     }
 
     .enter_btn {
