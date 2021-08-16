@@ -18,5 +18,7 @@ export default {
   myStudyTime: [],
   myRecentStudy: [],
   studyHashtag: [],
-  searchedStudies: []
+  searchedStudies: [],
+  studyPomodoroGoals: [],
+
 }
