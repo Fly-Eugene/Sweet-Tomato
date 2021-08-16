@@ -56,4 +56,9 @@ public class TomatoController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_GOAL).dataType("tomato_plans")
                 .data(tomatoService.getGoal(studyId)).build();
     }
+    @GetMapping("/today/goal/{studyId}")
+    public Object getTodayGoal(@PathVariable("studyId") Long studyId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_GOAL).dataType("tomato_plans")
+                .data(tomatoService.getTodayGoal(studyId)).build();
+    }
 }
