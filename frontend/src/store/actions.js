@@ -272,6 +272,21 @@ export function searchStudy({ commit }, hashtag) {
   })
 }
 
+export function getPomodoroState(context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'tomato/today/study/' + studyId
+  })
+  .then(res => {
+    console.log(res.data.data)
+    context.commit('GET_POMODORO_STATE', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+
 export function getPomodoroGoal(context, studyId) {
   $axios({
     method: 'get',
@@ -305,8 +320,26 @@ export function setPomodoro(context, data) {
   .catch(err => {
     console.log(err)
   })
-
-
 }
 
+export function patchPomodoro(context, data) {
+  const {goal, time, studyId, tomatoPlanId} = data
+
+  $axios({
+    method: 'patch',
+    url: this.state.server_url + 'tomato/goal',
+    data: {
+      goalTomato: goal,
+      goalTime : time,
+      studyId : studyId,
+      tomatoPlanId: tomatoPlanId
+    }
+  })
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
 

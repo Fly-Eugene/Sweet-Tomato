@@ -5,8 +5,8 @@
       <span @click="$emit('closeBtn')">X</span>
     </div>
     <div class="pomodoro_content">
-      <PomodoroSetting v-if="state.pomodoro_setting === true" :studyId="studyId" @completePomodoroSetting="state.pomodoro_setting = false"/>
-      <PomodoroGoalState v-if="state.pomodoro_setting === false" @gotoPomodoroSetting="state.pomodoro_setting = true"/>
+      <PomodoroSetting v-if="state.pomodoro_setting === true" :studyId="studyId" :pomodoro_setting_data="state.pomodoro_setting_data" @completePomodoroSetting="state.pomodoro_setting = false"/>
+      <PomodoroGoalState v-if="state.pomodoro_setting === false" @pomodoroSetting="pomodoroSetting"/>
       <PomodoroState v-if="state.pomodoro_setting === false"/>
       <PomodoroTimer v-if="state.pomodoro_setting === false"/>
     </div>
@@ -19,7 +19,7 @@ import PomodoroGoalState from '@/components/Room/Pomodoro/PomodoroGoalState'
 import PomodoroState from '@/components/Room/Pomodoro/PomodoroState'
 import PomodoroTimer from '@/components/Room/Pomodoro/PomodoroTimer'
 import '@/assets/style/Room/pomodoro.scss'
-import { computed, onMounted, reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -41,19 +41,23 @@ export default {
 
     const store = useStore()
     const state = reactive({
-      study_pomodoro_goals: computed(()=> {
-        return store.state.studyPomodoroGoals
-      }),
-
-      pomodoro_setting: false
+      pomodoro_setting: false,
+      pomodoro_setting_data: []
     })
+
+    const pomodoroSetting = (value)=>{
+      state.pomodoro_setting_data = value
+      state.pomodoro_setting = true
+    }
 
     onMounted(() => {
       store.dispatch('getPomodoroGoal', props.studyId)
+      store.dispatch('getPomodoroState', props.studyId)
     })
 
     return {
-      state
+      state,
+      pomodoroSetting
     }
   }
 }

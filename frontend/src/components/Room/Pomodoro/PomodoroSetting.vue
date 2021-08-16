@@ -20,7 +20,8 @@
     </div>
   </div>
 
-  <button class="pomodoro_setting_btn" @click="onClickSettingPomodoro">설정 완료</button>
+  <button v-if="pomodoro_setting_data[0] === 0" class="pomodoro_setting_btn" @click="onClickSettingPomodoro">설정 완료</button>
+  <button v-else class="pomodoro_setting_btn" @click="onClickPatchPomodoro">설정 완료</button>
 </template>
 
 <script>
@@ -34,6 +35,10 @@ export default {
     studyId: {
       type: String,
       required: true
+    },
+    pomodoro_setting_data : {
+      type: Array,
+      required: true
     }
   },
 
@@ -45,8 +50,12 @@ export default {
     const state = reactive({
       now_goal : '',
       now_time : ''
-
     })
+
+    console.log(props.pomodoro_setting_data);
+    console.log(props.pomodoro_setting_data[0]);
+    console.log(props.pomodoro_setting_data[1]);
+
 
     for (let i = 1; i < 51; i++) {
       goalOptions.push(i)
@@ -69,6 +78,11 @@ export default {
       emit('completePomodoroSetting')
     }
 
+    const onClickPatchPomodoro = () => {
+      store.dispatch('patchPomodoro', {goal: state.now_goal, time: state.now_time, studyId: props.studyId, tomatoPlanId: props.pomodoro_setting_data[1]})
+      emit('completePomodoroSetting')
+    }
+
     return {
       state,
       goalOptions,
@@ -76,7 +90,8 @@ export default {
       
       selectGoal,
       selectTime,
-      onClickSettingPomodoro
+      onClickSettingPomodoro,
+      onClickPatchPomodoro
     }
   }
 }
