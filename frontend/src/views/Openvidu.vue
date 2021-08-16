@@ -45,6 +45,14 @@
           v-model="leave"
           style="display:none"
         />
+        <input
+          v-model="audio"
+          style="display:none"
+        />
+        <input
+          v-model="video"
+          style="display:none"
+        />
       </div>
       <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
@@ -61,7 +69,12 @@
           @click="updateMainVideoStreamManager(sub)"
         />
       </div>
-
+      <li 
+        v-for="sub in subscribers" 
+        :key="sub.stream.connection.connectionId"
+        :stream-manager="sub">
+        {{JSON.parse(this.streamManager.stream.data)}}  
+      </li>
       <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')" />
       <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
         {{this.state.myInfo.username}} :
@@ -74,7 +87,7 @@
 
 <script>
 import axios from "axios";
-import { OpenVidu } from "openvidu-browser";
+import { OpenVidu, Subscriber } from "openvidu-browser";
 import UserVideo from "../components/Room/UserVideo";
 import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
@@ -97,6 +110,12 @@ export default {
     },
     chat:{
       type: Boolean
+    },
+    audio: {
+      type: Boolean
+    },
+    video: {
+      type: Boolean
     }
   },
   components: {
@@ -115,7 +134,8 @@ export default {
       chat_value: "",
       // 임시적 채팅내용
       chatContents: [],
-      startTime: Date
+      startTime: Date,
+      publishCheck: false
     };
   },
   methods: {
@@ -135,8 +155,6 @@ export default {
       })
       console.log(this.studyId);
       console.log(this.state.myInfo.username)
-      this.state.participants.push(this.state.myInfo);
-      console.log(this.state.participants);
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -146,12 +164,14 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
+        this.state.participants.push(subscriber);
       });
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
         const index = this.subscribers.indexOf(stream.streamManager, 0);
         if (index >= 0) {
           this.subscribers.splice(index, 1);
+          this.state.participants.splice(subscriber);
         }
       });
       // On every asynchronous exception...
@@ -180,6 +200,7 @@ export default {
             this.publisher = publisher;
             // --- Publish your stream ---
             this.session.publish(this.publisher);
+            this.publishCheck = true;
           })
           .catch((error) => {
             console.log(
@@ -201,8 +222,15 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
-
+    audioControll(){
+      this.publisher.publishAudio(this.audio);
+    },
+    videoControll(){
+      this.publisher.publishVideo(this.video);
+    },
     leaveSession() {
+      this.publishCheck = false;
+    
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       var now = new Date();
       var endTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
@@ -225,7 +253,6 @@ export default {
       this.subscribers = [];
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
-      this.state.participants.splice(this.state.participants.indexOf(this.state.myInfo),1);
       this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
     },
     updateMainVideoStreamManager(stream) {
@@ -341,6 +368,16 @@ export default {
       console.log(this.leave)
       if(this.leave) { this.leaveSession() }
     },
+    audio: function(){
+      if(this.publishCheck) {
+        this.audioControll();
+      }
+    },
+    video: function(){
+      if(this.publishCheck) {
+        this.videoControll();
+      }
+    }
   },
   setup(props){
     const store = useStore()
@@ -350,7 +387,7 @@ export default {
         return store.state.myInfo;
       }),
       participants: computed(() => {
-        console.log(store.state.participants)
+        store.state.participants = [];
         return store.state.participants;
       })
     })

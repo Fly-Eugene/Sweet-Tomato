@@ -2,11 +2,11 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat' @closeBtn="closeEveryDialog"/>
+        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat' :audio='state.audio' :video='state.video' @closeBtn="closeEveryDialog"/>
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
-          <!-- <RoomInfo/> -->
+          <RoomInfo @closeBtn="closeEveryDialog"/> 
         </div>
         <div v-if="state.dialog[1]">
           <Participants @closeBtn="closeEveryDialog"/>
@@ -34,7 +34,9 @@
         @closePomodoro="onClosePomodoro"
         @closeCalander="onCloseCalander"
         @closeTimer="onCloseTimer"
-        @leaveRoom="onLeaveRoom"/>
+        @leaveRoom="onLeaveRoom"
+        @clickAudio="onClickAudio"
+        @clickVideo="onClickVideo"/>
     </section>
   </section>
 </template>
@@ -46,6 +48,7 @@ import Timer from '@/components/Room/Timer'
 import RoomFooter from '@/components/Room/RoomFooter'
 import SideOptions from '@/components/Room/SideOptions'
 import Participants from '@/components/Room/Participants'
+import RoomInfo from '@/components/Room/RoomInfo'
 import '@/assets/style/room_wrapper.scss'
 import { reactive } from '@vue/reactivity'
 
@@ -63,7 +66,8 @@ export default {
     Timer,
     RoomFooter,
     SideOptions,
-    Participants
+    Participants,
+    RoomInfo
   },
 
   setup() {
@@ -72,7 +76,9 @@ export default {
       dialog: {0: false, 1: false, 2: false, 3: false, 4: false, 5: false},
       rightOn: false,
       leave: false,
-      chat: false
+      chat: false,
+      audio: true,
+      video: true
     })
     
     function closeEveryDialog () {
@@ -118,7 +124,15 @@ export default {
     }
     function onLeaveRoom () {
       state.leave = true
-      console.log('닫음')
+    }
+    function onClickAudio(){
+      console.log("??여긴")
+      if(state.audio) state.audio = false
+      else state.audio = true
+    }
+    function onClickVideo(){
+      if(state.video) state.video = false
+      else state.video = true
     }
     return {
       onCloseRoomInfo,
@@ -129,6 +143,8 @@ export default {
       onCloseTimer,
       closeEveryDialog,
       onLeaveRoom,
+      onClickAudio,
+      onClickVideo,
       state
     }
   },

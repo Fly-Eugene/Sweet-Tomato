@@ -1,7 +1,7 @@
 <template>
   <div class="room_footer_center">    
-    <i class="fas fa-phone-alt" ></i>
-    <i class="fas fa-video"></i>
+    <i class="fas " @click="onClickAudio" :class="this.audio"></i>
+    <i class="fas " @click="onClickVideo" :class="this.video"></i>
     <!-- <i class="fas fa-share-alt"></i> -->
     <i class="fas fa-times-circle" @click="$emit('leaveRoom')"></i>
   </div>
@@ -24,6 +24,32 @@
 import '@/assets/style/Room/room_footer.scss'
 export default {
   name: 'RoomFooter',
+  data() {
+    return {
+      audio: 'fa-phone',
+      video: 'fa-video'
+    };
+  },
+  methods: {
+    onClickVideo(){
+      this.$emit('clickVideo')
+      console.log('안녕')
+      if(this.video == 'fa-video'){
+        this.video = 'fa-video-slash';
+      }else{
+        this.video = 'fa-video'
+      }
+    },
+    onClickAudio(){
+      this.$emit('clickAudio')
+      console.log('안녕하세요')
+      if(this.audio == 'fa-phone'){
+        this.audio = 'fa-phone-slash'
+      }else{
+        this.audio = 'fa-phone'
+      }
+    }
+  }
 }
 </script>
 
