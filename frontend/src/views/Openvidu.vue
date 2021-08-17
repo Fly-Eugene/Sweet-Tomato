@@ -69,12 +69,12 @@
           @click="updateMainVideoStreamManager(sub)"
         />
       </div>
-      <li 
+      <!-- <li 
         v-for="sub in subscribers" 
         :key="sub.stream.connection.connectionId"
         :stream-manager="sub">
         {{JSON.parse(this.streamManager.stream.data)}}  
-      </li>
+      </li> -->
       <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')" />
       <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
         {{this.state.myInfo.username}} :
@@ -366,7 +366,9 @@ export default {
   computed:{
     leave: function(){
       console.log(this.leave)
-      if(this.leave) { this.leaveSession() }
+      if(this.leave) { 
+        this.leaveSession() 
+      }
     },
     audio: function(){
       if(this.publishCheck) {
@@ -379,7 +381,7 @@ export default {
       }
     }
   },
-  setup(props){
+  setup(){
     const store = useStore()
     const state = reactive({
       myInfo: computed(() => {
@@ -391,6 +393,7 @@ export default {
         return store.state.participants;
       })
     })
+    
     return {
       state
     }
