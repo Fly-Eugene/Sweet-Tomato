@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,11 +25,13 @@ public class BlacklistController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object addBlacklist(@RequestBody IdReqDto params) throws AuthenticationException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.ADDED_BLACKLIST).dataType("blacklist").data(blacklistService.addBlacklist(params)).build();
     }
 
     @DeleteMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object deleteBlacklist(@RequestBody IdReqDto params) throws AuthenticationException {
         blacklistService.deleteBlacklist(params);
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_BLACKLIST).build();

@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -117,15 +118,18 @@ public class MemberController {
     }
 
     @GetMapping("/studycheck/{studyId}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object isStudy(@PathVariable("studyId") Long studyId){
         return memberService.isStudy(studyId);
     }
 
     @PostMapping("/time")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object addTime(@RequestBody @Valid StudyTimeDto params){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.ADDED_STUDY_TIME).dataType("member_study").data(memberService.addTime(params)).build();
     }
     @GetMapping("/time")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object getTimeList(){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TIME_LIST).dataType("study_time_list").data(memberService.getTimeList()).build();
     }

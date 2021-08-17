@@ -15,6 +15,7 @@ import net.coobird.thumbnailator.tasks.UnsupportedFormatException;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -34,26 +35,31 @@ public class StudyController {
 
     // 멤버가 직접 가입 하는거
     @PostMapping("/join")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object join(@RequestBody IdReqDto params) throws AuthenticationException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member_ref").data(studyService.joinMember(params)).build();
     }
     @PostMapping("/invite")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object inviteMember(@RequestBody IdReqDto params) throws AuthenticationException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member_ref").data(studyService.joinMember(params)).build();
     }
     @DeleteMapping("/withdraw")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object withdraw(@RequestBody IdReqDto params){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_STUDY_MEMBER).dataType("Long").data(studyService.withdraw(params)).build();
     }
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object create(FileReqDto params) throws IOException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY).dataType("study")
                 .data(studyService.create(params)).build();
     }
 
     @PatchMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object update(FileReqDto params) throws IOException, AuthenticationException {
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY)
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY).dataType("study")
                 .data(studyService.update(params)).build();
     }
 

@@ -11,7 +11,7 @@ public enum ErrorCode {
     ENTITY_NOT_FOUND(400, "C003", "Entity Not Found"),
     INTERNAL_SERVER_ERROR(500, "C004", "Server Error"),
     INVALID_TYPE_VALUE(400, "C005", "Invalid Type Value"),
-    HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
+    HANDLE_ACCESS_DENIED(403, "C006", "접근이 거부되었습니다."),
     ACCESS_DENIED(400, "C007", "작성자만 수정/삭제 가능합니다."),
 
     // Member
