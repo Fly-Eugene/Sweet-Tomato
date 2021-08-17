@@ -28,9 +28,9 @@ public class BlacklistController {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.ADDED_BLACKLIST).dataType("blacklist").data(blacklistService.addBlacklist(params)).build();
     }
 
-    @DeleteMapping("{studyId}")
-    public Object deleteBlacklist(@PathVariable("studyId") Long studyId) throws AuthenticationException {
-        blacklistService.deleteBlacklist(studyId);
+    @DeleteMapping
+    public Object deleteBlacklist(@RequestBody IdReqDto params) throws AuthenticationException {
+        blacklistService.deleteBlacklist(params);
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_BLACKLIST).build();
     }
 

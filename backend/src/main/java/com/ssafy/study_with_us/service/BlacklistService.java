@@ -14,6 +14,7 @@ import com.ssafy.study_with_us.util.SecurityUtil;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +35,7 @@ public class BlacklistService {
 
     @Transactional
     public Object addBlacklist(IdReqDto params) throws AuthenticationException {
-        if(getMemberId() != studyRepository.getById(params.getStudyId()).getStudyLeader()) {
-            throw new AuthenticationException("블랙리스트는 스터디 장만 추가 가능합니다.");
-        }
+        authCheck(params);
         // 스터디 멤버 삭제
         studyMemberRefRepository.withdraw(params);
         // 블랙리스트 추가
@@ -46,12 +45,11 @@ public class BlacklistService {
         return blacklist.entityToDto();
     }
 
+
     @Transactional
-    public void deleteBlacklist(Long studyId) throws AuthenticationException {
-        if(getMemberId() != studyRepository.getById(studyId).getStudyLeader()) {
-            throw new AuthenticationException("블랙리스트는 스터디 장만 삭제 가능합니다.");
-        }
-        blacklistRepository.delete(studyId, getMemberId());
+    public void deleteBlacklist(IdReqDto params) throws AuthenticationException {
+        authCheck(params);
+        blacklistRepository.delete(params.getStudyId(), params.getMemberId());
     }
 
     public Object getBlacklist(){
@@ -61,6 +59,12 @@ public class BlacklistService {
             studies.add(black.getStudy().getId());
         }
         return studies;
+    }
+    
+    private void authCheck(IdReqDto params) throws AuthenticationException {
+        if(getMemberId() != studyRepository.getById(params.getStudyId()).getStudyLeader()) {
+            throw new AuthenticationException("블랙리스트는 스터디 장만 추가/삭제 가능합니다.");
+        }
     }
 
     private Long getMemberId() {
