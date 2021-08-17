@@ -51,6 +51,8 @@ export function login (context, credentials) {
 export function logout(context) {
   localStorage.removeItem('jwt')
   context.commit('CHANGE_ISLOGIN')
+  router.push({ name : 'Home'})
+  alert('로그아웃 되었습니다.')
 }
 
 export function sendValidateEmail (context, email) {

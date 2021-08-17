@@ -2,14 +2,14 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat' :audio='state.audio' :video='state.video' @closeBtn="closeEveryDialog"/>
+        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat' :audio='state.audio' :video='state.video' :part='state.part' @closeBtn="closeEveryDialog"/>
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
           <RoomInfo @closeBtn="closeEveryDialog"/> 
         </div>
         <div v-if="state.dialog[1]">
-          <Participants @closeBtn="closeEveryDialog"/>
+          <!-- <Participants @closeBtn="closeEveryDialog"/> -->
         </div>
         <div v-if="state.dialog[2]">
           <!-- <Chatting/> -->
@@ -78,7 +78,8 @@ export default {
       leave: false,
       chat: false,
       audio: true,
-      video: true
+      video: true,
+      part: false
     })
     
     function closeEveryDialog () {
@@ -89,6 +90,7 @@ export default {
       }
       state.chat = false
       state.rightOn = false
+      state.part = false
     }
 
     function onCloseRoomInfo () {
@@ -100,6 +102,7 @@ export default {
       closeEveryDialog()
       state.rightOn = true
       state.dialog[1] = true
+      state.part = true
     }
     function onCloseChatting () {
       closeEveryDialog()

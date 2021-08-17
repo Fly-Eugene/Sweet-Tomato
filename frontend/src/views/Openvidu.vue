@@ -53,6 +53,7 @@
           v-model="video"
           style="display:none"
         />
+        <input v-model="part" style="display:none"/>
       </div>
       <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
@@ -69,12 +70,7 @@
           @click="updateMainVideoStreamManager(sub)"
         />
       </div>
-      <li 
-        v-for="sub in subscribers" 
-        :key="sub.stream.connection.connectionId"
-        :stream-manager="sub">
-        {{JSON.parse(this.streamManager.stream.data)}}  
-      </li>
+      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')"/>
       <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')" />
       <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
         {{this.state.myInfo.username}} :
@@ -93,6 +89,8 @@ import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
 import { useStore } from 'vuex'
 import { ref, reactive, computed } from 'vue'
+import Participants from '../components/Room/Participants.vue';
+import { mapState } from 'vuex'
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -116,11 +114,15 @@ export default {
     },
     video: {
       type: Boolean
+    },
+    part: {
+      type: Boolean
     }
   },
   components: {
     UserVideo,
     SideOptions,
+    Participants
   },
   data() {
     return {
@@ -137,6 +139,22 @@ export default {
       startTime: Date,
       publishCheck: false
     };
+  },
+  setup(props){
+    const store = useStore()
+    const state = reactive({
+      myInfo: computed(() => {
+        console.log(store.state.myInfo)
+        return store.state.myInfo;
+      }),
+      participants: computed(() => {
+        console.log(store.state.participants)
+        return store.state.participants;
+      })
+    })
+    return {
+      state
+    }
   },
   methods: {
     joinSession() {
@@ -155,6 +173,8 @@ export default {
       })
       console.log(this.studyId);
       console.log(this.state.myInfo.username)
+      this.state.participants.push(this.state.myInfo.username)
+      console.log(this.state.participants)
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -164,14 +184,17 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
-        this.state.participants.push(subscriber);
+        this.state.participants.push(JSON.parse(subscriber.stream.connection.data).clientData)
       });
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
-        const index = this.subscribers.indexOf(stream.streamManager, 0);
+        console.log("찍히나")
+        let index = this.subscribers.indexOf(stream.streamManager, 0);
+        console.log(stream)
         if (index >= 0) {
           this.subscribers.splice(index, 1);
-          this.state.participants.splice(subscriber);
+          console.log((JSON.parse(stream.connection.data).clientData))
+          this.state.participants.splice(this.state.participants.indexOf((JSON.parse(stream.connection.data).clientData)), 1);
         }
       });
       // On every asynchronous exception...
@@ -230,7 +253,6 @@ export default {
     },
     leaveSession() {
       this.publishCheck = false;
-    
       // --- Leave the session by calling 'disconnect' method over the Session object ---
       var now = new Date();
       var endTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
@@ -251,6 +273,8 @@ export default {
       this.mainStreamManager = undefined;
       this.publisher = undefined;
       this.subscribers = [];
+      useStore().state.participants = [];
+      // console.log(store.state.participants);
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
       this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
@@ -364,6 +388,7 @@ export default {
 		this.$store.dispatch('showNav')
 	},
   computed:{
+    // ...mapState({participants}),
     leave: function(){
       console.log(this.leave)
       if(this.leave) { this.leaveSession() }
@@ -379,22 +404,7 @@ export default {
       }
     }
   },
-  setup(props){
-    const store = useStore()
-    const state = reactive({
-      myInfo: computed(() => {
-        console.log(store.state.myInfo)
-        return store.state.myInfo;
-      }),
-      participants: computed(() => {
-        store.state.participants = [];
-        return store.state.participants;
-      })
-    })
-    return {
-      state
-    }
-  },
+  
 
 };
 </script>

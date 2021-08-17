@@ -5,9 +5,9 @@
       <span @click="$emit('closeBtn')">X</span>
     </div>
     <div class="participants_content">
-        <li v-for="user in this.state.participants" :key="user" style="margin: 20px 30px;">
-        {{ user.username }} 
-      </li>
+        <li v-for="user in state.participants" :key="user" style="margin: 20px 30px;">
+        {{ user }} 
+        </li>
     </div>
   </div>
 </template>
