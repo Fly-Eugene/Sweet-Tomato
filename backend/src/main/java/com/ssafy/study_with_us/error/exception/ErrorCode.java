@@ -12,7 +12,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "C004", "Server Error"),
     INVALID_TYPE_VALUE(400, "C005", "Invalid Type Value"),
     HANDLE_ACCESS_DENIED(403, "C006", "Access is Denied"),
-
+    ACCESS_DENIED(400, "C007", "작성자만 수정/삭제 가능합니다."),
 
     // Member
     EMAIL_DUPLICATION(400, "M001", "이메일이 중복되었습니다."),
@@ -24,6 +24,8 @@ public enum ErrorCode {
 
     // File
     FILE_NOT_FOUNDED(400, "F001", "파일이 존재하지 않습니다."),
+
+
     ;
     private final String code;
     private final String message;
