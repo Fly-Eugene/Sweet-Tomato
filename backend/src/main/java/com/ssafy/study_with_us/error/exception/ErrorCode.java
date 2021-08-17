@@ -25,6 +25,8 @@ public enum ErrorCode {
     // File
     FILE_NOT_FOUNDED(400, "F001", "파일이 존재하지 않습니다."),
 
+    //blacklist
+    BLACKLIST_ACCESS_DENIED(400, "B001", "해당 권한은 스터디장만 가능합니다."),
 
     ;
     private final String code;
