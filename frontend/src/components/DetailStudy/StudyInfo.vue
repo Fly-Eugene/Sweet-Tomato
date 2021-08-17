@@ -9,11 +9,11 @@
         <i class="fas fa-cog" @click="$emit('onClickEdit')"></i>
         <div class="info_name">{{ state.info.studyName }}</div>
         <div class="info_tags">
-          <span class="info_tag" v-for="tag in state.info.themes" :key="tag">{{ tag }}</span>
+          <span class="info_tag" v-for="tag in state.info.themes" :key="tag" :style="`background: ${randomColor()}`">#{{ tag }}</span>
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
-        <router-link :to="{name: 'Room', params: {studyId: studyId}}" v-if="state.checkflag" class="enter_btn ">입장하기</router-link>
-        <!-- <button class="enter_btn " v-if="state.checkflag" @click="enterRoom">입장하기</button> -->
+        <router-link :to="{name: 'Room', params: {studyId: studyId}}" v-if="state.checkflag" class="enter_btn">입장하기</router-link>
+        <!-- <button class="enter_btn" v-if="state.checkflag" @click="enterRoom">입장하기</button> -->
       </article>
   </section>
 </template>
@@ -57,6 +57,11 @@ export default {
       })
     })
 
+    const randomColor =  function() {
+      const h = Math.floor(Math.random() * 360)
+      return `hsl(${h}deg, 100%, 90%)`
+    }
+
     const server_url = store.state.server_url
     const study_profile_url = server_url + 'profile/study?studyId=' + props.studyId
 
@@ -71,6 +76,7 @@ export default {
 
     return {
       state,
+      randomColor,
       onClickStudyApply,
       onClickStudyResign,
       study_profile_url

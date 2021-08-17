@@ -62,3 +62,12 @@ export function GET_RECENT_STUDY(state, res) {
 export function SEARCH_STUDY(state, res) {
   state.searchedStudies = res
 }
+
+export function GET_POMODORO_GOAL(state, res) {
+  state.studyPomodoroGoals = res
+}
+
+export function GET_POMODORO_STATE(state, res) {
+  state.studyPomodoroState = res.tomatoes
+  console.log(state.studyPomodoroState)
+}

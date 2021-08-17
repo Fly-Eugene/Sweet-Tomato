@@ -104,8 +104,6 @@ export function editStudyInfo (context, frm) {
   })
 }
 
-
-
 export function studyApply (context, studyId) {
   $axios({
     method: 'post',
@@ -204,39 +202,6 @@ export function getDataSpeci (context, dataId) {
   })
 }
 
-export function getDownloadFile (context, fileId) {
-  $axios({
-    method: 'get',
-    url: this.state.server_url + 'file/download/' + fileId,
-    responseType : 'arraybuffer',
-  })
-  .then(res => {
-    console.log(res.data)
-    console.log(res.headers)
-    const url = window.URL.createObjectURL(new Blob([res.data]), {type: res.headers['content-type']})
-    const link = document.createElement('a')
-    const contentDisposition = res.headers['content-disposition']    // 파일 이름이라고 한다
-
-    let fileName = 'unkown'
-    if (contentDisposition) {
-      const [fileNameMatch] = contentDisposition.split(';').filter(str => str.includes('filename'));
-      if (fileNameMatch) {
-        [, fileName] = fileNameMatch.split('=')
-      }
-    }
-
-    link.href = url
-    link.setAttribute('download', `${fileName}`)
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-
-  })
-  .catch(err => {
-    console.log(err)
-  })
-}
-
 export function getStudyTomato (context, studyId) {
   $axios({
     method: 'get',
@@ -309,5 +274,74 @@ export function searchStudy({ commit }, hashtag) {
   })
 }
 
+export function getPomodoroState(context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'tomato/today/study/' + studyId
+  })
+  .then(res => {
+    console.log(res.data.data)
+    context.commit('GET_POMODORO_STATE', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
 
+
+export function getPomodoroGoal(context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'tomato/goal/' + studyId
+  })
+  .then(res => {
+    console.log(res.data.data)
+    context.commit('GET_POMODORO_GOAL', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+}
+
+export function setPomodoro(context, data) {
+  const {goal, time, studyId} = data
+  
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'tomato/goal',
+    data: {
+      goalTomato: goal,
+      goalTime : time,
+      studyId : studyId
+    }
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function patchPomodoro(context, data) {
+  const {goal, time, studyId, tomatoPlanId} = data
+
+  $axios({
+    method: 'patch',
+    url: this.state.server_url + 'tomato/goal',
+    data: {
+      goalTomato: goal,
+      goalTime : time,
+      studyId : studyId,
+      tomatoPlanId: tomatoPlanId
+    }
+  })
+  .then(res => {
+    console.log(res.data);
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
 

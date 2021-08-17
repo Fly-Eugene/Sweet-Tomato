@@ -16,7 +16,7 @@
           <!-- <SideOptions/> -->
         </div>
         <div v-if="state.dialog[3]">
-          <Pomodoro @closeBtn="closeEveryDialog"/>
+          <Pomodoro :studyId='studyId' @closeBtn="closeEveryDialog"/>
         </div>
         <div v-if="state.dialog[4]">
           <!-- <Calander/> -->
@@ -51,6 +51,8 @@ import Participants from '@/components/Room/Participants'
 import RoomInfo from '@/components/Room/RoomInfo'
 import '@/assets/style/room_wrapper.scss'
 import { reactive } from '@vue/reactivity'
+import { useStore } from 'vuex'
+import { onUnmounted } from '@vue/runtime-core'
 
 export default {
   name: 'Room',
@@ -71,6 +73,7 @@ export default {
   },
 
   setup() {
+    const store = useStore()
     const state = reactive({
       // 0: 정보 / 1: 참여자 / 2: 채팅 / 3: 뽀모도로 / 4: 캘린더 / 5: 타이머
       dialog: {0: false, 1: false, 2: false, 3: false, 4: false, 5: false},
@@ -81,6 +84,11 @@ export default {
       video: true,
       part: false
     })
+
+    onUnmounted(() => {
+      store.dispatch('showNav')
+    })
+
     
     function closeEveryDialog () {
       for (var key in state.dialog) {
@@ -127,9 +135,9 @@ export default {
     }
     function onLeaveRoom () {
       state.leave = true
+      store.dispatch('showNav')
     }
     function onClickAudio(){
-      console.log("??여긴")
       if(state.audio) state.audio = false
       else state.audio = true
     }

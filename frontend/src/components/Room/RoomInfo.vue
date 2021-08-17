@@ -2,19 +2,22 @@
   <div class="participants_box">
     <div class="participants_header">
       <span>스터디 정보</span>
+      <!-- <span></span> -->
       <span @click="$emit('closeBtn')">X</span>
     </div>
     <div class="participants_content">
-        <img class="info_img" :src="`${study_profile_url}`">
-        <div>{{this.state.info.studyName}}</div>
-        <div>{{this.state.info.studyIntro}}</div>
-        <div>{{this.state.info.themes}}</div>
+        <div class="study_info_header">{{this.state.info.studyName}}</div>
+        <img class="study_info_img" :src="`${study_profile_url}`">
+        <div class="study_info_intro">{{this.state.info.studyIntro}}</div>
+        <div class="study_info_themes">
+          <div class="study_info_theme" v-for="theme in state.info.themes" :key="theme">#{{theme}}</div>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
-import '@/assets/style/Room/participants.scss'
+import '@/assets/style/Room/room_info.scss'
 import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 export default {

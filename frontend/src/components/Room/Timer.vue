@@ -70,7 +70,7 @@ export default {
     function startTimer() {
       state.timerOn = true;
       state.totalTime = (state.hours * 60 * 60) + (state.minutes * 60) + (state.seconds)
-      state.bunmo = (state.hours * 60 * 60) + (state.minutes * 60) + (state.seconds)
+      // state.bunmo = (state.hours * 60 * 60) + (state.minutes * 60) + (state.seconds)
       state.timer = setInterval(() => this.countdown(), 1000);
     }
     function stopTimer() {
