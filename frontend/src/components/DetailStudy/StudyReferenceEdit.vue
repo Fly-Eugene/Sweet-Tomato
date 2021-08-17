@@ -1,18 +1,25 @@
 <template>
   <div class="study_modal_mask">
     <div class="study_modal_container">
-      <p class="modal_font" >제목</p>
-      <input type="text" class="modal_header_input" v-model="data_subject">
+
+      <div class="study_modal_header">
+        <p class="modal_title" >제목</p>
+        <input type="text" class="modal_title_input" v-model="data_subject">
+      </div>
 
       <!-- 기본 파일 유지 어떻게 하지?? -->
-      <p class="modal_font">첨부파일</p>
-      <input type="file" class="modal_file_input" id="file">
+      <div class="study_modal_file">
+        <p class="modal_file">첨부파일</p>
+        <input type="file" class="modal_file_input" id="file">
+      </div>
 
-      <p class="modal_font">내용</p>
-      <textarea name="" id="" cols="30" rows="10" class="modal_content_input" v-model="data_content" ></textarea>
+      <div class="study_modal_content">
+        <p class="modal_content">내용</p>
+        <textarea name="" id="" cols="30" rows="10" class="modal_content_input" v-model="data_content" ></textarea>
+      </div>
 
-      <button @click="onSubmitData" class="modal_refer_edit_btn">수정 버튼</button>
-      <button @click="$emit('close')" class="modal_refer_close_btn">닫기</button>
+      <button @click="onSubmitData" class="modal_refer_edit_btn">수정</button>
+      <button @click="$emit('editClose')" class="modal_refer_close_btn">닫기</button>
     </div>
   </div>
 </template>
@@ -20,14 +27,16 @@
 <script>
 import { computed, reactive, ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import $axios from 'axios'
 
 
 export default {
   name: 'StudyReferenceEdit',
 
-  setup(){
+  setup(props, {emit}){
     const store = useStore()
+    const router = useRouter()
     const state = reactive({
       study_data_speci : computed(() => {
         return store.state.studyDataSpeci
@@ -53,6 +62,8 @@ export default {
       })
       .then(res => {
         console.log(res.data)
+        emit('editClose')
+        router.go()
       })
       .catch(err => {
         console.log(err)

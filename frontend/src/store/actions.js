@@ -343,3 +343,19 @@ export function patchPomodoro(context, data) {
   })
 }
 
+export function addTomato(context, studyId) {
+
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'tomato',
+    data : {
+      studyId : studyId
+    }
+  })
+  .then(res => {
+    // console.log(res)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
