@@ -3,7 +3,7 @@ package com.ssafy.study_with_us.error;
 import com.ssafy.study_with_us.error.exception.BusinessException;
 import com.ssafy.study_with_us.error.exception.ErrorCode;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -88,11 +88,11 @@ public class GlobalExceptionHandler {
         final ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    // pk 중복
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    protected ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(Exception e) {
-        log.error("handleDataIntegrityViolationException", e);
-        final ErrorResponse response = ErrorResponse.of(ErrorCode.EMAIL_DUPLICATION);
-        return new ResponseEntity<>(response, HttpStatus.NOT_IMPLEMENTED);
+
+    @ExceptionHandler(AuthenticationException.class)
+    protected ResponseEntity<ErrorResponse> handleAuthenticationException(Exception e) {
+        log.error("작성자만 수정/삭제 가능합니다.", e);
+        final ErrorResponse response = ErrorResponse.of(ErrorCode.ACCESS_DENIED);
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
