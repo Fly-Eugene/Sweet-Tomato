@@ -4,7 +4,7 @@
       <p>{{ this.study.studyName }}</p>
     </div>
     <div class="card_hashtag">
-      <ul v-for="theme in this.study.themes" :key="theme">
+      <ul v-for="theme in this.study.themes.slice(0,3)" :key="theme">
         <li>{{ theme }}</li>
       </ul>
     </div>
@@ -16,7 +16,6 @@
         더보기
       </div>
     </div>
-    <!-- <div>{{ this.study }}</div> -->
   </section>
   
 </template>

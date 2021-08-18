@@ -31,7 +31,6 @@ export default {
     function onSearch(value) {
       store.dispatch('searchStudy', {themes: value, page: 1})
       state.hash = value
-      console.log(state.hash)
     }
     function onMove(pageNum) {
       store.dispatch('searchStudy', {themes: store.state.studyHashtag, page: pageNum})

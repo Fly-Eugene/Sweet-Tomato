@@ -31,8 +31,8 @@ export default {
     const study_hash_list = ref([])
 
     const searchStudy = function() {
-      study_hash_list.value.push('#' + study_hash.value)
-      state.find_hash.push('#' + study_hash.value)
+      study_hash_list.value.push(study_hash.value)
+      state.find_hash.push(study_hash.value)
       study_hash.value = ''
       emit('studySearch', study_hash_list.value)
     }

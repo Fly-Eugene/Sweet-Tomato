@@ -59,12 +59,13 @@ export function GET_MY_STUDY_TIME(state, res) {
 }
 
 export function GET_RECENT_STUDY(state, res) {
-  console.log('최근 저장함')
   state.myRecentStudy = res
 }
 
 export function SEARCH_STUDY(state, res) {
-  state.searchedStudies = res
+  state.searchedStudies = res.studies
+  state.totalPage = res.totalPage
+  console.log(state.searchedStudies)
 }
 
 export function GET_POMODORO_GOAL(state, res) {
@@ -73,7 +74,6 @@ export function GET_POMODORO_GOAL(state, res) {
 
 export function GET_POMODORO_STATE(state, res) {
   state.studyPomodoroState = res.tomatoes
-  console.log(state.studyPomodoroState)
 }
 
 export function GET_PARTICIPANTS(state, data) {
