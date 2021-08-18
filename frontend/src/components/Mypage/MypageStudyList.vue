@@ -3,17 +3,17 @@
     <div class="list_box">
       <header>내 스터디</header>
       <div class="list_wrapper">
-        <div class="first_study" @click="this.$router.push({name: 'DetailStudy', params: { id: state.recentStudies[0].study.id }})">
-          <p>{{ state.recentStudies[0].study.studyName }}</p>
-          <p>({{ state.recentStudies[0].recentlyConnectionTime.slice(11, 16) }})</p>
+        <div class="first_study" @click="this.$router.push({name: 'DetailStudy', params: { id: this.myStudyList[0].study.id }})">
+          <p>{{ this.myStudyList[0].study.studyName }}</p>
+          <p>({{ this.myStudyList[0].recentlyConnectionTime.slice(11, 16) }})</p>
         </div>
-        <div class="second_study" @click="this.$router.push({name: 'DetailStudy', params: { id: state.recentStudies[1].study.id }})">
-          <p>{{ state.recentStudies[1].study.studyName }}</p>
-          <p>({{ state.recentStudies[1].recentlyConnectionTime.slice(11, 16) }})</p>
+        <div class="second_study" @click="this.$router.push({name: 'DetailStudy', params: { id: this.myStudyList[1].study.id }})">
+          <p>{{ this.myStudyList[1].study.studyName }}</p>
+          <p>({{ this.myStudyList[1].recentlyConnectionTime.slice(11, 16) }})</p>
         </div>
-        <div class="third_study" @click="this.$router.push({name: 'DetailStudy', params: { id: state.recentStudies[2].study.id }})">
-          <p>{{ state.recentStudies[2].study.studyName }}</p>
-          <p>({{ state.recentStudies[2].recentlyConnectionTime.slice(11, 16) }})</p>
+        <div class="third_study" @click="this.$router.push({name: 'DetailStudy', params: { id: this.myStudyList[2].study.id }})">
+          <p>{{ this.myStudyList[2].study.studyName }}</p>
+          <p>({{ this.myStudyList[2].recentlyConnectionTime.slice(11, 16) }})</p>
         </div>
       </div>  
     </div>
@@ -27,7 +27,11 @@ import { onMounted, reactive } from 'vue'
 
 export default {
   name: 'MypageStudyList',
-  
+
+  props: {
+    myStudyList: Object  
+  },
+
   setup() {
     const store = useStore()
     const state = reactive({

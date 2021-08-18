@@ -1,9 +1,10 @@
 <template>
-  <div class="mypage_main">
-    <MypageInfo/>
-    <MypageTomato/>
-    <MypageStudyTime/>
-    <MypageStudyList/>
+  <!-- <div @click="move" v-if="!state.plz">이동하기</div> -->
+  <div class="mypage_main" v-if="state.plz">
+    <MypageInfo :myStudyList='state.myStudyList'/>
+    <MypageTomato :myTomato='state.myTomato'/>
+    <MypageStudyTime :myStudyTime='state.myStudyTime'/>
+    <MypageStudyList :myStudyList='state.myStudyList'/>
   </div>
 </template>
 
@@ -14,7 +15,7 @@ import MypageStudyTime from '@/components/Mypage/MypageStudyTime'
 import MypageStudyList from '@/components/Mypage/MypageStudyList'
 import '@/assets/style/mypage.scss'
 import { useStore } from 'vuex'
-import { onMounted } from 'vue'
+import { onBeforeMount, onUnmounted, reactive } from 'vue'
 
 export default {
   name: 'Mypage',
@@ -28,20 +29,22 @@ export default {
 
   setup() {
     const store = useStore()
-
-    function check() {
-      console.log(store.state.myInfo)
-    }
-
-    onMounted(() => {
-      store.dispatch('getRecentStudy')
-      store.dispatch('checkLogin')
-      store.dispatch('getMyTomato')
-      store.dispatch('getMyStudyTime')
+    const state = reactive({
+      plz: false,
+      myStudyList: store.state.myRecentStudy,
+      myStudyTime: store.state.myStudyTime,
+      myTomato: store.state.myTomato,
     })
 
+    onBeforeMount(() => {
+      store.dispatch('checkLogin')
+      state.plz = true
+    })
+    onUnmounted(() => {
+      state.plz = false
+    })
     return {
-      check
+      state,
     }
   }
 }

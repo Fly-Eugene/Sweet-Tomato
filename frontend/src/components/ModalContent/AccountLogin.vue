@@ -60,7 +60,7 @@ import '@/assets/style/login.scss'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 
-import { computed } from '@vue/runtime-core'
+import { computed, onUnmounted } from '@vue/runtime-core'
 import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -94,6 +94,9 @@ export default {
     const onLoginSubmit = handleSubmit(() => {
       store.dispatch('login', { email: ID._value, password: Password._value
       }) 
+      store.dispatch('getRecentStudy')
+      store.dispatch('getMyTomato')
+      store.dispatch('getMyStudyTime')
     })
 
     const onClickSignup = function() {
@@ -111,7 +114,11 @@ export default {
     onMounted( function() {
       forgotPassword.value = false
     })
-    
+    onUnmounted(() => {
+      store.dispatch('getRecentStudy')
+      store.dispatch('getMyTomato')
+      store.dispatch('getMyStudyTime')
+    })
     return {
       ID,
       Password,

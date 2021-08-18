@@ -19,7 +19,9 @@ import { useStore } from 'vuex';
 
 export default {
   name: 'MypageTomato',
-
+  props: {
+    myTomato: Number
+  },
   setup() {
     const store = useStore()
     const state = reactive({

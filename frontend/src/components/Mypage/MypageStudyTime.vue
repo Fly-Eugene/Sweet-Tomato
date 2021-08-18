@@ -6,7 +6,7 @@
     </section>
     <section class="box_right">
       <div class="amount">
-        <p>총 공부 시간</p>
+        <p @click="check">총 공부 시간</p>
         <p>{{ state.amountHour }}h {{ state.amountMinute }}m</p>
       </div>
       <div class="weekly">
@@ -20,24 +20,25 @@
         </div>
       </div>
     </section>
+    <!-- <div>{{ this.myStudyTime }}</div> -->
   </section>
 </template>
 
 <script>
 import '@/assets/style/Mypage/mypage_study_time.scss'
 import { reactive } from '@vue/reactivity'
-import { computed, onMounted } from '@vue/runtime-core'
-import { useStore } from 'vuex'
+import { onMounted } from '@vue/runtime-core'
+
 export default {
   name: 'MypageStudyTime',
+  
+  props: {
+    myStudyTime: Object  
+  },
+  
+  setup(props) {
 
-  setup() {
-    const store = useStore()
-    
     const state = reactive({
-      myStudyTime: computed(() => {
-        return store.state.myStudyTime
-      }),
       answer: [],
       week: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
       weeklyHour: 0,
@@ -50,7 +51,6 @@ export default {
 
     const options = {
       chart: {
-        // width: 500,
         type: 'line'
       },
       series:  [{
@@ -89,10 +89,10 @@ export default {
       var weekCnt = 0
       var week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일');
 
-      while (i < 14 && j < state.myStudyTime.length) {        
+      while (i < 14 && j < props.myStudyTime.length) {        
 
-        if (getInputDayLabel(state.myStudyTime[j].studyDate) === week[weekCnt]) {
-          answer[i] = state.myStudyTime[j].studyTime
+        if (getInputDayLabel(props.myStudyTime[j].studyDate) === week[weekCnt]) {
+          answer[i] = props.myStudyTime[j].studyTime
           i++;
           j++;
           ++weekCnt;
@@ -108,8 +108,8 @@ export default {
 
     function makeAmount() {
       var answer = 0
-      for (var i = 0; i < state.myStudyTime.length; i++) {
-        answer = answer + state.myStudyTime[i].studyTime
+      for (var i = 0; i < props.myStudyTime.length; i++) {
+        answer = answer + props.myStudyTime[i].studyTime
       }
       return answer
     }
@@ -137,12 +137,13 @@ export default {
 
     function calToday(){
       var result = [0, 0]      
-      if (getToday() === state.myStudyTime[state.myStudyTime.length-1].studyDate) {
-        result[0] = calHour(state.myStudyTime[state.myStudyTime.length-1].studyTime)[0]
-        result[1] = calHour(state.myStudyTime[state.myStudyTime.length-1].studyTime)[1]
+      if (getToday() === props.myStudyTime[props.myStudyTime.length-1].studyDate) {
+        result[0] = calHour(props.myStudyTime[props.myStudyTime.length-1].studyTime)[0]
+        result[1] = calHour(props.myStudyTime[props.myStudyTime.length-1].studyTime)[1]
       } 
       return result
     }
+    
     function object2array1(obj) {
       let answer = []
       for (let value of Object.values(obj)) {
@@ -158,7 +159,9 @@ export default {
       }
       return answer
     }
-
+    function check() {
+      console.log(props.myStudyTime)
+    }
     onMounted(() => {
       state.answer = getWeeklyStudyTime()
       state.weeklyHour = calHour(sumTime(state.answer.slice(7, 14)))[0]
@@ -167,26 +170,21 @@ export default {
       state.todayMinute = calToday()[1]
       state.amountHour = calHour(makeAmount())[0]
       state.amountMinute = calHour(makeAmount())[1]
-      // console.log(calHour(makeAmount())[0])
-      // console.log(state.answer)
+
       object2array1(state.answer.slice(0, 7))
       object2array2(state.answer.slice(7, 14))
-      // series[0].data.push(1)
-      // series[0].data.push(15)
-      // console.log(series[0].data)
       var chart = new ApexCharts(document.querySelector("#time_chart"), options);
       chart.render();
     })
+
     return {
       state,
       options,
-      // series,
-      // stroke,
-      // xaxis,
       getInputDayLabel,
       getWeeklyStudyTime,
       sumTime,
-      calHour
+      calHour,
+      check
     }
   }
 }

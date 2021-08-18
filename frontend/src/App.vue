@@ -11,6 +11,7 @@
       <!-- 스터디 디테일 페이지에 대해 동적 라우터를 형성합니다. 현재 테스트 중이므로 스터디 1번으로 동적 라우팅 -->
       <router-link :to="{name: 'DetailStudy', params: {id: 1}}">Study Detail</router-link> |
       <router-link :to="{name: 'Mypage'}">Mypage</router-link> |
+      <p @click='move'>제발</p>
       <router-link :to="{name: 'Room'}">RoomCheck</router-link> |
     </div>
     
@@ -36,6 +37,7 @@ import '@/assets/style/app.scss'
 import Navbar from '@/views/Navbar.vue'
 import { useStore } from 'vuex'
 import { computed, onMounted, reactive} from 'vue'
+import router from '@/router'
 
 export default {
   name: 'App',
@@ -52,7 +54,12 @@ export default {
         return store.state.nav_show
       }),
     })
-
+    function move() {
+      store.dispatch('getRecentStudy')
+      store.dispatch('getMyTomato')
+      store.dispatch('getMyStudyTime')
+      router.push({name: 'Mypage'})
+    }
     onMounted(() => {
       store.dispatch('checkLogin')
     })
@@ -61,6 +68,7 @@ export default {
     
     return {
       state,
+      move
     }
   }
 }
