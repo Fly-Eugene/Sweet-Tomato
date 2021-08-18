@@ -60,7 +60,7 @@ import '@/assets/style/login.scss'
 import { useForm, useField } from 'vee-validate'
 import * as yup from 'yup'
 
-import { computed } from '@vue/runtime-core'
+import { computed, onUnmounted } from '@vue/runtime-core'
 import { onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -111,7 +111,8 @@ export default {
     onMounted( function() {
       forgotPassword.value = false
     })
-    
+    onUnmounted(() => {
+    })
     return {
       ID,
       Password,

@@ -36,10 +36,10 @@ export function login (context, credentials) {
     data: credentials
   })
   .then(res => {
-    console.log(res.data.data.member)
     localStorage.setItem('jwt', res.data.data.token)
     this.state.myInfo = res.data.data.member
     context.commit('CHANGE_ISLOGIN')
+    console.log(res.data.data.member)
     router.push({ name : 'Home'})
   })
   .catch(err => {
@@ -222,6 +222,8 @@ export function getMyTomato ({ commit }) {
     url: this.state.server_url + 'tomato'
   })
   .then(res => {
+    console.log('내 토마토 가져옴')
+    console.log(res.data.data)
     commit('GET_MY_TOMATO', res.data.data)
   })
   .catch(err => {
@@ -235,7 +237,8 @@ export function getMyStudyTime({ commit }) {
     url: this.state.server_url + 'member/time'
   })
   .then(res => {
-    // console.log(res)
+    console.log('스터디타임 가져옴')
+    console.log(res.data.data)
     commit('GET_MY_STUDY_TIME', res.data.data)
   })
   .catch(err => {
@@ -249,6 +252,8 @@ export function getRecentStudy({ commit }) {
     url: this.state.server_url + 'study/recently'
   })
   .then(res => {
+    console.log('최근 스터디 가져옴')
+    console.log(res.data.data)
     // console.log(res)
     commit('GET_RECENT_STUDY', res.data.data)
   })
@@ -345,3 +350,51 @@ export function patchPomodoro(context, data) {
   })
 }
 
+export function addTomato(context, studyId) {
+
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'tomato',
+    data : {
+      studyId : studyId
+    }
+  })
+  .then(() => {
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function getParticipants(context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'study/connection/' + studyId
+  })
+  .then(res => {
+    console.log(res.data)
+    context.commit('GET_PARTICIPANTS', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function addParticipant(context, data) {
+  const {nickname, studyId} = data
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'study/connect',
+    data: {
+      studyId : studyId,
+      nickname : nickname
+    }
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+}

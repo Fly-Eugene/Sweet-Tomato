@@ -70,17 +70,8 @@
           @click="updateMainVideoStreamManager(sub)"
         />
       </div>
-<<<<<<< HEAD
-      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')"/>
-=======
-      <!-- <li 
-        v-for="sub in subscribers" 
-        :key="sub.stream.connection.connectionId"
-        :stream-manager="sub">
-        {{JSON.parse(this.streamManager.stream.data)}}  
-      </li> -->
->>>>>>> a7e684cd4a788bd64131e72bedbe3c9b6d95bda5
-      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')" />
+      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')" :studyLeader="studyLeader == state.myInfo.id" @explusion="Explusion"/>
+      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')"/>
       <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
         {{this.state.myInfo.username}} :
         <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" id="chat_value"/>
@@ -97,9 +88,8 @@ import UserVideo from "../components/Room/UserVideo";
 import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
 import { useStore } from 'vuex'
-import { ref, reactive, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import Participants from '../components/Room/Participants.vue';
-import { mapState } from 'vuex'
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -126,6 +116,9 @@ export default {
     },
     part: {
       type: Boolean
+    },
+    studyLeader: {
+      type: String
     }
   },
   components: {
@@ -140,29 +133,32 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      // mySessionId: '',
-      // myUserName: '',
       chat_value: "",
       // 임시적 채팅내용
       chatContents: [],
       startTime: Date,
-      publishCheck: false
+      publishCheck: false,
     };
   },
-  setup(props){
+  setup(){
     const store = useStore()
     const state = reactive({
       myInfo: computed(() => {
-        console.log(store.state.myInfo)
         return store.state.myInfo;
       }),
       participants: computed(() => {
-        console.log(store.state.participants)
         return store.state.participants;
-      })
+      }),
     })
+    function Explusion(value){
+      console.log(value)
+      useStore().state.participants.splice(useStore().state.participants.indexOf(value), 1);
+    }
+    // store.state.participantsId = []
+    
     return {
-      state
+      state,
+      Explusion
     }
   },
   methods: {
@@ -174,16 +170,21 @@ export default {
         url: 'https://localhost:5000/study/connection',
         data: {studyId: this.studyId}
       })
-      .then(res => {
+      .then(() => {
         
       })
       .catch(err => {
         console.log(err)
       })
-      console.log(this.studyId);
-      console.log(this.state.myInfo.username)
+      
+      console.log(this.state.myInfo)
       this.state.participants.push(this.state.myInfo.username)
-      console.log(this.state.participants)
+
+      // ================ 해당 username 과 그 멤버의 memberId를 같이 짝지어서 저장한다. ==========================
+      this.$store.dispatch('addParticipant', {nickname: this.state.myInfo.username, studyId: this.studyId})
+
+
+
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -197,14 +198,20 @@ export default {
       });
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
-        console.log("찍히나")
         let index = this.subscribers.indexOf(stream.streamManager, 0);
-        console.log(stream)
         if (index >= 0) {
           this.subscribers.splice(index, 1);
           console.log((JSON.parse(stream.connection.data).clientData))
           this.state.participants.splice(this.state.participants.indexOf((JSON.parse(stream.connection.data).clientData)), 1);
         }
+
+        // ============= 해당 username은 일시적이었으므로 session을 나갈 때 index를 찾아서 없애준다 ==================
+        const remove_idx = useStore().state.participantsId.findIndex(function(item) {return item[0] === JSON.parse(stream.connection.data).clientData})
+        console.log(remove_idx, '찾았다!! remove idx')
+        if (remove_idx > -1) {
+          useStore().state.participantsId(remove_idx, 1)
+        }
+
       });
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
@@ -272,7 +279,7 @@ export default {
         url: 'https://localhost:5000/member/time',
         data: {studyTime: elapsedMin}
       })
-      .then(res => {
+      .then(() => {
       })
       .catch(err => {
         console.log(err)
@@ -283,7 +290,6 @@ export default {
       this.publisher = undefined;
       this.subscribers = [];
       useStore().state.participants = [];
-      // console.log(store.state.participants);
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
       this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
@@ -292,7 +298,6 @@ export default {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
     },
-
     onEnterChat() {
       this.session
         .signal({
@@ -392,12 +397,12 @@ export default {
 	mounted() {
 		this.$store.dispatch('checkLogin')
 		this.$store.dispatch('hideNav')
+    this.$store.dispatch('getParticipants', this.studyId)
 	},
 	unmounted() {
 		this.$store.dispatch('showNav')
 	},
   computed:{
-    // ...mapState({participants}),
     leave: function(){
       console.log(this.leave)
       if(this.leave) { 
@@ -413,29 +418,16 @@ export default {
       if(this.publishCheck) {
         this.videoControll();
       }
+    },
+    participants: function(){
+      console.log('들어')
+      console.log(useStore().state.participants)
+      if(!useStore().state.participants.includes(this.state.myInfo.username)){
+        this.leaveSession();
+      }
     }
   },
-<<<<<<< HEAD
   
-=======
-  setup(){
-    const store = useStore()
-    const state = reactive({
-      myInfo: computed(() => {
-        console.log(store.state.myInfo)
-        return store.state.myInfo;
-      }),
-      participants: computed(() => {
-        store.state.participants = [];
-        return store.state.participants;
-      })
-    })
-    
-    return {
-      state
-    }
-  },
->>>>>>> a7e684cd4a788bd64131e72bedbe3c9b6d95bda5
 
 };
 </script>

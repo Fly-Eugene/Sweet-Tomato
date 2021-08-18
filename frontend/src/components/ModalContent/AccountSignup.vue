@@ -118,7 +118,7 @@ export default {
       var frm = new FormData();
       var photoFile = document.getElementById("file");
       frm.append("files", photoFile.files[0]);
-      frm.append("jsonData", JSON.stringify({ email: email._value, password: password._value, username: username._value, age: age._value, group: group._value }))
+      frm.append("jsonData", JSON.stringify({ email: email._value, password: password._value, username: username._value, age: age._value, department: group._value }))
       $axios.post('https://localhost:5000/member/join', frm, {
         headers: {
           'Content-Type': 'multipart/form-data'

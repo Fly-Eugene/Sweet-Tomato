@@ -47,15 +47,19 @@ export function GET_TOMATO (state, res) {
 }
 
 export function GET_MY_TOMATO(state, res) {
+  console.log('토마토 저장함')
   state.myTomato = res.relevantSum
   state.everyTomato = res.totalSum
 }
 
 export function GET_MY_STUDY_TIME(state, res) {
+  console.log('내 스터디 저장함')
   state.myStudyTime = res
+  state.plz = true
 }
 
 export function GET_RECENT_STUDY(state, res) {
+  console.log('최근 저장함')
   state.myRecentStudy = res
 }
 
@@ -71,3 +75,18 @@ export function GET_POMODORO_STATE(state, res) {
   state.studyPomodoroState = res.tomatoes
   console.log(state.studyPomodoroState)
 }
+
+export function GET_PARTICIPANTS(state, data) {
+  state.participantsInfo = data
+  console.log(state.participantsInfo)
+}
+
+// export function ADD_PARTICIPANT_ID(state, data) {
+//   console.log(state.participantsId)
+//   console.log(data)
+//   state.participantsId.push(data)
+//   console.log('지금 mutation 실행 중')
+// }
+
+
+

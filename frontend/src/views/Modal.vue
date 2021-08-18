@@ -48,8 +48,6 @@ export default {
       else {
         alert('로그인 후 이용 바랍니다.')
       }
-      
-
     }
 
     onMounted(() => {

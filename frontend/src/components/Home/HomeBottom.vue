@@ -4,13 +4,13 @@
       <div class="card" @mouseover="state.card_1 = true" @mouseleave="state.card_1 = false">
         <div class="card_inner_black">
           <div class="content">            
-            <img id="block" src="@/assets/img/alarm_black_24dp.svg" alt="">
+            <img id="block" src="@/assets/img/tBtnblack1.png" alt="">
             <p>뽀모도로</p>
           </div>
         </div>
         <div class="card_inner_white">
           <div class="content">            
-            <img id="white" src="@/assets/img/alarm_white_24dp.svg" alt="">
+            <img id="white" src="@/assets/img/tBtnwhite1.png" alt="">
             <p>뽀모도로</p>
           </div>
         </div>
@@ -29,34 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="card" @mouseover="state.card_3 = true" @mouseleave="state.card_3 = false">
-        <div class="card_inner_black">
-          <div class="content">            
-            <img id="block" src="@/assets/img/calender_black.svg" alt="">
-            <p>캘린더</p>
-          </div>
-        </div>
-        <div class="card_inner_white">
-          <div class="content">            
-            <img id="white" src="@/assets/img/calender_white.svg" alt="">
-            <p>캘린더</p>
-          </div>
-        </div>
-      </div>
-      <div class="card" @mouseover="state.card_4 = true" @mouseleave="state.card_4 = false">
-        <div class="card_inner_black">
-          <div class="content">            
-            <img id="block" src="@/assets/img/help_black.svg" alt="">
-            <p>질문하기</p>
-          </div>
-        </div>
-        <div class="card_inner_white">
-          <div class="content">            
-            <img id="white" src="@/assets/img/help_white.svg" alt="">
-            <p>질문하기</p>
-          </div>
-        </div>
-      </div>
+      
       <div class="card" @mouseover="state.card_5 = true" @mouseleave="state.card_5 = false">
         <div class="card_inner_black">
           <div class="content">            

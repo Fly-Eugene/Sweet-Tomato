@@ -1,46 +1,51 @@
 <template>
-  <section class="card">
-    <section class="card_wrapper">
-      <i class="far fa-heart"></i>
-      <div class="card_name">
-        <!-- <p>{{ props.study.id }}</p> -->
-        <p>최근 스터디 일자: 2021년 07월 28일</p>
+  <section class="card_wrapper">
+    <div class="card_name">
+      <p>{{ this.study.studyName }}</p>
+    </div>
+    <div class="card_hashtag">
+      <ul v-for="theme in this.study.themes" :key="theme">
+        <li>{{ theme }}</li>
+      </ul>
+    </div>
+    <div class="card_img">
+      <img :src="`${study_profile_url}`" alt="">
+    </div>
+    <div class="card_footer">
+      <div @click="this.$router.push({name: 'DetailStudy', params: { id: this.study.id }})">
+        더보기
       </div>
-      <div class="card_hashtag">
-        <ul>
-          <li># 파이썬</li>
-          <li># 코딩</li>
-          <li># 모각코</li>
-        </ul>
-      </div>
-      <div class="card_img">
-        <img src="@/assets/img/basic_profile.png" alt="">
-      </div>
-      <div class="card_footer">
-        <div>          
-          <img src="@/assets/img/tomato1.svg" alt="">
-          <span>X 200</span>
-        </div>
-        <div>
-          더보기
-        </div>
-      </div>
-    </section>
+    </div>
+    <!-- <div>{{ this.study }}</div> -->
   </section>
+  
 </template>
 
 <script>
 import '@/assets/style/StudyMain/study_card.scss'
-import { onMounted } from '@vue/runtime-core'
+import { useStore } from 'vuex'
+
 export default { 
   name: 'StudyCard',
+  
   props: {
     study: Object
   },
-  setup() {
-    onMounted(() => {
-      console.log(this.study)
-    })
+
+  setup(props) {
+    const store = useStore()
+
+    function check(study) {
+      console.log(study)
+    }
+
+    const server_url = store.state.server_url
+    const study_profile_url = server_url + 'profile/study?studyId=' + props.study.id
+
+    return {
+      check,
+      study_profile_url
+    }
   }
 }
 </script>

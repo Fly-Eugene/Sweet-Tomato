@@ -5,7 +5,7 @@
     <div class="tomato">
       <img src="@/assets/img/tomato1.svg" alt="">
       <div class="tomato_cnt">
-        <p>{{ state.myTomato }} 개</p>
+        <p>{{ this.myTomato }} 개</p>
         <p>(전체 {{ state.everyTomato }}개)</p>
       </div>
     </div>
@@ -19,7 +19,9 @@ import { useStore } from 'vuex';
 
 export default {
   name: 'MypageTomato',
-
+  props: {
+    myTomato: Number
+  },
   setup() {
     const store = useStore()
     const state = reactive({
@@ -27,7 +29,7 @@ export default {
         return store.state.myTomato
       }),
       everyTomato: computed(() => {
-        return store.state.everyTomato
+        return store.state.everyTomato ? store.state.everyTomato : 0
       })
     })
     const options = {

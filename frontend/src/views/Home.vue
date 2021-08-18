@@ -34,7 +34,10 @@ export default {
     const store = useStore()
     
     onMounted(() => {
-      store.dispatch('checkLogin')
+      store.dispatch('checkLogin')      
+      store.dispatch('getRecentStudy')
+      store.dispatch('getMyTomato')
+      store.dispatch('getMyStudyTime')
     })
   }
 

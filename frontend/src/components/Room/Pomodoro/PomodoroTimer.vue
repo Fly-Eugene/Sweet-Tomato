@@ -6,7 +6,8 @@
     </div>
     <article class="bar_wrapper">
       <div class="bar_gray">
-        <div class="bar_pink" :style="`width: ${state.totalTime/(state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].goalTime * 60) * 100}%`"></div>
+        <div v-if="state.study_pomodoro_goals === null" class="bar_pink" :style="`width: 0%`"></div>
+        <div v-else class="bar_pink" :style="`width: ${state.totalTime/(state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].goalTime * 60) * 100}%`"></div>
       </div>
     </article>
     <article class="state_time">      
@@ -25,8 +26,14 @@ import { computed, reactive } from 'vue'
 
 export default {
   name: 'PomodoroTimer',
+  props: {
+    studyId: {
+      type: String,
+      required: true
+    }
+  },
 
-  setup(){
+  setup(props){
     const store = useStore()
     const state = reactive({
       totalTime: 0,
@@ -44,7 +51,7 @@ export default {
         else {
           return store.state.studyPomodoroGoals
         }
-      })
+      }),
     })
 
     function padTime(time) {
@@ -66,6 +73,8 @@ export default {
         state.totalTime ++
       } else {
         endTimer()
+        // 스터디원 별로 dispatch 보내기
+        store.dispatch('addTomato', props.studyId)
         alert('시간종료')
       }
     }

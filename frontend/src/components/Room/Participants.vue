@@ -6,7 +6,8 @@
     </div>
     <div class="participants_content">
         <li v-for="user in state.participants" :key="user" style="margin: 20px 30px;">
-        {{ user }} 
+        {{ user }}
+        <span v-if="studyLeader && user != state.participants[0]" style="color: red; cursor: pointer;" @click="$emit('explusion', user)">강퇴</span>
         </li>
     </div>
   </div>
@@ -18,7 +19,12 @@ import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: 'Participants',
-  setup(props){
+  props:{
+      studyLeader: {
+      type: Boolean
+    }
+  },
+  setup(){
     const store = useStore()
     const state = reactive({
       participants: computed(() => {

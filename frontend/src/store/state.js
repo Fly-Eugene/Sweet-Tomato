@@ -19,7 +19,9 @@ export default {
   myRecentStudy: [],
   studyHashtag: [],
   searchedStudies: [],
+  totalPage: 1,
   participants: [],
+  participantsInfo : [],
   studyPomodoroGoals: [],
   studyPomodoroState: []
 

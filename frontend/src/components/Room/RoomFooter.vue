@@ -33,7 +33,6 @@ export default {
   methods: {
     onClickVideo(){
       this.$emit('clickVideo')
-      console.log('안녕')
       if(this.video == 'fa-video'){
         this.video = 'fa-video-slash';
       }else{
@@ -42,7 +41,6 @@ export default {
     },
     onClickAudio(){
       this.$emit('clickAudio')
-      console.log('안녕하세요')
       if(this.audio == 'fa-phone'){
         this.audio = 'fa-phone-slash'
       }else{

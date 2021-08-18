@@ -1,6 +1,6 @@
 <template>
   <StudyModalRefer v-if="state.showDataModal === true && Object.keys(state.study_data_speci).length" @close="state.showDataModal = false" @clickEdit="onClickEdit"/>
-  <StudyReferenceEdit v-if="state.showEditModal === true" @close="state.showEditModal = false"/>
+  <StudyReferenceEdit v-if="state.showEditModal === true" @editClose="state.showEditModal = false"/>
 
   <article class="reference_content_sub"></article>
   <article class="reference_content">

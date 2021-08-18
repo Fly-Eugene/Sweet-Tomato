@@ -8,7 +8,7 @@
       <PomodoroSetting v-if="state.pomodoro_setting === true" :studyId="studyId" :pomodoro_setting_data="state.pomodoro_setting_data" @completePomodoroSetting="state.pomodoro_setting = false"/>
       <PomodoroGoalState v-if="state.pomodoro_setting === false" @pomodoroSetting="pomodoroSetting"/>
       <PomodoroState v-if="state.pomodoro_setting === false"/>
-      <PomodoroTimer v-if="state.pomodoro_setting === false"/>
+      <PomodoroTimer v-if="state.pomodoro_setting === false" :studyId="studyId"/>
     </div>
   </div>
 </template>

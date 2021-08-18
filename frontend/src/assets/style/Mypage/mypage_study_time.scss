@@ -24,6 +24,13 @@
       left: 5%;
       top: 10%;
     }
+    .none {
+      position: absolute;
+      font-size: 50px;
+      top: 45%;
+      left: 45%;
+      transform: translate(-50%, -50%);
+    }
   }
   .box_right {    
     position: absolute;
