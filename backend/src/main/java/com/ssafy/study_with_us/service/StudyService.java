@@ -192,14 +192,23 @@ public class StudyService {
     }
 
     public StudyMemberRefDto connectStudy(StudyMemberRefDto params){
-        Long memberId = getMemberId();
-        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(memberId, params.getStudyId());
-        StudyMemberRef result = studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId())
+        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), params.getStudyId());
+        return studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId())
                 .nickname(params.getNickname())
                 .connected(true)
                 .member(studyMember.getMember())
-                .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build());
-        return result.entityToRefDto();
+                .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build()).entityToRefDto();
+    }
+
+    @Transactional
+    public StudyMemberRefDto disConnect(Long studyId){
+        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), studyId);
+        return studyMemberRefRepository.save(StudyMemberRef.builder()
+                .id(studyMember.getId())
+                .nickname(studyMember.getNickname())
+                .connected(false)
+                .member(studyMember.getMember())
+                .study(studyMember.getStudy()).build()).entityToRefDto();
     }
 
     public List<StudyMemberRefDto> getConnectionList(Long studyId){
