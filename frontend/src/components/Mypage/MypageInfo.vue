@@ -1,16 +1,19 @@
 <template>
   <section class='mypage_info'>
     <article class='mypage_left'>
-      <div class='recent_access'>
-        <p>최근 접속</p>      
-        <p>{{ this.myStudyList[0].recentlyConnectionTime.slice(0, 10) }} </p>
+      <div v-if="!this.myStudyList">
+        <div class='recent_access'>
+          <p>최근 접속</p>      
+          <p>{{ this.myStudyList[0].recentlyConnectionTime.slice(0, 10) }} </p>
+        </div>
+        <div class="studyname">
+          <p>{{ this.myStudyList[0].study.studyName }}</p>
+        </div>
+        <div class="enterBtn">
+          <p @click="this.$router.push({name: 'DetailStudy', params: { id: this.myStudyList[0].study.id }})">입장하기</p>
+        </div>
       </div>
-      <div class="studyname">
-        <p>{{ this.myStudyList[0].study.studyName }}</p>
-      </div>
-      <div class="enterBtn">
-        <p @click="this.$router.push({name: 'DetailStudy', params: { id: this.myStudyList[0].study.id }})">입장하기</p>
-      </div>
+
     </article>
     <article class='mypage_right'>
       <i class="fas fa-cog"></i>

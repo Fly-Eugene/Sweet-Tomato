@@ -31,9 +31,9 @@ export default {
     const store = useStore()
     const state = reactive({
       plz: false,
-      myStudyList: store.state.myRecentStudy,
-      myStudyTime: store.state.myStudyTime,
-      myTomato: store.state.myTomato,
+      myStudyList: store.state.myRecentStudy !== null ? store.state.myRecentStudy : false,
+      myStudyTime: store.state.myStudyTime !== null ? store.state.myStudyTime : false,
+      myTomato: store.state.myTomato !== null ? store.state.myTomato : 0,
     })
 
     onBeforeMount(() => {

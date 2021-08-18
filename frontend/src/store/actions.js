@@ -39,6 +39,7 @@ export function login (context, credentials) {
     localStorage.setItem('jwt', res.data.data.token)
     this.state.myInfo = res.data.data.member
     context.commit('CHANGE_ISLOGIN')
+    console.log(res.data.data.member)
     router.push({ name : 'Home'})
   })
   .catch(err => {
@@ -222,6 +223,7 @@ export function getMyTomato ({ commit }) {
   })
   .then(res => {
     console.log('내 토마토 가져옴')
+    console.log(res.data.data)
     commit('GET_MY_TOMATO', res.data.data)
   })
   .catch(err => {
@@ -236,6 +238,7 @@ export function getMyStudyTime({ commit }) {
   })
   .then(res => {
     console.log('스터디타임 가져옴')
+    console.log(res.data.data)
     commit('GET_MY_STUDY_TIME', res.data.data)
   })
   .catch(err => {
@@ -250,6 +253,7 @@ export function getRecentStudy({ commit }) {
   })
   .then(res => {
     console.log('최근 스터디 가져옴')
+    console.log(res.data.data)
     // console.log(res)
     commit('GET_RECENT_STUDY', res.data.data)
   })

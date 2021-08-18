@@ -94,9 +94,6 @@ export default {
     const onLoginSubmit = handleSubmit(() => {
       store.dispatch('login', { email: ID._value, password: Password._value
       }) 
-      store.dispatch('getRecentStudy')
-      store.dispatch('getMyTomato')
-      store.dispatch('getMyStudyTime')
     })
 
     const onClickSignup = function() {
@@ -115,9 +112,6 @@ export default {
       forgotPassword.value = false
     })
     onUnmounted(() => {
-      store.dispatch('getRecentStudy')
-      store.dispatch('getMyTomato')
-      store.dispatch('getMyStudyTime')
     })
     return {
       ID,

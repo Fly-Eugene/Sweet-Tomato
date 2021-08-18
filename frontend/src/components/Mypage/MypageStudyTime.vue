@@ -2,7 +2,8 @@
   <section class="mypage_study_time">
     <section class="box_left">
       <header class="mypage_study_header">주간 공부량 비교</header>
-        <div id='time_chart'></div>
+        <div class="none" v-if="myStudyTime"> 공부시간 없음 </div>
+        <div id='time_chart' v-if="!myStudyTime"></div>
     </section>
     <section class="box_right">
       <div class="amount">

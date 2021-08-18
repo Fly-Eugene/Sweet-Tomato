@@ -2,7 +2,7 @@
   <section class="mypage_study_list">
     <div class="list_box">
       <header>내 스터디</header>
-      <div class="list_wrapper">
+      <div class="list_wrapper" v-if="!myStudyList">
         <div class="first_study" @click="this.$router.push({name: 'DetailStudy', params: { id: this.myStudyList[0].study.id }})">
           <p>{{ this.myStudyList[0].study.studyName }}</p>
           <p>({{ this.myStudyList[0].recentlyConnectionTime.slice(11, 16) }})</p>
