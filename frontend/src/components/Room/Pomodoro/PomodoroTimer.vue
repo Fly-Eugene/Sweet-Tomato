@@ -6,7 +6,8 @@
     </div>
     <article class="bar_wrapper">
       <div class="bar_gray">
-        <div class="bar_pink" :style="`width: ${state.totalTime/(state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].goalTime * 60) * 100}%`"></div>
+        <div v-if="state.study_pomodoro_goals === null" class="bar_pink" :style="`width: 0%`"></div>
+        <div v-else class="bar_pink" :style="`width: ${state.totalTime/(state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].goalTime * 60) * 100}%`"></div>
       </div>
     </article>
     <article class="state_time">      
