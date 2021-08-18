@@ -20,7 +20,7 @@ export default {
   studyHashtag: [],
   searchedStudies: [],
   participants: [],
-  participantsId : [],
+  participantsInfo : [],
   studyPomodoroGoals: [],
   studyPomodoroState: []
 
