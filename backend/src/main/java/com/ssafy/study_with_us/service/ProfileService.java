@@ -37,7 +37,7 @@ public class ProfileService {
                 .id(null)
                 .imageOrgName(mf.getOriginalFilename())
                 .image(imageFile.getName())
-                .path(imageFile.getParent() + "\\")
+                .path(imageFile.getParent() + "/")
                 .thumbnail(fileUtil.setThumbnail(imageFile))
                 .build());
     }
@@ -49,7 +49,7 @@ public class ProfileService {
                 .id(null)
                 .imageOrgName(mf.getOriginalFilename())
                 .image(imageFile.getName())
-                .path(imageFile.getParent() + "\\")
+                .path(imageFile.getParent() + "/")
                 .thumbnail(fileUtil.setThumbnail(imageFile))
                 .build());
     }

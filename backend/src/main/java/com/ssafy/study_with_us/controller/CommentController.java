@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,14 +26,17 @@ public class CommentController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object create(@RequestBody CommentDto params){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_COMMENT).dataType("comment").data(commentService.create(params)).build();
     }
     @PatchMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object update(@RequestBody CommentDto params) throws AuthenticationException {
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_COMMENT).dataType("comment").data(commentService.update(params)).build();
     }
     @DeleteMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object delete(@RequestBody CommentDto params) throws AuthenticationException {
         commentService.delete(params);
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.DELETED_COMMENT).build();

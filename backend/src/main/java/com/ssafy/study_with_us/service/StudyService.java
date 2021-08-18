@@ -191,14 +191,33 @@ public class StudyService {
         return map;
     }
 
-    public StudyMemberDto connectStudy(Long studyId){
+    public StudyMemberRefDto connectStudy(StudyMemberRefDto params){
+        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), params.getStudyId());
+        return studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId())
+                .nickname(params.getNickname())
+                .connected(true)
+                .member(studyMember.getMember())
+                .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build()).entityToRefDto();
+    }
+
+    @Transactional
+    public StudyMemberRefDto disConnect(Long studyId){
         StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), studyId);
-        StudyMemberRef result = studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId()).member(studyMember.getMember())
-                .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build());
-        return StudyMemberDto.builder().id(result.getId())
-                .study(result.getStudy().entityToDto())
-                .member(result.getMember().entityToDto())
-                .recentlyConnectionTime(result.getRecentlyConnectionTime()).build();
+        return studyMemberRefRepository.save(StudyMemberRef.builder()
+                .id(studyMember.getId())
+                .nickname(studyMember.getNickname())
+                .connected(false)
+                .member(studyMember.getMember())
+                .study(studyMember.getStudy()).build()).entityToRefDto();
+    }
+
+    public List<StudyMemberRefDto> getConnectionList(Long studyId){
+        List<StudyMemberRef> connectionList = studyMemberRefRepository.getConnectionList(studyId);
+        List<StudyMemberRefDto> results = new ArrayList<>();
+        for (StudyMemberRef studyMemberRef : connectionList) {
+            results.add(studyMemberRef.entityToRefDto());
+        }
+        return results;
     }
 
     public List<StudyMemberDto> getRecentlyStudies(){
