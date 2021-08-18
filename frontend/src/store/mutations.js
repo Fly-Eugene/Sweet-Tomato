@@ -76,12 +76,17 @@ export function GET_POMODORO_STATE(state, res) {
   console.log(state.studyPomodoroState)
 }
 
-export function ADD_PARTICIPANT_ID(state, data) {
-  console.log(state.participantsId)
-  console.log(data)
-  state.participantsId.push(data)
-  console.log('지금 mutation 실행 중')
+export function GET_PARTICIPANTS(state, data) {
+  state.participantsInfo = data
+  console.log(state.participantsInfo)
 }
+
+// export function ADD_PARTICIPANT_ID(state, data) {
+//   console.log(state.participantsId)
+//   console.log(data)
+//   state.participantsId.push(data)
+//   console.log('지금 mutation 실행 중')
+// }
 
 
 

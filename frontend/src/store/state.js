@@ -21,7 +21,7 @@ export default {
   searchedStudies: [],
   totalPage: 1,
   participants: [],
-  participantsId : [],
+  participantsInfo : [],
   studyPomodoroGoals: [],
   studyPomodoroState: []
 

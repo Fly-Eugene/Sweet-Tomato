@@ -365,3 +365,36 @@ export function addTomato(context, studyId) {
     console.log(err)
   })
 }
+
+export function getParticipants(context, studyId) {
+  $axios({
+    method: 'get',
+    url: this.state.server_url + 'study/connection/' + studyId
+  })
+  .then(res => {
+    console.log(res.data)
+    context.commit('GET_PARTICIPANTS', res.data.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+}
+
+export function addParticipant(context, data) {
+  const {nickname, studyId} = data
+  $axios({
+    method: 'post',
+    url: this.state.server_url + 'study/connect',
+    data: {
+      studyId : studyId,
+      nickname : nickname
+    }
+  })
+  .then(res => {
+    console.log(res.data)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+}
