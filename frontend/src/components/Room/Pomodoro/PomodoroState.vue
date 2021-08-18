@@ -6,10 +6,11 @@
     </article>
     <article class="state_content">
       <div class="state_content_wrapper">
-        <div class="state_profile" v-for="member_tomato in state.study_pomodoro_state" :key="member_tomato">
-          <span>{{member_tomato.memberId}}</span>
+        <div class="state_profile" v-for="member_tomato in state.participants_pomodoro" :key="member_tomato">
+          <!-- [1] 인덱스는 nickname -->
+          <span>{{member_tomato[1]}}</span>  
           <div class="bar">
-            <div class="bar_front" :style="`width: ${percent_tomato(study_today_goal, member_tomato.count)}%`"></div>
+            <div class="bar_front" :style="`width: ${percent_tomato(study_today_goal, member_tomato[2])}%`"></div>
           </div>
         </div>
       </div>
@@ -41,12 +42,14 @@ export default {
         }
       }),
 
-      participants_id: computed(() => {
-        return store.state.participantsId
-      })
+      study_participants_info: computed(() => {
+        return store.state.participantsInfo
+      }),
+
+      participants_pomodoro : []
     })
 
-    console.log(state.participants_id, '헤이헤이헤이')
+    console.log(state.study_participants_info, '헤이헤이헤이')
 
     let study_today_goal = ref('')
     if (state.study_pomodoro_goals) {
@@ -55,7 +58,6 @@ export default {
       study_today_goal = 0
     }
 
-
     function percent_tomato(study_today_goal, member_tomato) {
       let percent = member_tomato / study_today_goal * 100
       if (percent > 100) {
@@ -63,6 +65,20 @@ export default {
       }
       return percent
     }
+
+    state.study_participants_info.forEach( participant => {
+      const memberId = participant['memberId']
+      const idx = state.study_pomodoro_state.findIndex(function(member_tomato) {return member_tomato.memberId === memberId})
+      if (idx > -1) {
+        state.participants_pomodoro.push([participant['memberId'], participant['nickname'], state.study_pomodoro_state[idx]['count']])
+      } else {
+        state.participants_pomodoro.push([participant['memberId'], participant['nickname'], 0])
+      }
+    });
+
+    console.log(state.participants_pomodoro, '여기여기여기')
+
+    
 
     return {
       state,
