@@ -79,6 +79,10 @@ public class StudyController {
     public Object connection(@RequestBody StudyMemberRefDto params){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CONNECTED_STUDY).dataType("study_member_ref").data(studyService.connectStudy(params)).build();
     }
+    @GetMapping("/connection/{studyId}")
+    public Object getConnectionList(@PathVariable("studyId") Long studyId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_CONNECTED_STUDY_LIST).dataType("study_member_ref_list").data(studyService.getConnectionList(studyId)).build();
+    }
 
     @GetMapping("/recently")
     public Object getRecentlyStudies(){

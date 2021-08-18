@@ -202,6 +202,15 @@ public class StudyService {
         return result.entityToRefDto();
     }
 
+    public List<StudyMemberRefDto> getConnectionList(Long studyId){
+        List<StudyMemberRef> connectionList = studyMemberRefRepository.getConnectionList(studyId);
+        List<StudyMemberRefDto> results = new ArrayList<>();
+        for (StudyMemberRef studyMemberRef : connectionList) {
+            results.add(studyMemberRef.entityToRefDto());
+        }
+        return results;
+    }
+
     public List<StudyMemberDto> getRecentlyStudies(){
         List<StudyMemberRef> recentlyStudies = studyMemberRefRepository.getRecentlyStudies(getMemberId());
         List<StudyMemberDto> results = new ArrayList<>();
