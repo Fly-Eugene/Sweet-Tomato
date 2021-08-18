@@ -181,7 +181,9 @@ export default {
       this.state.participants.push(this.state.myInfo.username)
 
       // ================ 해당 username 과 그 멤버의 memberId를 같이 짝지어서 저장한다. ==========================
-      this.$store.commit('ADD_PARTICIPANT_ID', [this.state.myInfo.username, this.state.myInfo.id])
+      this.$store.dispatch('addParticipant', {nickname: this.state.myInfo.username, studyId: this.studyId})
+
+
 
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
@@ -395,6 +397,7 @@ export default {
 	mounted() {
 		this.$store.dispatch('checkLogin')
 		this.$store.dispatch('hideNav')
+    this.$store.dispatch('getParticipants', this.studyId)
 	},
 	unmounted() {
 		this.$store.dispatch('showNav')
