@@ -11,6 +11,21 @@
     font-weight: 600;
   }
 
+  .pomodoro_setting {
+    width: 85px;
+    height: 32px;
+
+    color: white;
+    font-size: 70%;
+    font-family: "Godo", sans-serif;
+
+    background: #F16666;
+    border-radius: 15px;
+    border: none;
+
+    cursor: pointer;
+  }
+
   .pomodoro_goal_state {
     margin-left: 10%;
     margin-right: 10%;

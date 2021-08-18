@@ -88,9 +88,8 @@ import UserVideo from "../components/Room/UserVideo";
 import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
 import { useStore } from 'vuex'
-import { ref, reactive, computed } from 'vue'
+import { reactive, computed } from 'vue'
 import Participants from '../components/Room/Participants.vue';
-import { mapState } from 'vuex'
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -134,8 +133,6 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      // mySessionId: '',
-      // myUserName: '',
       chat_value: "",
       // 임시적 채팅내용
       chatContents: [],
@@ -143,23 +140,22 @@ export default {
       publishCheck: false,
     };
   },
-  setup(props){
+  setup(){
     const store = useStore()
     const state = reactive({
       myInfo: computed(() => {
-        console.log(store.state.myInfo)
         return store.state.myInfo;
       }),
       participants: computed(() => {
-        console.log(store.state.participants)
-        
         return store.state.participants;
-      })
+      }),
     })
     function Explusion(value){
       console.log(value)
       useStore().state.participants.splice(useStore().state.participants.indexOf(value), 1);
     }
+    // store.state.participantsId = []
+    
     return {
       state,
       Explusion
@@ -174,16 +170,19 @@ export default {
         url: 'https://localhost:5000/study/connection',
         data: {studyId: this.studyId}
       })
-      .then(res => {
+      .then(() => {
         
       })
       .catch(err => {
         console.log(err)
       })
-      console.log(this.studyId);
-      console.log(this.state.myInfo.username)
+      
+      console.log(this.state.myInfo)
       this.state.participants.push(this.state.myInfo.username)
-      console.log(this.state.participants)
+
+      // ================ 해당 username 과 그 멤버의 memberId를 같이 짝지어서 저장한다. ==========================
+      this.$store.commit('ADD_PARTICIPANT_ID', [this.state.myInfo.username, this.state.myInfo.id])
+
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -197,14 +196,20 @@ export default {
       });
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
-        console.log("찍히나")
         let index = this.subscribers.indexOf(stream.streamManager, 0);
-        console.log(stream)
         if (index >= 0) {
           this.subscribers.splice(index, 1);
           console.log((JSON.parse(stream.connection.data).clientData))
           this.state.participants.splice(this.state.participants.indexOf((JSON.parse(stream.connection.data).clientData)), 1);
         }
+
+        // ============= 해당 username은 일시적이었으므로 session을 나갈 때 index를 찾아서 없애준다 ==================
+        const remove_idx = useStore().state.participantsId.findIndex(function(item) {return item[0] === JSON.parse(stream.connection.data).clientData})
+        console.log(remove_idx, '찾았다!! remove idx')
+        if (remove_idx > -1) {
+          useStore().state.participantsId(remove_idx, 1)
+        }
+
       });
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
@@ -272,7 +277,7 @@ export default {
         url: 'https://localhost:5000/member/time',
         data: {studyTime: elapsedMin}
       })
-      .then(res => {
+      .then(() => {
       })
       .catch(err => {
         console.log(err)
@@ -283,7 +288,6 @@ export default {
       this.publisher = undefined;
       this.subscribers = [];
       useStore().state.participants = [];
-      // console.log(store.state.participants);
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
       this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
@@ -396,7 +400,6 @@ export default {
 		this.$store.dispatch('showNav')
 	},
   computed:{
-    // ...mapState({participants}),
     leave: function(){
       console.log(this.leave)
       if(this.leave) { 

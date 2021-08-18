@@ -3,8 +3,8 @@
     <div class="pomodoro_goal_header">
       <span>오늘의 목표</span>
       <p>{{ nowGoal }}</p>
-      <button v-if="state.study_pomodoro_goals === null" @click="$emit('pomodoroSetting', [0, 0])">설정 버튼</button>
-      <button v-else @click="$emit('pomodoroSetting', [1, state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].tomatoPlanId] )">설정 버튼</button>
+      <button v-if="state.study_pomodoro_goals === null" @click="$emit('pomodoroSetting', [0, 0])" class="pomodoro_setting">설정 버튼</button>
+      <button v-else @click="$emit('pomodoroSetting', [1, state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].tomatoPlanId] )" class="pomodoro_setting">설정 버튼</button>
     </div>
     <div class="pomodoro_goal_state">
       <img src="@/assets/img/tomato1.svg" alt="">

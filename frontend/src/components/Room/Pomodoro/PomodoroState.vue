@@ -12,30 +12,6 @@
             <div class="bar_front" :style="`width: ${percent_tomato(study_today_goal, member_tomato.count)}%`"></div>
           </div>
         </div>
-        <!-- <div class="state_profile">
-          <span>근</span>
-          <div class="bar">
-            <div class="bar_front"></div>
-          </div>
-        </div>
-        <div class="state_profile">
-          <span>유</span>
-          <div class="bar">
-            <div class="bar_front"></div>
-          </div>
-        </div>
-        <div class="state_profile">
-          <span>종</span>
-          <div class="bar">
-            <div class="bar_front"></div>
-          </div>
-        </div>
-        <div class="state_profile">
-          <span>혜</span>
-          <div class="bar">
-            <div class="bar_front"></div>
-          </div>
-        </div> -->
       </div>
     </article>
   </div>
@@ -44,7 +20,7 @@
 <script>
 import '@/assets/style/Room/Pomodoro/pomodoro_state.scss'
 import { useStore } from 'vuex'
-import { computed, reactive } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 export default {
   name: 'PomodoroState',
@@ -54,10 +30,32 @@ export default {
     const state = reactive({
       study_pomodoro_state: computed(() => {
         return store.state.studyPomodoroState
+      }),
+
+      study_pomodoro_goals: computed(()=> {
+        if (store.state.studyPomodoroGoals.length === 0) {
+          return null
+        }
+        else {
+          return store.state.studyPomodoroGoals
+        }
+      }),
+
+      participants_id: computed(() => {
+        return store.state.participantsId
       })
     })
 
-    const study_today_goal = 10
+    console.log(state.participants_id, '헤이헤이헤이')
+
+    let study_today_goal = ref('')
+    if (state.study_pomodoro_goals) {
+      study_today_goal = state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].goalTomato
+    } else {
+      study_today_goal = 0
+    }
+
+
     function percent_tomato(study_today_goal, member_tomato) {
       let percent = member_tomato / study_today_goal * 100
       if (percent > 100) {

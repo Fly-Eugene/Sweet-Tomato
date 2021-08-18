@@ -24,7 +24,7 @@ export default {
       type: Boolean
     }
   },
-  setup(props){
+  setup(){
     const store = useStore()
     const state = reactive({
       participants: computed(() => {
