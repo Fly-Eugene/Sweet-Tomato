@@ -94,7 +94,6 @@ export default {
     function countdown() {
       if(state.totalTime >= 1) {        
         state.totalTime--;
-        console.log(state.length_bar)
       } else {
         this.endTimer()
         alert('시간 종료')

@@ -309,7 +309,7 @@ export function getPomodoroGoal(context, studyId) {
 
 }
 
-export function setPomodoro(context, data) {
+export function setPomodoro({dispatch}, data) {
   const {goal, time, studyId} = data
   
   $axios({
@@ -321,8 +321,8 @@ export function setPomodoro(context, data) {
       studyId : studyId
     }
   })
-  .then(res => {
-    console.log(res.data)
+  .then(() => {
+    dispatch('getPomodoroGoal')
   })
   .catch(err => {
     console.log(err)
@@ -350,7 +350,7 @@ export function patchPomodoro(context, data) {
   })
 }
 
-export function addTomato(context, studyId) {
+export function addTomato({dispatch}, studyId) {
 
   $axios({
     method: 'post',
@@ -360,6 +360,7 @@ export function addTomato(context, studyId) {
     }
   })
   .then(() => {
+    dispatch('getPomodoroState', studyId)
   })
   .catch(err => {
     console.log(err)

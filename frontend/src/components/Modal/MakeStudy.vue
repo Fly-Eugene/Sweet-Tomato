@@ -51,7 +51,7 @@ import $axios from 'axios'
 export default {
   name: "MakeStudy",
 
-  setup() {
+  setup(props, {emit}) {
 
     // const store = useStore()
     const router = useRouter()
@@ -92,7 +92,7 @@ export default {
         }
       })
       .then(res => {
-        // console.log(res.data)
+        emit('closeMakeStudy')
         router.push({name:'DetailStudy', params: {id: res.data.data.id}})
       })
       .catch( err => {
