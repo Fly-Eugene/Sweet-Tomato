@@ -28,7 +28,8 @@
 <script>
 import '@/assets/style/DetailStudy/study_modal.scss'
 import $axios from 'axios'
-import {useStore} from 'vuex'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import {ref} from 'vue'
 
 export default {
@@ -41,9 +42,10 @@ export default {
     }
   },
 
-  setup(props) {
+  setup(props, {emit}) {
 
     const store = useStore()
+    const router = useRouter()
     const server_url = store.state.server_url
 
     const data_subject = ref('')
@@ -63,8 +65,9 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      .then(res => {
-        console.log(res.data)
+      .then(() => {
+        emit('close')
+        router.go()
       })
       .catch(err => {
         console.log(err)

@@ -6,6 +6,7 @@ import com.ssafy.study_with_us.service.TomatoService;
 import com.ssafy.study_with_us.response.ApiResult;
 import com.ssafy.study_with_us.response.ResponseMessage;
 import com.ssafy.study_with_us.response.StatusCode;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,6 +23,7 @@ public class TomatoController {
 //  else: 1짜리 토마토 생성
 //  0짜리 토마토 다 만들어 놓는거보다 첫 추가시에 만들어주는게 효율적일듯
     @PostMapping
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object addTomato(@RequestBody TomatoDto params){
         return ApiResult.builder().status(StatusCode.OK).message("토마토 추가 성공").dataType("tomato")
                 .data(tomatoService.addTomato(params)).build();
@@ -32,24 +34,35 @@ public class TomatoController {
     public Object getTomatoes(@PathVariable("studyId") Long studyId){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATOES).dataType("tomatoes_by_study").data(tomatoService.getTomatoes(TomatoDto.builder().studyId(studyId).build())).build();
     }
+    @GetMapping("/today/study/{studyId}")
+    public Object getTodayTomatoes(@PathVariable("studyId") Long studyId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATOES).dataType("tomatoes_by_today_study").data(tomatoService.getTodayTomatoes(TomatoDto.builder().studyId(studyId).build())).build();
+    }
     @GetMapping
     public Object getTomatoes(){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_MEMBER_TOMATOES).dataType("tomatoes_by_member").data(tomatoService.getTomatoes()).build();
     }
 
     @PostMapping("/goal")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object addGoal(@RequestBody TomatoPlanDto params){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_TOMATO_GOAL).dataType("tomato_plan")
                 .data(tomatoService.addGoal(params)).build();
     }
     @PatchMapping("/goal")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object updateGoal(@RequestBody TomatoPlanDto params){
         return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.UPDATED_STUDY_TOMATO_GOAL).dataType("tomato_plan")
                 .data(tomatoService.updateGoal(params)).build();
     }
-    @GetMapping("/goal/{tomatoPlanId}")
-    public Object getGoal(@PathVariable("tomatoPlanId") Long tomatoPlanId){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_GOAL).dataType("tomato_plan")
-                .data(tomatoService.getGoal(tomatoPlanId)).build();
+    @GetMapping("/goal/{studyId}")
+    public Object getGoal(@PathVariable("studyId") Long studyId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_GOAL).dataType("tomato_plans")
+                .data(tomatoService.getGoal(studyId)).build();
+    }
+    @GetMapping("/today/goal/{studyId}")
+    public Object getTodayGoal(@PathVariable("studyId") Long studyId){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_STUDY_TOMATO_GOAL).dataType("tomato_plans")
+                .data(tomatoService.getTodayGoal(studyId)).build();
     }
 }

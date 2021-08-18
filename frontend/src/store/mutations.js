@@ -64,7 +64,24 @@ export function GET_RECENT_STUDY(state, res) {
 }
 
 export function SEARCH_STUDY(state, res) {
-  state.searchedStudies = res.studies
-  state.totalPage = res.totalPage
-  console.log(state.totalPage)
+  state.searchedStudies = res
 }
+
+export function GET_POMODORO_GOAL(state, res) {
+  state.studyPomodoroGoals = res
+}
+
+export function GET_POMODORO_STATE(state, res) {
+  state.studyPomodoroState = res.tomatoes
+  console.log(state.studyPomodoroState)
+}
+
+export function ADD_PARTICIPANT_ID(state, data) {
+  console.log(state.participantsId)
+  console.log(data)
+  state.participantsId.push(data)
+  console.log('지금 mutation 실행 중')
+}
+
+
+

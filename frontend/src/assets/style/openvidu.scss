@@ -83,3 +83,18 @@
 #session-header{
   margin: 100px;
 }
+.chat_box{
+  position: absolute;
+  right: 3.5%;
+  bottom: 17%;
+}
+#chat_value{
+  font-family: 'Godo', sans-serif;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  width: 70%;
+  font-size: 15px;
+}

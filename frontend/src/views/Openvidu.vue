@@ -45,11 +45,20 @@
           v-model="leave"
           style="display:none"
         />
+        <input
+          v-model="audio"
+          style="display:none"
+        />
+        <input
+          v-model="video"
+          style="display:none"
+        />
+        <input v-model="part" style="display:none"/>
       </div>
       <!-- <div id="main-video" class="col-md-6">
         <user-video :stream-manager="mainStreamManager" />
       </div> -->
-      <div id="video-container" class="col-md-6" style="display:flex; flex-wrap:wrap">
+      <div id="video-container" class="col-md-6" style="display:flex; flex-wrap:wrap; overflow-y:auto; height:73vh">
         <user-video
           :stream-manager="publisher"
           @click="updateMainVideoStreamManager(publisher)"
@@ -61,11 +70,12 @@
           @click="updateMainVideoStreamManager(sub)"
         />
       </div>
-
-      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="closeChat"/>
-      <div>
-        채팅보내기 :
-        <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" />
+      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')" :studyLeader="studyLeader == state.myInfo.id" @explusion="Explusion"/>
+      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')"/>
+      <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
+        {{this.state.myInfo.username}} :
+        <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" id="chat_value"/>
+        <img src="@/assets/img/enter.png" style="width: 7%; cursor:pointer" @click="onEnterChat"/>
       </div>
     </div>
   </div>
@@ -73,12 +83,13 @@
 
 <script>
 import axios from "axios";
-import { OpenVidu } from "openvidu-browser";
+import { OpenVidu, Subscriber } from "openvidu-browser";
 import UserVideo from "../components/Room/UserVideo";
 import "@/assets/style/openvidu.scss";
 import SideOptions from "@/components/Room/SideOptions.vue";
 import { useStore } from 'vuex'
-import { ref, reactive, computed } from 'vue'
+import { reactive, computed } from 'vue'
+import Participants from '../components/Room/Participants.vue';
 
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
@@ -96,11 +107,24 @@ export default {
     },
     chat:{
       type: Boolean
+    },
+    audio: {
+      type: Boolean
+    },
+    video: {
+      type: Boolean
+    },
+    part: {
+      type: Boolean
+    },
+    studyLeader: {
+      type: String
     }
   },
   components: {
     UserVideo,
     SideOptions,
+    Participants
   },
   data() {
     return {
@@ -109,17 +133,56 @@ export default {
       mainStreamManager: undefined,
       publisher: undefined,
       subscribers: [],
-      // mySessionId: '',
-      // myUserName: '',
       chat_value: "",
       // 임시적 채팅내용
       chatContents: [],
+      startTime: Date,
+      publishCheck: false,
     };
+  },
+  setup(){
+    const store = useStore()
+    const state = reactive({
+      myInfo: computed(() => {
+        return store.state.myInfo;
+      }),
+      participants: computed(() => {
+        return store.state.participants;
+      }),
+    })
+    function Explusion(value){
+      console.log(value)
+      useStore().state.participants.splice(useStore().state.participants.indexOf(value), 1);
+    }
+    // store.state.participantsId = []
+    
+    return {
+      state,
+      Explusion
+    }
   },
   methods: {
     joinSession() {
-      console.log(this.studyId);
-      console.log(this.state.myInfo.username)
+      var now = new Date();
+      this.startTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
+      axios({
+        method: 'post',
+        url: 'https://localhost:5000/study/connection',
+        data: {studyId: this.studyId}
+      })
+      .then(() => {
+        
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      
+      console.log(this.state.myInfo)
+      this.state.participants.push(this.state.myInfo.username)
+
+      // ================ 해당 username 과 그 멤버의 memberId를 같이 짝지어서 저장한다. ==========================
+      this.$store.commit('ADD_PARTICIPANT_ID', [this.state.myInfo.username, this.state.myInfo.id])
+
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
       // --- Init a session ---
@@ -129,13 +192,24 @@ export default {
       this.session.on("streamCreated", ({ stream }) => {
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
+        this.state.participants.push(JSON.parse(subscriber.stream.connection.data).clientData)
       });
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
-        const index = this.subscribers.indexOf(stream.streamManager, 0);
+        let index = this.subscribers.indexOf(stream.streamManager, 0);
         if (index >= 0) {
           this.subscribers.splice(index, 1);
+          console.log((JSON.parse(stream.connection.data).clientData))
+          this.state.participants.splice(this.state.participants.indexOf((JSON.parse(stream.connection.data).clientData)), 1);
         }
+
+        // ============= 해당 username은 일시적이었으므로 session을 나갈 때 index를 찾아서 없애준다 ==================
+        const remove_idx = useStore().state.participantsId.findIndex(function(item) {return item[0] === JSON.parse(stream.connection.data).clientData})
+        console.log(remove_idx, '찾았다!! remove idx')
+        if (remove_idx > -1) {
+          useStore().state.participantsId(remove_idx, 1)
+        }
+
       });
       // On every asynchronous exception...
       this.session.on("exception", ({ exception }) => {
@@ -163,6 +237,7 @@ export default {
             this.publisher = publisher;
             // --- Publish your stream ---
             this.session.publish(this.publisher);
+            this.publishCheck = true;
           })
           .catch((error) => {
             console.log(
@@ -184,14 +259,35 @@ export default {
 
       window.addEventListener("beforeunload", this.leaveSession);
     },
-
+    audioControll(){
+      this.publisher.publishAudio(this.audio);
+    },
+    videoControll(){
+      this.publisher.publishVideo(this.video);
+    },
     leaveSession() {
+      this.publishCheck = false;
       // --- Leave the session by calling 'disconnect' method over the Session object ---
+      var now = new Date();
+      var endTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
+      var elapsedMSec = endTime.getTime() - this.startTime.getTime();
+      var elapsedMin = elapsedMSec / 1000 / 60;
+      axios({
+        method: 'post',
+        url: 'https://localhost:5000/member/time',
+        data: {studyTime: elapsedMin}
+      })
+      .then(() => {
+      })
+      .catch(err => {
+        console.log(err)
+      })
       if (this.session) this.session.disconnect();
       this.session = undefined;
       this.mainStreamManager = undefined;
       this.publisher = undefined;
       this.subscribers = [];
+      useStore().state.participants = [];
       this.OV = undefined;
       window.removeEventListener("beforeunload", this.leaveSession);
       this.$router.push({name: 'DetailStudy', params: {id: this.studyId}})
@@ -200,11 +296,10 @@ export default {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
     },
-
     onEnterChat() {
       this.session
         .signal({
-          data: this.state.myInfo.username + " " + this.chat_value + " " + this.currentTime(),
+          data: this.state.myInfo.username + "&$" + this.chat_value + "&$" + this.currentTime(),
           to: [],
         })
         .then(() => {
@@ -214,10 +309,6 @@ export default {
         .catch((err) => {
           console.log(err);
         });
-    },
-    closeChat(){
-      console.log('닫아라')
-      this.chat = false;
     },
     currentTime(){
       var date = new Date();
@@ -311,21 +402,29 @@ export default {
   computed:{
     leave: function(){
       console.log(this.leave)
-      if(this.leave) { this.leaveSession() }
+      if(this.leave) { 
+        this.leaveSession() 
+      }
     },
-  },
-  setup(props){
-    const store = useStore()
-    const state = reactive({
-      myInfo: computed(() => {
-        console.log(store.state.myInfo)
-        return store.state.myInfo;
-      })
-    })
-    return {
-      state
+    audio: function(){
+      if(this.publishCheck) {
+        this.audioControll();
+      }
+    },
+    video: function(){
+      if(this.publishCheck) {
+        this.videoControll();
+      }
+    },
+    participants: function(){
+      console.log('들어')
+      console.log(useStore().state.participants)
+      if(!useStore().state.participants.includes(this.state.myInfo.username)){
+        this.leaveSession();
+      }
     }
   },
+  
 
 };
 </script>

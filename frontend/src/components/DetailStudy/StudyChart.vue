@@ -49,9 +49,6 @@ export default {
           var day1 = new Date(tomatoes[i].date);
           var dateDiff = Math.ceil((today - day1) / (1000*3600*24));
           var temp = dateDiff % 7;
-          console.log(number)
-          console.log('차이', dateDiff)
-          console.log(dateDiff/7)
           if(number == temp){
             res[17 - Math.floor(dateDiff/7)] += tomatoes[i].count;
           } 

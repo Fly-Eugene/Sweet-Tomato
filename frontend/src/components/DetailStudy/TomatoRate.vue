@@ -25,8 +25,13 @@ export default {
       })
 
     })
-
-    const series =  [state.study_tomato/state.total_sum * 100]
+    let num = 0;
+    if(state.total_sum == 0){
+      num = 0;
+    }else{
+      num = Math.round(state.study_tomato/state.total_sum * 100)
+    }
+    const series =  [num]
     console.log(state.total_sum, state.study_tomato)
     
     const chartOptions = {

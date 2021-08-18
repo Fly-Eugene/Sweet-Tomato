@@ -20,4 +20,9 @@ export default {
   studyHashtag: [],
   searchedStudies: [],
   totalPage: 1,
+  participants: [],
+  participantsId : [],
+  studyPomodoroGoals: [],
+  studyPomodoroState: []
+
 }

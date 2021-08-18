@@ -1,0 +1,41 @@
+.pomodoro_goal {
+  width: 100%;
+  height: 17%;
+  font-size: 25px;
+
+  .pomodoro_goal_header {
+    margin: 15px 20px;
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+  }
+
+  .pomodoro_setting {
+    width: 85px;
+    height: 32px;
+
+    color: white;
+    font-size: 70%;
+    font-family: "Godo", sans-serif;
+
+    background: #F16666;
+    border-radius: 15px;
+    border: none;
+
+    cursor: pointer;
+  }
+
+  .pomodoro_goal_state {
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  
+    img {
+      width: 20%;
+    }
+  }
+
+}
