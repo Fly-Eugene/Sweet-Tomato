@@ -65,7 +65,7 @@ public class FileUtil {
             mf.transferTo(f);
             // db 저장
             String contentType = getType(orgName);
-            fileEntities.add(FileEntity.builder().sysName(f.getName()).orgName(orgName).path(f.getParent() + "\\")
+            fileEntities.add(FileEntity.builder().sysName(f.getName()).orgName(orgName).path(f.getParent() + "/")
                     .fileSize(mf.getSize()).fileType(contentType).regTime(LocalDateTime.now()).dataRoom(dataRoom).build());
         }
         return fileEntities;

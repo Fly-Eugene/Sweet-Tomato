@@ -84,19 +84,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/member/join").permitAll()
                 .antMatchers("/member/pwdSearch").permitAll()
-                .antMatchers("/member/read/*").permitAll()
-//              일단 테스트 하려고 다 열어놓음  
+
                 .antMatchers("/account/profile/**").permitAll()
-                .antMatchers("/study/**").permitAll()
-                .antMatchers("/comment/**").permitAll()
                 .antMatchers("/groupcall/**").permitAll()
-                .antMatchers("/tomato/**").permitAll()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/profile/**").permitAll()
-                .antMatchers("/file/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
