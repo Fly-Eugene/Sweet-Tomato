@@ -12,7 +12,7 @@
           <span class="info_tag" v-for="tag in state.info.themes" :key="tag" :style="`background: ${randomColor()}`">#{{ tag }}</span>
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
-        <router-link :to="{name: 'Room', params: {studyId: studyId}}" v-if="state.checkflag" class="enter_btn">입장하기</router-link>
+        <router-link :to="{name: 'Room', params: {studyId: studyId, studyLeader: state.info.studyLeader}}" v-if="state.checkflag" class="enter_btn">입장하기</router-link>
         <!-- <button class="enter_btn" v-if="state.checkflag" @click="enterRoom">입장하기</button> -->
       </article>
   </section>

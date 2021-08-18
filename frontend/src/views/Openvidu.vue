@@ -70,17 +70,8 @@
           @click="updateMainVideoStreamManager(sub)"
         />
       </div>
-<<<<<<< HEAD
-      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')"/>
-=======
-      <!-- <li 
-        v-for="sub in subscribers" 
-        :key="sub.stream.connection.connectionId"
-        :stream-manager="sub">
-        {{JSON.parse(this.streamManager.stream.data)}}  
-      </li> -->
->>>>>>> a7e684cd4a788bd64131e72bedbe3c9b6d95bda5
-      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')" />
+      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')" :studyLeader="studyLeader == state.myInfo.id" @explusion="Explusion"/>
+      <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')"/>
       <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
         {{this.state.myInfo.username}} :
         <input type="text" v-model="chat_value" @keyup.enter="onEnterChat" id="chat_value"/>
@@ -126,6 +117,9 @@ export default {
     },
     part: {
       type: Boolean
+    },
+    studyLeader: {
+      type: String
     }
   },
   components: {
@@ -146,7 +140,7 @@ export default {
       // 임시적 채팅내용
       chatContents: [],
       startTime: Date,
-      publishCheck: false
+      publishCheck: false,
     };
   },
   setup(props){
@@ -158,11 +152,17 @@ export default {
       }),
       participants: computed(() => {
         console.log(store.state.participants)
+        
         return store.state.participants;
       })
     })
+    function Explusion(value){
+      console.log(value)
+      useStore().state.participants.splice(useStore().state.participants.indexOf(value), 1);
+    }
     return {
-      state
+      state,
+      Explusion
     }
   },
   methods: {
@@ -292,7 +292,6 @@ export default {
       if (this.mainStreamManager === stream) return;
       this.mainStreamManager = stream;
     },
-
     onEnterChat() {
       this.session
         .signal({
@@ -413,29 +412,16 @@ export default {
       if(this.publishCheck) {
         this.videoControll();
       }
+    },
+    participants: function(){
+      console.log('들어')
+      console.log(useStore().state.participants)
+      if(!useStore().state.participants.includes(this.state.myInfo.username)){
+        this.leaveSession();
+      }
     }
   },
-<<<<<<< HEAD
   
-=======
-  setup(){
-    const store = useStore()
-    const state = reactive({
-      myInfo: computed(() => {
-        console.log(store.state.myInfo)
-        return store.state.myInfo;
-      }),
-      participants: computed(() => {
-        store.state.participants = [];
-        return store.state.participants;
-      })
-    })
-    
-    return {
-      state
-    }
-  },
->>>>>>> a7e684cd4a788bd64131e72bedbe3c9b6d95bda5
 
 };
 </script>

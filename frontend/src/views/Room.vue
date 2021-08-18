@@ -2,7 +2,7 @@
   <section class="room_wrapper">
     <section class="room_top">      
       <section class="room_left">
-        <OpenVidu :studyId='studyId' :leave='state.leave' :chat='state.chat' :audio='state.audio' :video='state.video' :part='state.part' @closeBtn="closeEveryDialog"/>
+        <OpenVidu :studyId='studyId' :studyLeader='studyLeader' :leave='state.leave' :chat='state.chat' :audio='state.audio' :video='state.video' :part='state.part' @closeBtn="closeEveryDialog"/>
       </section>
       <section v-if="state.rightOn" class="room_right">
         <div v-if="state.dialog[0]">
@@ -58,6 +58,10 @@ export default {
   name: 'Room',
   props : {
     studyId : {
+      type: String,
+      required: true
+    },
+    studyLeader : {
       type: String,
       required: true
     }
