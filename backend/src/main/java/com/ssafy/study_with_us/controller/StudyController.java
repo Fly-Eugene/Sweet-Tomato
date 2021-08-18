@@ -1,9 +1,6 @@
 package com.ssafy.study_with_us.controller;
 
-import com.ssafy.study_with_us.dto.FileReqDto;
-import com.ssafy.study_with_us.dto.IdReqDto;
-import com.ssafy.study_with_us.dto.ScheduleDto;
-import com.ssafy.study_with_us.dto.ThemesReqDto;
+import com.ssafy.study_with_us.dto.*;
 import com.ssafy.study_with_us.error.ErrorResponse;
 import com.ssafy.study_with_us.error.exception.ErrorCode;
 import com.ssafy.study_with_us.response.ApiResult;
@@ -37,12 +34,12 @@ public class StudyController {
     @PostMapping("/join")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object join(@RequestBody IdReqDto params) throws AuthenticationException {
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member_ref").data(studyService.joinMember(params)).build();
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member").data(studyService.joinMember(params)).build();
     }
     @PostMapping("/invite")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public Object inviteMember(@RequestBody IdReqDto params) throws AuthenticationException {
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member_ref").data(studyService.joinMember(params)).build();
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CREATED_STUDY_MEMBER).dataType("study_member").data(studyService.joinMember(params)).build();
     }
     @DeleteMapping("/withdraw")
     @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
@@ -79,13 +76,13 @@ public class StudyController {
     }
 
     @PostMapping("/connection")
-    public Object connection(@RequestBody IdReqDto params){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CONNECTED_STUDY).dataType("study_member").data(studyService.connectStudy(params.getStudyId())).build();
+    public Object connection(@RequestBody StudyMemberRefDto params){
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.CONNECTED_STUDY).dataType("study_member_ref").data(studyService.connectStudy(params)).build();
     }
 
     @GetMapping("/recently")
     public Object getRecentlyStudies(){
-        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_RECENTLY_STUDIES).dataType("study").data(studyService.getRecentlyStudies()).build();
+        return ApiResult.builder().status(StatusCode.OK).message(ResponseMessage.SEARCHED_RECENTLY_STUDIES).dataType("study_member_ref_list").data(studyService.getRecentlyStudies()).build();
     }
 
     @GetMapping("/schedule/{yearMonth}")

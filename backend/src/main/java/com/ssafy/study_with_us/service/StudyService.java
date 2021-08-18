@@ -191,14 +191,15 @@ public class StudyService {
         return map;
     }
 
-    public StudyMemberDto connectStudy(Long studyId){
-        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(getMemberId(), studyId);
-        StudyMemberRef result = studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId()).member(studyMember.getMember())
+    public StudyMemberRefDto connectStudy(StudyMemberRefDto params){
+        Long memberId = getMemberId();
+        StudyMemberRef studyMember = studyMemberRefRepository.getStudyMember(memberId, params.getStudyId());
+        StudyMemberRef result = studyMemberRefRepository.save(StudyMemberRef.builder().id(studyMember.getId())
+                .nickname(params.getNickname())
+                .connected(true)
+                .member(studyMember.getMember())
                 .study(studyMember.getStudy()).recentlyConnectionTime(LocalDateTime.now()).build());
-        return StudyMemberDto.builder().id(result.getId())
-                .study(result.getStudy().entityToDto())
-                .member(result.getMember().entityToDto())
-                .recentlyConnectionTime(result.getRecentlyConnectionTime()).build();
+        return result.entityToRefDto();
     }
 
     public List<StudyMemberDto> getRecentlyStudies(){
