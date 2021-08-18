@@ -18,7 +18,7 @@ import { reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 export default {
   name: 'Participants',
-  setup(props){
+  setup(){
     const store = useStore()
     const state = reactive({
       participants: computed(() => {

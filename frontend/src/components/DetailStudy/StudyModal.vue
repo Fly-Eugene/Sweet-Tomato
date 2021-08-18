@@ -65,7 +65,7 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      .then(res => {
+      .then(() => {
         emit('close')
         router.go()
       })

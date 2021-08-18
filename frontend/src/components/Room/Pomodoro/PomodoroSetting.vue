@@ -44,17 +44,13 @@ export default {
 
   setup(props, {emit}) {
     const goalOptions = ['--목표 개수 설정--']
-    const timeOptions = ['--목표 시간 설정--']
+    const timeOptions = ['--목표 시간 설정--', 1]
     const store = useStore()
 
     const state = reactive({
       now_goal : '',
       now_time : ''
     })
-
-    console.log(props.pomodoro_setting_data);
-    console.log(props.pomodoro_setting_data[0]);
-    console.log(props.pomodoro_setting_data[1]);
 
 
     for (let i = 1; i < 51; i++) {

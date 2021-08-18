@@ -71,3 +71,13 @@ export function GET_POMODORO_STATE(state, res) {
   state.studyPomodoroState = res.tomatoes
   console.log(state.studyPomodoroState)
 }
+
+export function ADD_PARTICIPANT_ID(state, data) {
+  console.log(state.participantsId)
+  console.log(data)
+  state.participantsId.push(data)
+  console.log('지금 mutation 실행 중')
+}
+
+
+

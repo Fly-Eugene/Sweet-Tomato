@@ -36,7 +36,6 @@ export function login (context, credentials) {
     data: credentials
   })
   .then(res => {
-    console.log(res.data.data.member)
     localStorage.setItem('jwt', res.data.data.token)
     this.state.myInfo = res.data.data.member
     context.commit('CHANGE_ISLOGIN')
@@ -354,8 +353,7 @@ export function addTomato(context, studyId) {
       studyId : studyId
     }
   })
-  .then(res => {
-    // console.log(res)
+  .then(() => {
   })
   .catch(err => {
     console.log(err)
