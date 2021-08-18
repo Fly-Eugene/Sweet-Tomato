@@ -149,6 +149,10 @@ export default {
       participants: computed(() => {
         return store.state.participants;
       }),
+      participantsInfo: computed(() => {
+        console.log(store.state.participantsInfo)
+        return store.state.participantsInfo;
+      })
     })
     function Explusion(value){
       console.log(value)
@@ -280,6 +284,17 @@ export default {
         data: {studyTime: elapsedMin}
       })
       .then(() => {
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      axios({
+        method: 'put',
+        url: 'https://localhost:5000/study/disconnect',
+        data: {studyId: this.studyId}
+      })
+      .then(() => {
+        
       })
       .catch(err => {
         console.log(err)

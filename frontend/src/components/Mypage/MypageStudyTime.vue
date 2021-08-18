@@ -137,7 +137,8 @@ export default {
     }
 
     function calToday(){
-      var result = [0, 0]      
+      var result = [0, 0]
+      if(!props.myStudyTime[props.myStudyTime.length-1]) return result      
       if (getToday() === props.myStudyTime[props.myStudyTime.length-1].studyDate) {
         result[0] = calHour(props.myStudyTime[props.myStudyTime.length-1].studyTime)[0]
         result[1] = calHour(props.myStudyTime[props.myStudyTime.length-1].studyTime)[1]

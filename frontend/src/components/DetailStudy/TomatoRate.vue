@@ -26,7 +26,8 @@ export default {
 
     })
     let num = 0;
-    if(state.total_sum == 0){
+    console.log(state.total_sum)
+    if(!state.total_sum){
       num = 0;
     }else{
       num = Math.round(state.study_tomato/state.total_sum * 100)

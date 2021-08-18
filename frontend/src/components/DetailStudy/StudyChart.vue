@@ -25,7 +25,7 @@ export default {
       var date = new Date();
       var month = leadingZeros(date.getMonth() + 1, 2);
       var today = date.getFullYear() + "-" + month + "-" + leadingZeros(date.getDate(),2);
-      console.log(today);
+      // console.log(today);
       return today;
     }
 
@@ -53,7 +53,7 @@ export default {
             res[17 - Math.floor(dateDiff/7)] += tomatoes[i].count;
           } 
       }
-      console.log(res);
+      // console.log(res);
       return res;
     }
     
