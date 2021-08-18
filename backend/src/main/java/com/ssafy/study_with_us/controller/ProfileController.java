@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.NoSuchElementException;
 
@@ -31,7 +29,7 @@ public class ProfileController {
 
     // profile 없을 때 예외처리
     @GetMapping("/study")
-    public ResponseEntity<Resource> viewProfileImg(@RequestParam Long studyId) throws IOException {
+    public ResponseEntity<Resource> viewProfileImg(@RequestParam Long studyId) {
         String profile = profileService.getProfile(studyId, null);
         if(profile == null) throw new NoSuchElementException("프로필이 존재하지 않습니다.");
         Path path = new File(profile).toPath();
@@ -39,17 +37,17 @@ public class ProfileController {
     }
 
     @GetMapping("/{memberId}")
-    public ResponseEntity<Resource> viewMemberImg(@PathVariable("memberId") Long memberId) throws IOException {
+    public ResponseEntity<Resource> viewMemberImg(@PathVariable("memberId") Long memberId) {
         String profile = profileService.getProfile(null, memberId);
         if(profile == null) throw new NoSuchElementException("프로필이 존재하지 않습니다.");
         Path path = new File(profile).toPath();
         return getResponseEntity(path);
     }
 
-    private ResponseEntity<Resource> getResponseEntity(Path path) throws IOException {
+    private ResponseEntity<Resource> getResponseEntity(Path path) {
         FileSystemResource resource = new FileSystemResource(path);
         return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(Files.probeContentType(path)))
+                .contentType(MediaType.valueOf(MediaType.IMAGE_JPEG_VALUE))
                 .body(resource);
     }
 
