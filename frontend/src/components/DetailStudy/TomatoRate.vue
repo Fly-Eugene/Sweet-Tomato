@@ -1,14 +1,14 @@
 <template>
   <section class="tomato_section">
     <header class="tomato_header">우리 토마토</header>
-    <apexchart width="500" height="500" :options="chartOptions" :series="series" class="toamato_chart"></apexchart>
+    <apexchart  width="500" height="500" :options="chartOptions" :series="series" class="toamato_chart"></apexchart>
   </section>
 </template>
 
 <script>
 import '@/assets/style/DetailStudy/tomato_rate.scss'
 import {useStore} from 'vuex'
-import { computed, onBeforeMount, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 
 export default {
   name: 'TomatoRate',
@@ -20,26 +20,29 @@ export default {
     }
   },
 
-  setup(props) {
+  setup() {
     const store = useStore()
     const state = reactive({
       total_sum : computed(() => {
-        return store.state.totalTomato
+        // return store.state.totalTomato
+        return store.state.temp_tomato_info.totalSum
       }),
       study_tomato : computed(() => {
-        return store.state.studyTomato
+        // return store.state.studyTomato
+        return store.state.temp_tomato_info.relevantSum
       })
     })
 
+    console.log(state.total_sum, state.study_tomato)
+
 
     let num = 0;
-    console.log(state.total_sum)
     if(!state.total_sum){
       num = 0;
     }else{
       num = Math.round(state.study_tomato/state.total_sum * 100)
     }
-    const series =  [num]    
+    const series =  [num]
     const chartOptions = {
       chart: {
         height: 350,
@@ -117,9 +120,9 @@ export default {
       labels: [''],  // 원 안에 내용 원하는거 작성하세요
     }
 
-    onBeforeMount(() => {
-      store.dispatch('getStudyTomato', props.studyId)
-    })
+    // onBeforeMount(() => {
+    //   store.dispatch('getStudyTomato', props.studyId)
+    // })
 
     
 

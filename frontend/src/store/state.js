@@ -24,6 +24,7 @@ export default {
   participantsInfo : [],
   studyPomodoroGoals: [],
   studyPomodoroState: [],
-  blacklist: []
+  blacklist: [],
+  temp_tomato_info: []
 
 }

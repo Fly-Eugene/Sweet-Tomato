@@ -41,7 +41,9 @@ export function GET_DATA_SPECI (state, res) {
   console.log(state.studyDataSpeci)
 }
 
-export function GET_TOMATO (state, res) {
+export async function GET_TOMATO (state, res) {
+  state.temp_tomato_info = res
+  console.log(res)
   state.totalTomato = res.totalSum
   state.studyTomato = res.relevantSum
   state.tomatoes = res.tomatoes

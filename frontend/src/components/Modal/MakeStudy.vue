@@ -131,7 +131,6 @@ export default {
           themes: hash_tag_list_value.value,
         })
       );
-      console.log(frm);
       $axios
         .post("https://i5b106.p.ssafy.io:5000/study", frm, {
           headers: {

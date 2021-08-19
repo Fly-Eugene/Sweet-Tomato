@@ -10,7 +10,7 @@ import '@/assets/style/DetailStudy/study_chart.scss'
 // import VueApexCharts from 'vue3-apexcharts'
 import { useStore } from 'vuex'
 import { reactive } from 'vue'
-import { computed, onBeforeMount } from '@vue/runtime-core'
+import { computed } from '@vue/runtime-core'
 
 export default {
   name: 'StudyChart',
@@ -22,13 +22,15 @@ export default {
     }
   },
 
-  setup(props) {
+  setup() {
     const store = useStore()
     const state = reactive({
       tomatoes : computed(() => {
       return store.state.tomatoes
       })
     })
+
+    
     function currentDate(){
       var date = new Date();
       var month = leadingZeros(date.getMonth() + 1, 2);
@@ -116,10 +118,6 @@ export default {
         text: ''
       },
     }
-
-    onBeforeMount(() => {
-      store.dispatch('getStudyTomato', props.studyId)
-    })
 
 
     return {

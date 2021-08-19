@@ -69,8 +69,8 @@ export function sendValidateEmail (context, email) {
   })
 }
 
-export function getStudyInfo (context, studyId) {
-  $axios({
+export async function getStudyInfo (context, studyId) {
+  await $axios({
     method: 'get',
     url: this.state.server_url + 'study/detail',
     params : {
@@ -78,7 +78,7 @@ export function getStudyInfo (context, studyId) {
     }
   })
   .then(res => {
-    console.log(res.data.data)
+    // console.log(res.data.data)
     context.commit('GET_STUDY_INFO', res.data.data)
   })
   .catch(err => {
@@ -202,13 +202,12 @@ export async function getDataSpeci (context, dataId) {
   })
 }
 
-export function getStudyTomato (context, studyId) {
- $axios({
+export async function getStudyTomato (context, studyId) {
+ await $axios({
     method: 'get',
     url: this.state.server_url + 'tomato/study/' + studyId,
   })
   .then(res => {
-    console.log(res.data.data)
     context.commit('GET_TOMATO', res.data.data)
   })
   .catch(err => {

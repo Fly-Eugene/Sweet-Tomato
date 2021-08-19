@@ -68,9 +68,7 @@ export default {
       .catch(err => {
         console.log(err)
       })
-      
-      store.dispatch('getStudyInfo', props.studyId)
-    
+          
     })
 
     
