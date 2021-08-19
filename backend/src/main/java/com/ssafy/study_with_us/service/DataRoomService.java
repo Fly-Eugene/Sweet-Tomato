@@ -30,6 +30,7 @@ public class DataRoomService {
         this.fileService = fileService;
     }
 
+    @Transactional(rollbackFor = IOException.class)
     public DataRoomDto create(DataRoomDto params, List<MultipartFile> files) throws IOException {
         // 자료실(글) 저장
         DataRoom dataRoom = saveDataRoom(params);
