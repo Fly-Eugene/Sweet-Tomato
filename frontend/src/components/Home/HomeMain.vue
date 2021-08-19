@@ -11,7 +11,7 @@
             <span>스터디 전용 화상 채팅 서비스</span>
             <span>스윗 토마토</span>
           </div>
-          <button>시작하기</button>
+          <button @click="start" style="cursor:pointer;">시작하기</button>
         </div>
       </div>        
       <div class="box_right">
@@ -23,8 +23,15 @@
 
 <script>
 import '@/assets/style/Home/HomeMain.scss'
+import router from '@/router'
+
 export default {
-  name: 'HomeMain'
+  name: 'HomeMain',
+  methods: {
+    start(){
+      router.push({name:'AccountSignup'})
+    }
+  }
 }
 
 </script>
