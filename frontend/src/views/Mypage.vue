@@ -31,7 +31,7 @@ export default {
     const store = useStore()
     const state = reactive({
       plz: false,
-      myStudyList: store.state.myRecentStudy !== null ? store.state.myRecentStudy : false,
+      myStudyList: store.state.myRecentStudy ? store.state.myRecentStudy : false,
       myStudyTime: store.state.myStudyTime !== null ? store.state.myStudyTime :  [{"studyTimeId": 0, "studyDate": "2021-08-18", "studyTime": 0, "memberId": 0}],
       myTomato: store.state.myTomato !== null ? store.state.myTomato : 0,
     })

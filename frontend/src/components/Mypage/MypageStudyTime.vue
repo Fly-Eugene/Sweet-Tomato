@@ -2,8 +2,8 @@
   <section class="mypage_study_time">
     <section class="box_left">
       <header class="mypage_study_header">주간 공부량 비교</header>
-        <div class="none" v-if="myStudyTime"> 공부시간 없음 </div>
-        <div id='time_chart' v-if="!myStudyTime"></div>
+        <div class="none" v-if="!myStudyTime"> 공부시간 없음 </div>
+        <div id='time_chart' v-if="myStudyTime"></div>
     </section>
     <section class="box_right">
       <div class="amount">
@@ -91,8 +91,20 @@ export default {
       var week = new Array('일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일');
 
       while (i < 14 && j < props.myStudyTime.length) {        
-
-        if (getInputDayLabel(props.myStudyTime[j].studyDate) === week[weekCnt]) {
+        if(props.myStudyTime.length <= 7){
+          if (getInputDayLabel(props.myStudyTime[j].studyDate) === week[weekCnt]) {
+            answer[i+7] = props.myStudyTime[j].studyTime
+            i++;
+            j++;
+            ++weekCnt;
+            weekCnt = weekCnt % 7;
+          } else {          
+            i++;                   
+            ++weekCnt;
+            weekCnt = weekCnt % 7; 
+          }
+          if(i == 7) break;
+        }else if (getInputDayLabel(props.myStudyTime[j].studyDate) === week[weekCnt]) {
           answer[i] = props.myStudyTime[j].studyTime
           i++;
           j++;

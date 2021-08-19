@@ -70,7 +70,7 @@
           @click="updateMainVideoStreamManager(sub)"
         />
       </div>
-      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')" :studyLeader="studyLeader == state.myInfo.id" @explusion="Explusion"/>
+      <Participants :participants="participants" v-if="part" @closeBtn="$emit('closeBtn')" :studyLeader="studyLeader == state.myInfo.id" :leaderId='studyLeader' @explusion="Explusion"/>
       <SideOptions :chatContents="chatContents" v-if="chat" @closeBtn="$emit('closeBtn')"/>
       <div class="chat_box" v-if="chat" style="width: 20%; font-family:'Godo'">
         {{this.state.myInfo.username}} :
@@ -154,40 +154,48 @@ export default {
         return store.state.participantsInfo;
       })
     })
-    function Explusion(value){
-      console.log(value)
-      useStore().state.participants.splice(useStore().state.participants.indexOf(value), 1);
-    }
     // store.state.participantsId = []
     
     return {
-      state,
-      Explusion
+      state
     }
   },
   methods: {
-    joinSession() {
-      var now = new Date();
-      this.startTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
+    Explusion(value){
+      console.log(value)
       axios({
         method: 'post',
-        url: 'https://localhost:5000/study/connection',
-        data: {studyId: this.studyId}
+        url: 'https://localhost:5000/blacklist',
+        data: {memberId: value, studyId: this.studyId}
       })
       .then(() => {
-        
+        alert("해당 멤버가 블랙리스트에 등록되었습니다.")
       })
       .catch(err => {
         console.log(err)
       })
+    },
+    joinSession() {
+      var now = new Date();
+      this.startTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
+      // axios({
+      //   method: 'post',
+      //   url: 'https://localhost:5000/study/connection',
+      //   data: {studyId: this.studyId}
+      // })
+      // .then(() => {
+        
+      // })
+      // .catch(err => {
+      //   console.log(err)
+      // })
       
       console.log(this.state.myInfo)
       this.state.participants.push(this.state.myInfo.username)
 
       // ================ 해당 username 과 그 멤버의 memberId를 같이 짝지어서 저장한다. ==========================
       this.$store.dispatch('addParticipant', {nickname: this.state.myInfo.username, studyId: this.studyId})
-
-
+      
 
       // --- Get an OpenVidu object ---
       this.OV = new OpenVidu();
@@ -196,12 +204,14 @@ export default {
       // --- Specify the actions when events take place in the session ---
       // On every new Stream received...
       this.session.on("streamCreated", ({ stream }) => {
+        this.$store.dispatch('getParticipants', this.studyId)
         const subscriber = this.session.subscribe(stream);
         this.subscribers.push(subscriber);
         this.state.participants.push(JSON.parse(subscriber.stream.connection.data).clientData)
       });
       // On every Stream destroyed...
       this.session.on("streamDestroyed", ({ stream }) => {
+        this.$store.dispatch('getParticipants', this.studyId)
         let index = this.subscribers.indexOf(stream.streamManager, 0);
         if (index >= 0) {
           this.subscribers.splice(index, 1);
@@ -244,6 +254,7 @@ export default {
             // --- Publish your stream ---
             this.session.publish(this.publisher);
             this.publishCheck = true;
+            this.$store.dispatch('getParticipants', this.studyId)
           })
           .catch((error) => {
             console.log(
@@ -289,9 +300,8 @@ export default {
         console.log(err)
       })
       axios({
-        method: 'put',
-        url: 'https://localhost:5000/study/disconnect',
-        data: {studyId: this.studyId}
+        method: 'patch',
+        url: 'https://localhost:5000/study/disconnect/' + this.studyId,
       })
       .then(() => {
         
@@ -412,7 +422,7 @@ export default {
 	mounted() {
 		this.$store.dispatch('checkLogin')
 		this.$store.dispatch('hideNav')
-    this.$store.dispatch('getParticipants', this.studyId)
+    // this.$store.dispatch('getParticipants', this.studyId)
 	},
 	unmounted() {
 		this.$store.dispatch('showNav')
@@ -437,9 +447,7 @@ export default {
     participants: function(){
       console.log('들어')
       console.log(useStore().state.participants)
-      if(!useStore().state.participants.includes(this.state.myInfo.username)){
-        this.leaveSession();
-      }
+      console.log(this.session)
     }
   },
   

@@ -13,7 +13,7 @@
       <i class="hamburger fas fa-bars"></i>
       <ul>
         <li><img src="@/assets/img/tomatoBtn.png" alt="" @click="$emit('closePomodoro')"></li>
-        <li><i class="far fa-calendar-plus" @click="$emit('closeCalander')"></i></li>
+        <!-- <li><i class="far fa-calendar-plus" @click="$emit('closeCalander')"></i></li> -->
         <li><i class="fas fa-stopwatch" @click="$emit('closeTimer')"></i></li>
       </ul>
     </li>

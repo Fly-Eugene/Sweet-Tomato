@@ -5,9 +5,10 @@
       <span @click="$emit('closeBtn')">X</span>
     </div>
     <div class="participants_content">
-        <li v-for="user in state.participants" :key="user" style="margin: 20px 30px;">
-        {{ user }}
-        <span v-if="studyLeader && user != state.participants[0]" style="color: red; cursor: pointer;" @click="$emit('explusion', user)">강퇴</span>
+        <li v-for="user in state.participantsInfo" :key="user" style="margin: 20px 30px;">
+        {{ user.nickname }} | 
+        {{ user.recentlyConnectionTime.split('T')[1] }}
+        <span v-if="studyLeader && user.memberId != leaderId" style="color: red; cursor: pointer;" @click="$emit('explusion', user.memberId)">블랙리스트</span>
         </li>
     </div>
   </div>
@@ -22,15 +23,18 @@ export default {
   props:{
       studyLeader: {
       type: Boolean
+    },
+    leaderId:{
+        type:String
     }
   },
   setup(){
     const store = useStore()
     const state = reactive({
-      participants: computed(() => {
-        console.log(store.state.participants)
-        return store.state.participants;
-      })
+      participantsInfo: computed(() => {
+        console.log(store.state.participantsInfo)
+        return store.state.participantsInfo;
+      }),
     })
     return {
       state

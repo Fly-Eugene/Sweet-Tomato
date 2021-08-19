@@ -1,7 +1,7 @@
 <template>
   <section class='mypage_info'>
     <article class='mypage_left'>
-      <div v-if="!this.myStudyList">
+      <div v-if="myStudyList.length != 0">
         <div class='recent_access'>
           <p>최근 접속</p>      
           <p>{{ this.myStudyList[0].recentlyConnectionTime.slice(0, 10) }} </p>

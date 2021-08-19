@@ -12,7 +12,7 @@
           <span class="info_tag" v-for="tag in state.info.themes" :key="tag" :style="`background: ${randomColor()}`">#{{ tag }}</span>
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
-        <router-link :to="{name: 'Room', params: {studyId: studyId, studyLeader: state.info.studyLeader}}" v-if="state.checkflag" class="enter_btn">입장하기</router-link>
+        <router-link :to="{name: 'Room', params: {studyId: studyId, studyLeader: state.info.studyLeader}}" v-if="state.checkflag && studyId != state.blacklist[0]" class="enter_btn">입장하기</router-link>
         <!-- <button class="enter_btn" v-if="state.checkflag" @click="enterRoom">입장하기</button> -->
       </article>
   </section>
@@ -42,6 +42,9 @@ export default {
       }),
       checkflag: computed(() => {
         return store.state.checkflag
+      }),
+      blacklist: computed(() => {
+        return store.state.blacklist
       })
     })
     onMounted(() => {
@@ -51,6 +54,17 @@ export default {
       })
       .then(res => {
         store.state.checkflag = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      $axios({
+        method: 'get',
+        url: store.state.server_url + 'blacklist'
+      })
+      .then(res => {
+        store.state.blacklist = res.data.data
+        console.log(res.data)
       })
       .catch(err => {
         console.log(err)
