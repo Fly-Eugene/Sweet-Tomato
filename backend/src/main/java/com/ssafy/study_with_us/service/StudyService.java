@@ -290,7 +290,7 @@ public class StudyService {
                 deletedProfileId = prevProfile.getId();
             }
         }
-        Profile profile = profileService.studyProfileCreate(params.getFiles().get(0));
+        Profile profile = profileService.studyProfileCreate(params.getFiles().size() > 0 ? params.getFiles().get(0) : null);
         if(deletedProfileId != null) {
             profileRepository.deleteById(deletedProfileId);
         }

@@ -42,7 +42,7 @@ public class DataRoomService {
     @Transactional
     public DataRoomDto update(DataRoomDto params, List<MultipartFile> files) throws IOException, AuthenticationException {
         DataRoom getDataRoom = dataRoomRepository.getById(params.getId());
-        if(getDataRoom.getId() != getMemberId()) throw new AuthenticationException("해당 글 작성자만 수정 가능합니다.");
+        if(getDataRoom.getMember().getId() != getMemberId()) throw new AuthenticationException("해당 글 작성자만 수정 가능합니다.");
         DataRoom dataRoom = saveDataRoom(DataRoomDto.builder()
                 .id(getDataRoom.getId())
                 .subject(params.getSubject() == null ? getDataRoom.getSubject() : params.getSubject())
