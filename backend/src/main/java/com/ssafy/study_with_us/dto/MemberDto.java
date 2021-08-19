@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.study_with_us.domain.entity.Profile;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.ToString;
 public class MemberDto {
     private Long id;
     private String email;
+    @JsonIgnore
     private String password;
     private String username;
     private Integer age;
