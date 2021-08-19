@@ -35,7 +35,6 @@
 <script>
 import { computed, reactive, ref } from "vue";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
 import $axios from "axios";
 
 export default {
@@ -43,7 +42,6 @@ export default {
 
   setup(props, { emit }) {
     const store = useStore();
-    const router = useRouter();
     const state = reactive({
       study_data_speci: computed(() => {
         return store.state.studyDataSpeci;
@@ -79,7 +77,6 @@ export default {
         .then((res) => {
           console.log(res.data);
           emit("editClose");
-          router.go();
         })
         .catch((err) => {
           console.log(err);
