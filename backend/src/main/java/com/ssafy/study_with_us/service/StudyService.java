@@ -208,6 +208,7 @@ public class StudyService {
                 .nickname(studyMember.getNickname())
                 .connected(false)
                 .member(studyMember.getMember())
+                .recentlyConnectionTime(studyMember.getRecentlyConnectionTime())
                 .study(studyMember.getStudy()).build()).entityToRefDto();
     }
 

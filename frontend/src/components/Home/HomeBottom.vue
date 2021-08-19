@@ -29,22 +29,52 @@
           </div>
         </div>
       </div>
-      
-      <div class="card" @mouseover="state.card_5 = true" @mouseleave="state.card_5 = false">
+      <div class="card" @mouseover="state.card_3 = true" @mouseleave="state.card_3 = false">
         <div class="card_inner_black">
           <div class="content">            
-            <img id="block" src="@/assets/img/lock_black.svg" alt="">
-            <p>강퇴하기</p>
+            <img id="block" src="@/assets/img/search_black.png" alt="">
+            <p>스터디찾기</p>
+          </div>
+        </div>
+        <div class="card_inner_white">
+          <div class="content">            
+            <img id="white" src="@/assets/img/search_white.png" alt="">
+            <p>스터디 찾기</p>
+          </div>
+        </div>
+      </div>
+      <div class="card" @mouseover="state.card_4 = true" @mouseleave="state.card_4 = false">
+        <div class="card_inner_black">
+          <div class="content">            
+            <img id="block" src="@/assets/img/detail_black.png" alt="">
+            <p>상세페이지</p>
           </div>
         </div>
         <div class="card_inner_white" @click="test">
           <div class="content">            
-            <img id="white" src="@/assets/img/lock_white.svg" alt="">
-            <p>강퇴하기</p>
+            <img id="white" src="@/assets/img/detail_white.png" alt="">
+            <p>상세페이지</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" @mouseover="state.card_5 = true" @mouseleave="state.card_5 = false">
+        <div class="card_inner_black">
+          <div class="content">            
+            <img id="block" src="@/assets/img/mypage_black.png" alt="">
+            <p>마이페이지</p>
+          </div>
+        </div>
+        <div class="card_inner_white" @click="test">
+          <div class="content">            
+            <img id="white" src="@/assets/img/mypage_white.png" alt="">
+            <p>마이페이지</p>
           </div>
         </div>
       </div>
     </div>
+
+    
     <div class="box_bottom">
       <div class="box_wrapper" v-show="state.card_1">
         <div class="box_left">
@@ -56,8 +86,8 @@
           <div>
             <p>뽀모도로</p>
             <p class="bottom_line"></p>
-            <span>테스트 테스트 1</span>
-            <span>테스트 테스트 1</span>
+            <span>뽀모도로 공부법으로 스터디 진행</span>
+            <span>공부한 시간만큼 토마토가 생성됩니다.</span>
           </div>
         </div>
       </div>
@@ -71,8 +101,8 @@
             <div>
               <p>타이머</p>
               <p class="bottom_line"></p>
-              <span>테스트 테스트 22</span>
-              <span>테스트 테스트 22</span>
+              <span>화상채팅방에서 사용할 수 있는 타이머 기능</span>
+              <span>사이트를 이용하면서 따로 타이머를 켜지 않아도 됩니다.</span>
             </div>
           </div>
       </div>
@@ -84,10 +114,10 @@
           </div>
           <div class="box_right">
             <div>
-              <p>캘린더</p>
+              <p>스터디찾기</p>
               <p class="bottom_line"></p>
-              <span>스터디원과 함께 같은 목표를 설정 할 수 있습니다.</span>
-              <span>오늘의 목표는 물론 D-DAY까지 함께하세요.</span>
+              <span></span>
+              <span>원하는 테마를 검색하여 스터디를 찾아보세요</span>
             </div>
           </div>
       </div>
@@ -99,10 +129,10 @@
           </div>
           <div class="box_right">
             <div>
-              <p>질문하기</p>
+              <p>상세페이지</p>
               <p class="bottom_line"></p>
-              <span>질문질문</span>
-              <span>질문!</span>
+              <span>스터디별 토마토 현황을 그래프로 한 눈에 파악할 수 있습니다.</span>
+              <span>댓글과 자료실을 통해 스터디원들과 커뮤니케이션도 가능합니다.</span>
             </div>
           </div>
       </div>
@@ -114,10 +144,10 @@
           </div>
           <div class="box_right">
             <div>
-              <p>강퇴</p>
+              <p>마이페이지</p>
               <p class="bottom_line"></p>
-              <span>강퇴 강퇴</span>
-              <span>강퇴 !</span>
+              <span>그래프와 토마토 갯수를 통해 공부 시간을 비교해보세요</span>
+              <span>가장 최근 접속한 스터디도 바로 방문할 수 있습니다.</span>
             </div>
           </div>
       </div>

@@ -23,6 +23,7 @@ export default {
   participants: [],
   participantsInfo : [],
   studyPomodoroGoals: [],
-  studyPomodoroState: []
+  studyPomodoroState: [],
+  blacklist: []
 
 }
