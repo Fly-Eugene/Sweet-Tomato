@@ -10,7 +10,7 @@
       <button class="study_data_btn" @click="changeToRefer">자료실</button>
     </aside>
     <StudyComment :studyId='studyId' v-if="comment_or_refer === 'comment'" />
-    <StudyReference  v-if="comment_or_refer === 'refer'"/>
+    <StudyReference  v-if="comment_or_refer === 'refer'" :key="state.study_data"/>
   </section>
 </template>
 
@@ -19,8 +19,8 @@ import '@/assets/style/DetailStudy/study_comment_N_refer.scss'
 import StudyComment from '@/components/DetailStudy/StudyComment.vue'
 import StudyReference from '@/components/DetailStudy/StudyReference.vue'
 import StudyModal from '@/components/DetailStudy/StudyModal.vue'
-
-import {ref} from 'vue'
+import { useStore } from 'vuex'
+import {computed, reactive, ref} from 'vue'
 
 export default {
   name: "StudyCommnentNRefer",
@@ -41,6 +41,13 @@ export default {
 
 
   setup() {
+    const store = useStore()
+    const state = reactive({
+      study_data : computed(() => {
+        return store.state.studyData
+      })
+    })
+
     const comment_or_refer = ref('comment')
     const showModal = ref(false)
 
@@ -62,6 +69,7 @@ export default {
 
 
     return {
+      state,
       showModal,
       comment_or_refer,
       changeToComment,
