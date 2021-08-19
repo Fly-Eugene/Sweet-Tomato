@@ -1,5 +1,5 @@
 export default {
-  server_url : 'https://localhost:5000/',
+  server_url : 'https://i5b106.p.ssafy.io:5000/',
   nav_show: true,
   start_page_tomato_show: false,
   isLogin : false,

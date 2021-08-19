@@ -165,7 +165,7 @@ export default {
       console.log(value)
       axios({
         method: 'post',
-        url: 'https://localhost:5000/blacklist',
+        url: 'https://i5b106.p.ssafy.io:5000/blacklist',
         data: {memberId: value, studyId: this.studyId}
       })
       .then(() => {
@@ -180,7 +180,7 @@ export default {
       this.startTime = new Date(now.getFullYear(), now.getMonth()+1, now.getDate(), now.getHours(), now.getMinutes());
       // axios({
       //   method: 'post',
-      //   url: 'https://localhost:5000/study/connection',
+      //   url: 'https://i5b106.p.ssafy.io:5000/study/connection',
       //   data: {studyId: this.studyId}
       // })
       // .then(() => {
@@ -291,7 +291,7 @@ export default {
       var elapsedMin = elapsedMSec / 1000 / 60;
       axios({
         method: 'post',
-        url: 'https://localhost:5000/member/time',
+        url: 'https://i5b106.p.ssafy.io:5000/member/time',
         data: {studyTime: elapsedMin}
       })
       .then(() => {
@@ -301,7 +301,7 @@ export default {
       })
       axios({
         method: 'patch',
-        url: 'https://localhost:5000/study/disconnect/' + this.studyId,
+        url: 'https://i5b106.p.ssafy.io:5000/study/disconnect/' + this.studyId,
       })
       .then(() => {
         
