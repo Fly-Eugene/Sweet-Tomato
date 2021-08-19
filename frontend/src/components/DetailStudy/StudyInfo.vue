@@ -13,7 +13,6 @@
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
         <button class="enter_btn"><router-link :to="{name: 'Room', params: {studyId: studyId, studyLeader: state.info.studyLeader}}" v-if="state.checkflag">입장하기</router-link></button>
-        <!-- <button class="enter_btn" v-if="state.checkflag" @click="enterRoom">입장하기</button> -->
       </article>
   </section>
 </template>
@@ -43,12 +42,9 @@ export default {
       checkflag: computed(() => {
         return store.state.checkflag
       }),
-<<<<<<< HEAD
       blacklist: computed(() => {
         return store.state.blacklist
       })
-=======
->>>>>>> feature/editError
     })
     onMounted(() => {
       $axios({
