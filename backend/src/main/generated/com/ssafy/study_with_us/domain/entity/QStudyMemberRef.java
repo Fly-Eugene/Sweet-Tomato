@@ -22,9 +22,13 @@ public class QStudyMemberRef extends EntityPathBase<StudyMemberRef> {
 
     public static final QStudyMemberRef studyMemberRef = new QStudyMemberRef("studyMemberRef");
 
+    public final BooleanPath connected = createBoolean("connected");
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final QMember member;
+
+    public final StringPath nickname = createString("nickname");
 
     public final DateTimePath<java.time.LocalDateTime> recentlyConnectionTime = createDateTime("recentlyConnectionTime", java.time.LocalDateTime.class);
 

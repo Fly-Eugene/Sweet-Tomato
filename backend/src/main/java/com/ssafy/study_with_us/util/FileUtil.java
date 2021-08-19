@@ -20,6 +20,7 @@ public class FileUtil {
 
     public File makeDir(String loc) throws IOException {
         String uploadRoot = "/home/sweet_tomato/upload";
+//        String uploadRoot = "c:/sweet_tomato/upload";
         String path = loc + new SimpleDateFormat("/yyyy/MM/dd").format(new Date());
         File file = new File(uploadRoot + path);
         file.mkdirs();

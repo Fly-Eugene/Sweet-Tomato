@@ -81,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/member/join").permitAll()
                 .antMatchers("/member/pwdSearch").permitAll()
@@ -92,6 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/profile/**").permitAll()
+                .antMatchers("/file/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

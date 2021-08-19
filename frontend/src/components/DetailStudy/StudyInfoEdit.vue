@@ -121,7 +121,7 @@ export default {
       })
       .then(() => {
         emit('onClickClose')
-        router.go()
+        router.push({name: 'DetailStudy', params: { id: props.studyId }})
 
       })
       .catch(err => {
