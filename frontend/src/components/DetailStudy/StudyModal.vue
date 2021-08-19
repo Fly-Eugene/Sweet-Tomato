@@ -33,7 +33,6 @@
 import "@/assets/style/DetailStudy/study_modal.scss";
 import $axios from "axios";
 import { useStore } from "vuex";
-import { useRouter } from "vue-router";
 import { ref } from "vue";
 
 export default {
@@ -48,7 +47,6 @@ export default {
 
   setup(props, { emit }) {
     const store = useStore();
-    const router = useRouter();
     const server_url = store.state.server_url;
 
     const data_subject = ref("");
@@ -57,6 +55,7 @@ export default {
     const onSubmitData = function () {
       const frm = new FormData();
       const studyData = document.getElementById("file");
+      
       if (studyData.files[0]) {
         frm.append("files", studyData.files[0]);
       }
@@ -76,13 +75,13 @@ export default {
           "Content-Type": "multipart/form-data",
         },
       })
-        .then(() => {
-          emit("close");
-          router.go();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      .then(() => {
+        emit("close");
+        store.dispatch('getData', props.studyId)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     };
 
     return {

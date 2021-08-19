@@ -2,8 +2,8 @@
   <div class="detail_study_all">
     <StudyInfo :studyId='id' @onClickEdit="state.onInfoEdit = true" :key="state.onInfoEdit"/>
     <StudyInfoEdit v-if="state.onInfoEdit === true" :studyId='id' @onClickClose="state.onInfoEdit = false"/>
-    <TomatoRate/>
-    <StudyChart/>
+    <TomatoRate :studyId='id'/>
+    <StudyChart :studyId='id'/>
     <StudyCommentNRefer :studyId='id'/>
   </div>
 </template>

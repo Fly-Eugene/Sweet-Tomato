@@ -38,6 +38,7 @@ export function GET_DATA (state, res) {
 
 export function GET_DATA_SPECI (state, res) {
   state.studyDataSpeci = res
+  console.log(state.studyDataSpeci)
 }
 
 export function GET_TOMATO (state, res) {

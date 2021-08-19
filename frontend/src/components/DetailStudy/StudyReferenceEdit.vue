@@ -77,6 +77,7 @@ export default {
         .then((res) => {
           console.log(res.data);
           emit("editClose");
+          store.dispatch('getData', state.study_data_speci.studyId)
         })
         .catch((err) => {
           console.log(err);

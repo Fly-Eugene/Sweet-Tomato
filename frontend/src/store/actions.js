@@ -188,8 +188,8 @@ export function getData (context, studyId) {
   })
 }
 
-export function getDataSpeci (context, dataId) {
-  $axios({
+export async function getDataSpeci (context, dataId) {
+  await $axios({
     method: 'get',
     url: this.state.server_url + 'dataroom/detail/' + dataId
   })

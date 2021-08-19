@@ -4,14 +4,16 @@
       <div class="modal_refer_header">
         <p id="refer_title">{{ state.study_data_speci.subject }}</p>
         <p id="refer_writer">{{ state.study_data_speci.member['username']}}</p>
-        <p id="refer_time">{{ state.study_data_speci.files[0].regTime.split('T')[0] }}</p>
+        <p v-if="state.study_data_speci.files[0]" id="refer_time">{{ state.study_data_speci.files[0].regTime.split('T')[0] }}</p>
+        <p v-else id="refer_time"></p>
       </div>
       
 
       <div class="modal_refer_file">
         <hr>
         <p id="refer_file">첨부파일</p>
-        <a :href="`${download_url}`" id="refer_file_name">{{ state.study_data_speci.files[0].orgName}}</a>
+        <a v-if="state.study_data_speci.files[0]" :href="`${download_url}`" id="refer_file_name">{{ state.study_data_speci.files[0].orgName}}</a>
+        <a v-else id="refer_file_name">파일이 존재하지 않습니다.</a>      
       </div>
       
 
@@ -44,8 +46,12 @@ export default {
     })
 
     const server_url = store.state.server_url
-    const download_url = server_url + 'file/download/' + state.study_data_speci.files[0].id
-
+    let download_url
+    
+    if (state.study_data_speci.files[0]) {
+      download_url = server_url + 'file/download/' + state.study_data_speci.files[0].id
+    }
+    
     function onClickDownload() {
       store.dispatch('getDownloadFile', state.study_data_speci.files[0].id)
     }

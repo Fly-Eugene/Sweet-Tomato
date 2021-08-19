@@ -8,13 +8,19 @@
 <script>
 import '@/assets/style/DetailStudy/tomato_rate.scss'
 import {useStore} from 'vuex'
-import { computed, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 
 export default {
   name: 'TomatoRate',
 
+  props: {
+    studyId: {
+      type: String,
+      required: true,
+    }
+  },
 
-  setup() {
+  setup(props) {
     const store = useStore()
     const state = reactive({
       total_sum : computed(() => {
@@ -23,8 +29,9 @@ export default {
       study_tomato : computed(() => {
         return store.state.studyTomato
       })
-
     })
+
+
     let num = 0;
     console.log(state.total_sum)
     if(!state.total_sum){
@@ -32,9 +39,7 @@ export default {
     }else{
       num = Math.round(state.study_tomato/state.total_sum * 100)
     }
-    const series =  [num]
-    console.log(state.total_sum, state.study_tomato)
-    
+    const series =  [num]    
     const chartOptions = {
       chart: {
         height: 350,
@@ -111,6 +116,10 @@ export default {
       },
       labels: [''],  // 원 안에 내용 원하는거 작성하세요
     }
+
+    onMounted(() => {
+      store.dispatch('getStudyTomato', props.studyId)
+    })
 
     
 

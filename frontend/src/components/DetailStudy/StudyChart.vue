@@ -10,11 +10,19 @@ import '@/assets/style/DetailStudy/study_chart.scss'
 // import VueApexCharts from 'vue3-apexcharts'
 import { useStore } from 'vuex'
 import { reactive } from 'vue'
-import { computed } from '@vue/runtime-core'
+import { computed, onMounted } from '@vue/runtime-core'
 
 export default {
   name: 'StudyChart',
-  setup() {
+
+  props: {
+    studyId: {
+      type: String,
+      required: true,
+    }
+  },
+
+  setup(props) {
     const store = useStore()
     const state = reactive({
       tomatoes : computed(() => {
@@ -45,7 +53,7 @@ export default {
       }
       var tomatoes = state.tomatoes;
       var today = new Date(currentDate());
-      for(var i = 0; i < tomatoes.length; i++){
+      for(let i = 0; i < tomatoes.length; i++){
           var day1 = new Date(tomatoes[i].date);
           var dateDiff = Math.ceil((today - day1) / (1000*3600*24));
           var temp = dateDiff % 7;
@@ -57,16 +65,16 @@ export default {
       return res;
     }
     
-    function generateData(cnt, min, max) {
-      let i
-      const res = []
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      for (i=0; i<cnt; i++) {
-        res.push(Math.floor(Math.random() * (max - min + 1)) + min)
-      }
-      return res; //최댓값도 포함, 최솟값도 포함
-    }
+    // function generateData(cnt, min, max) {
+    //   let i
+    //   const res = []
+    //   min = Math.ceil(min);
+    //   max = Math.floor(max);
+    //   for (i=0; i<cnt; i++) {
+    //     res.push(Math.floor(Math.random() * (max - min + 1)) + min)
+    //   }
+    //   return res; //최댓값도 포함, 최솟값도 포함
+    // }
 
     const series = [
       { name: 'Metric1',
@@ -108,6 +116,10 @@ export default {
         text: ''
       },
     }
+
+    onMounted(() => {
+      store.dispatch('getStudyTomato', props.studyId)
+    })
 
 
     return {
