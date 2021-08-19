@@ -44,7 +44,7 @@
 <script>
 import '@/assets/style/Mypage/mypage_info.scss'
 import { useStore } from 'vuex'
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 
 
 export default {
@@ -58,7 +58,9 @@ export default {
     const store = useStore()
     
     const state = reactive({
-      myInfo: store.state.myInfo,
+      myInfo: computed(() => {
+        return store.state.myInfo
+      }),
     })
 
     const server_url = store.state.server_url

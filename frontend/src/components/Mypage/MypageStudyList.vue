@@ -23,7 +23,7 @@
 <script>
 import '@/assets/style/Mypage/mypage_study_list.scss'
 import { useStore } from 'vuex'
-import { onMounted, reactive } from 'vue'
+import { computed, reactive } from 'vue'
 
 export default {
   name: 'MypageStudyList',
@@ -35,12 +35,14 @@ export default {
   setup() {
     const store = useStore()
     const state = reactive({
-      recentStudies: store.state.myRecentStudy
+      recentStudies: computed(() => {
+        return store.state.myRecentStudy
+      })
     })
 
-    onMounted(() => {      
-      console.log(store.state.myRecentStudy)
-    })
+    // onMounted(() => {      
+    //   console.log(store.state.myRecentStudy)
+    // })
     return {
       state,
     }
