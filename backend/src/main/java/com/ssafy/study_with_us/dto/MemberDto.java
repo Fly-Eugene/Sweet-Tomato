@@ -13,7 +13,6 @@ import lombok.ToString;
 public class MemberDto {
     private Long id;
     private String email;
-    @JsonIgnore
     private String password;
     private String username;
     private Integer age;
