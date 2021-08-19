@@ -8,7 +8,7 @@
       <div class="state_content_wrapper">
         <div class="state_profile" v-for="member_tomato in state.participants_pomodoro" :key="member_tomato">
           <!-- [1] 인덱스는 nickname -->
-          <span>{{member_tomato[1]}}</span>  
+          <span>{{member_tomato[1][0]}}</span>  
           <div class="bar">
             <div class="bar_front" :style="`width: ${percent_tomato(study_today_goal, member_tomato[2])}%`"></div>
           </div>
