@@ -88,14 +88,14 @@ public class StudyService {
     public StudyDto update(FileReqDto params) throws IOException, AuthenticationException {
         Study study = saveStudyAtFile(params);
         if(study.getStudyLeader() != getMemberId()) throw new AuthenticationException("스터디 장만 수정 가능합니다.");
-        Set<String> getThemes = new HashSet<>();
+        List<String> getThemes = new ArrayList<>();
         for (Theme theme : studyRepository.getThemes(study.getId())) {
             getThemes.add(theme.getThemeName());
         }
-        Set<String> paramThemes = getThemes(params);
+        List<String> paramThemes = getThemes(params);
 
-        Set<String> insertThemes = new HashSet<>();
-        Set<String> deleteThemes = new HashSet<>();
+        List<String> insertThemes = new ArrayList<>();
+        List<String> deleteThemes = new ArrayList<>();
         for (String paramTheme : paramThemes) {
             if(!getThemes.contains(paramTheme)) insertThemes.add(paramTheme);
         }
@@ -112,7 +112,7 @@ public class StudyService {
         Study study = studyRepository.getById(studyId);
         // themes 얻어오기
         List<Theme> getThemes = studyRepository.getThemes(studyId);
-        Set<String> themes = new HashSet<>();
+        List<String> themes = new ArrayList<>();
         for (Theme getTheme : getThemes) {
             themes.add(getTheme.getThemeName());
         }
@@ -146,7 +146,7 @@ public class StudyService {
             results.add(StudyDto.builder().id(study.getId()).studyName(study.getStudyName())
                     .studyLeader(study.getStudyLeader()).security(study.getSecurity())
                     .studyIntro(study.getStudyIntro())
-                    .themes(study.listToSet())
+                    .themes(study.getThemesString())
                     .profile(profile == null ? null :profile.entityToDto())
                     .build());
         }
@@ -154,16 +154,16 @@ public class StudyService {
         map.put("totalPage", totalPage);
         return map;
     }
-    private void removeThemes(Set<String> deleteThemes, Study study) {
+    private void removeThemes(List<String> deleteThemes, Study study) {
         for (String deleteTheme : deleteThemes) {
             studyRepository.remove(deleteTheme, study.getId());
         }
     }
 
-    private void makeThemes(Set<String> getThemes, Study study) {
-        // DB에 있는 theme 목록 가져와서 set으로
+    private void makeThemes(List<String> getThemes, Study study) {
+        // DB에 있는 theme 목록 가져와서 set으로 => 순서 유지 요청 들어와서 list로 변경
         List<Theme> themeList = studyRepository.getThemes();
-        Set<String> themes = new HashSet<>();
+        List<String> themes = new ArrayList<>();
         for (Theme theme : themeList) {
             themes.add(theme.getThemeName());
         }
@@ -269,9 +269,9 @@ public class StudyService {
                 .build());
     }
 
-    private Set<String> getThemes(FileReqDto params){
+    private List<String> getThemes(FileReqDto params){
         JSONObject jObject = new JSONObject(params.getJsonData());
-        Set<String> themes = new HashSet<>();
+        List<String> themes = new ArrayList<>();
 
         if (jObject.has("themes")){
             for (Object theme : jObject.getJSONArray("themes")) {
@@ -286,9 +286,12 @@ public class StudyService {
         Study study = null;
         if(jObject.has("studyId")) {
             study = studyRepository.getById(jObject.getLong("studyId"));
-            deletedProfileId = study.getProfile().getId();
+            Profile prevProfile = study.getProfile();
+            if(prevProfile != null) {
+                deletedProfileId = prevProfile.getId();
+            }
         }
-        Profile profile = profileService.studyProfileCreate(params.getFiles().get(0));
+        Profile profile = profileService.studyProfileCreate(params.getFiles().size() > 0 ? params.getFiles().get(0) : null);
         if(deletedProfileId != null) {
             profileRepository.deleteById(deletedProfileId);
         }

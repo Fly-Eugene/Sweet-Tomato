@@ -50,7 +50,7 @@ public class MemberController {
     @PostMapping("/join")
     public Object join(FileReqDto params) throws IOException {
         // 파일 정보 있으면 받은 정보로 생성
-        Profile profile = profileService.memberProfileCreate(params.getFiles().get(0));
+        Profile profile = profileService.memberProfileCreate(params.getFiles().size() > 0 ? params.getFiles().get(0) : null);
         // member
         JSONObject jObject = new JSONObject(params.getJsonData());
         if(!jObject.has("email")) throw new InvalidValueException("이메일이 비었습니다.");
