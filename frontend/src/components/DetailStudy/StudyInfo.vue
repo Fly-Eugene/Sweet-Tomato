@@ -42,7 +42,7 @@ export default {
       }),
       checkflag: computed(() => {
         return store.state.checkflag
-      })
+      }),
     })
     onMounted(() => {
       $axios({

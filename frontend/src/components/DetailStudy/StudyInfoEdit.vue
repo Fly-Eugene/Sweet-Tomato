@@ -29,7 +29,7 @@
             <input type="text" placeholder="#어떤 종류의 스터디 인가요? 🔍" v-model="hash_tag" @keyup.enter="onEnter">
           </div>
           <div class="hash_tag_content">
-            <div class="hash_tag_item" v-for="hash in hash_tag_list_new" :key="hash">{{ hash }}</div>
+            <div class="hash_tag_item" v-for="hash in hash_tag_list_new" :key="hash">#{{ hash }}</div>
           </div>
           <div class="study_content">
             <span>스터디 소개</span>
@@ -46,7 +46,6 @@
 
 <script>
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
 import { ref, computed, reactive} from 'vue'
 import $axios from 'axios'
 
@@ -61,7 +60,6 @@ export default {
 
   setup(props, {emit}){
     const store = useStore()
-    const router = useRouter()
     const state = reactive({
       info: computed(() => {
         return store.state.studyInfo
@@ -97,7 +95,7 @@ export default {
     }
 
     const onEnter = function() {
-      hash_tag_list_new.value.push('#' + hash_tag.value)
+      hash_tag_list_new.value.push(hash_tag.value)
       hash_tag.value = ''
     }
 
@@ -121,7 +119,7 @@ export default {
       })
       .then(() => {
         emit('onClickClose')
-        router.go()
+        store.dispatch('getStudyInfo', props.studyId)
 
       })
       .catch(err => {

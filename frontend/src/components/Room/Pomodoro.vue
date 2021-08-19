@@ -19,7 +19,7 @@ import PomodoroGoalState from '@/components/Room/Pomodoro/PomodoroGoalState'
 import PomodoroState from '@/components/Room/Pomodoro/PomodoroState'
 import PomodoroTimer from '@/components/Room/Pomodoro/PomodoroTimer'
 import '@/assets/style/Room/pomodoro.scss'
-import { onMounted, onUpdated, reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
@@ -53,10 +53,6 @@ export default {
     onMounted(() => {
       store.dispatch('getPomodoroGoal', props.studyId)
       store.dispatch('getPomodoroState', props.studyId)
-    })
-
-    onUpdated(() => {
-      console.log('업데이트 된대!!!!!')
     })
 
     return {

@@ -38,6 +38,7 @@ export default {
     }
     onMounted(() => {
       store.dispatch('checkLogin')
+      store.dispatch('searchStudy', {themes: [], page: 1})
     })
     return {
       store,

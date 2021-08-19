@@ -50,7 +50,9 @@ export default {
       const frm = new FormData()
       const studyData = document.getElementById("file")
 
-      frm.append('files', studyData.files[0])
+      if (studyData.files.length !== 0) {
+        frm.append('files', studyData.files[0])
+      } 
       frm.append('jsonData', JSON.stringify({ id: state.study_data_speci.id ,subject: data_subject.value, content: data_content.value, studyId: state.study_data_speci.studyId }))
       $axios({
         method: 'patch',

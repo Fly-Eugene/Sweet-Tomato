@@ -15,7 +15,7 @@ import MypageStudyTime from '@/components/Mypage/MypageStudyTime'
 import MypageStudyList from '@/components/Mypage/MypageStudyList'
 import '@/assets/style/mypage.scss'
 import { useStore } from 'vuex'
-import { onBeforeMount, onUnmounted, reactive } from 'vue'
+import { onBeforeMount, onMounted, reactive } from 'vue'
 
 export default {
   name: 'Mypage',
@@ -40,9 +40,13 @@ export default {
       store.dispatch('checkLogin')
       state.plz = true
     })
-    onUnmounted(() => {
-      state.plz = false
+
+    onMounted(() => {
+      store.dispatch('getRecentStudy')
+      store.dispatch('getMyTomato')
+      store.dispatch('getMyStudyTime')
     })
+
     return {
       state,
     }
