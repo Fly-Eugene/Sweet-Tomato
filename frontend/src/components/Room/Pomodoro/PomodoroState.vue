@@ -21,7 +21,7 @@
 <script>
 import '@/assets/style/Room/Pomodoro/pomodoro_state.scss'
 import { useStore } from 'vuex'
-import { computed, onUpdated, reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 
 export default {
   name: 'PomodoroState',
@@ -49,8 +49,6 @@ export default {
       participants_pomodoro : []
     })
 
-    console.log(state.study_participants_info, '헤이헤이헤이')
-
     let study_today_goal = ref('')
     if (state.study_pomodoro_goals) {
       study_today_goal = state.study_pomodoro_goals[state.study_pomodoro_goals.length - 1].goalTomato
@@ -75,13 +73,6 @@ export default {
         state.participants_pomodoro.push([participant['memberId'], participant['nickname'], 0])
       }
     });
-
-    console.log(state.participants_pomodoro, '여기여기여기')
-
-    onUpdated(() => {
-      console.log('업데이트 된대!!!!!')
-    })
-
     
     return {
       state,

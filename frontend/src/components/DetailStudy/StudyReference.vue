@@ -1,5 +1,6 @@
 <template>
-  <StudyModalRefer v-if="state.showDataModal === true && Object.keys(state.study_data_speci).length" @close="state.showDataModal = false" @clickEdit="onClickEdit"/>
+  <!--  && Object.keys(state.study_data_speci).length -->
+  <StudyModalRefer v-if="state.showDataModal === true" @close="state.showDataModal = false" @clickEdit="onClickEdit"/>
   <StudyReferenceEdit v-if="state.showEditModal === true" @editClose="state.showEditModal = false"/>
 
   <article class="reference_content_sub"></article>
@@ -41,8 +42,8 @@ export default {
       })
     })
 
-    function onClickStudyDataSpeci(data){
-      store.dispatch('getDataSpeci', data.id)
+    async function onClickStudyDataSpeci(data){
+      await store.dispatch('getDataSpeci', data.id)
       state.showDataModal = true
     }
 

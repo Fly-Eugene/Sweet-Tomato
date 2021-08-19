@@ -12,7 +12,7 @@
           <span class="info_tag" v-for="tag in state.info.themes" :key="tag" :style="`background: ${randomColor()}`">#{{ tag }}</span>
         </div>
         <div class="info_content">{{ state.info.studyIntro }}</div>
-        <button class="enter_btn"><router-link :to="{name: 'Room', params: {studyId: studyId, studyLeader: state.info.studyLeader}}" v-if="state.checkflag">입장하기</router-link></button>
+        <button class="enter_btn" v-if="state.checkflag"><router-link :to="{name: 'Room', params: {studyId: studyId, studyLeader: state.info.studyLeader}}">입장하기</router-link></button>
       </article>
   </section>
 </template>
@@ -68,7 +68,12 @@ export default {
       .catch(err => {
         console.log(err)
       })
+      
+      store.dispatch('getStudyInfo', props.studyId)
+    
     })
+
+    
 
     const randomColor =  function() {
       const h = Math.floor(Math.random() * 360)

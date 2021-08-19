@@ -20,7 +20,7 @@ import StudyComment from '@/components/DetailStudy/StudyComment.vue'
 import StudyReference from '@/components/DetailStudy/StudyReference.vue'
 import StudyModal from '@/components/DetailStudy/StudyModal.vue'
 import { useStore } from 'vuex'
-import {computed, reactive, ref} from 'vue'
+import {computed, onMounted, reactive, ref} from 'vue'
 
 export default {
   name: "StudyCommnentNRefer",
@@ -32,15 +32,13 @@ export default {
     }
   },
 
-
   components: {
     StudyComment,
     StudyReference,
     StudyModal,
   },
 
-
-  setup() {
+  setup(props) {
     const store = useStore()
     const state = reactive({
       study_data : computed(() => {
@@ -66,6 +64,10 @@ export default {
     function closeModal() {
       showModal.value = false
     }
+
+    onMounted(() => {
+      store.dispatch('getData', props.studyId)
+    })
 
 
     return {
