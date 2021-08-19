@@ -5,16 +5,16 @@ module.exports = {
     open: true,
     proxy: {
       '/groupcall' : {
-        target: 'https://localhost:5000/'
+        target: 'https://i5b106.p.ssafy.io:5000/'
       },
       '/auth' : {
-        target: 'https://localhost:5000/'
+        target: 'https://i5b106.p.ssafy.io:5000/'
       },
       '/member' : {
-        target: 'https://localhost:5000/'
+        target: 'https://i5b106.p.ssafy.io:5000/'
       },
       '/profile' : {
-        target: 'https://localhost:5000/'
+        target: 'https://i5b106.p.ssafy.io:5000/'
       },
     },
     historyApiFallback: true,

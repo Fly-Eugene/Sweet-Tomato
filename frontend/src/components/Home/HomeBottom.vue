@@ -79,7 +79,7 @@
       <div class="box_wrapper" v-show="state.card_1">
         <div class="box_left">
           <div class="box_inner">
-            <img src="@/assets/img/HomeMiddle.png" alt="">
+            <img src="@/assets/img/main_pomodoro.png" alt="">
           </div>
         </div>
         <div class="box_right">
@@ -94,7 +94,7 @@
       <div class="box_wrapper" v-show="state.card_2">
           <div class="box_left">
             <div class="box_inner">
-              <img src="@/assets/img/HomeMiddle.png" alt="">
+              <img src="@/assets/img/main_timer.png" alt="">
             </div>
           </div>
           <div class="box_right">
@@ -109,7 +109,7 @@
       <div class="box_wrapper" v-show="state.card_3">
           <div class="box_left">
             <div class="box_inner">
-              <img src="@/assets/img/HomeMiddle.png" alt="">
+              <img src="@/assets/img/main_study.png" alt="">
             </div>
           </div>
           <div class="box_right">
@@ -124,7 +124,7 @@
       <div class="box_wrapper" v-show="state.card_4">
           <div class="box_left">
             <div class="box_inner">
-              <img src="@/assets/img/HomeMiddle.png" alt="">
+              <img src="@/assets/img/main_detail.png" alt="">
             </div>
           </div>
           <div class="box_right">
@@ -139,7 +139,7 @@
       <div class="box_wrapper" v-show="state.card_5">
           <div class="box_left">
             <div class="box_inner">
-              <img src="@/assets/img/HomeMiddle.png" alt="">
+              <img src="@/assets/img/main_mypage.png" alt="">
             </div>
           </div>
           <div class="box_right">

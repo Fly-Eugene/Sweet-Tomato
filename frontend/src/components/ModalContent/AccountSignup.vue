@@ -196,7 +196,7 @@ export default {
         })
       );
       $axios
-        .post("https://localhost:5000/member/join", frm, {
+        .post("https://i5b106.p.ssafy.io:5000/member/join", frm, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
