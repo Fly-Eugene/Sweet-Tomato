@@ -8,7 +8,7 @@
 <script>
 import '@/assets/style/DetailStudy/tomato_rate.scss'
 import {useStore} from 'vuex'
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onBeforeMount, reactive } from 'vue'
 
 export default {
   name: 'TomatoRate',
@@ -117,7 +117,7 @@ export default {
       labels: [''],  // 원 안에 내용 원하는거 작성하세요
     }
 
-    onMounted(() => {
+    onBeforeMount(() => {
       store.dispatch('getStudyTomato', props.studyId)
     })
 

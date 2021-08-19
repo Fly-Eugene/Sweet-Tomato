@@ -10,7 +10,7 @@ import '@/assets/style/DetailStudy/study_chart.scss'
 // import VueApexCharts from 'vue3-apexcharts'
 import { useStore } from 'vuex'
 import { reactive } from 'vue'
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onBeforeMount } from '@vue/runtime-core'
 
 export default {
   name: 'StudyChart',
@@ -117,7 +117,7 @@ export default {
       },
     }
 
-    onMounted(() => {
+    onBeforeMount(() => {
       store.dispatch('getStudyTomato', props.studyId)
     })
 

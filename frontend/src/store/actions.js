@@ -203,7 +203,7 @@ export async function getDataSpeci (context, dataId) {
 }
 
 export function getStudyTomato (context, studyId) {
-  $axios({
+ $axios({
     method: 'get',
     url: this.state.server_url + 'tomato/study/' + studyId,
   })

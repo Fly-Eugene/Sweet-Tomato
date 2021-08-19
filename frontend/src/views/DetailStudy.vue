@@ -38,7 +38,7 @@ export default {
   setup(props) {
     const store = useStore()
     const state = reactive({
-      onInfoEdit : false
+      onInfoEdit : false,
     })
 
     onMounted(() => {
