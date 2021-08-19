@@ -3,8 +3,13 @@
     <div class="card_name">
       <p>{{ this.study.studyName }}</p>
     </div>
-    <div class="card_hashtag">
+    <div v-if="this.study.themes.length >= 3" class="card_hashtag">
       <ul v-for="theme in this.study.themes.slice(0,3)" :key="theme">
+        <li>{{ theme }}</li>
+      </ul>
+    </div>
+    <div v-else class="card_hashtag">
+      <ul v-for="theme in this.study.themes" :key="theme">
         <li>{{ theme }}</li>
       </ul>
     </div>

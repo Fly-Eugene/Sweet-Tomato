@@ -51,13 +51,7 @@
             />
           </div>
           <div class="hash_tag_content">
-            <div
-              class="hash_tag_item"
-              v-for="hash in hash_tag_list_new"
-              :key="hash"
-            >
-              {{ hash }}
-            </div>
+            <div class="hash_tag_item" v-for="hash in hash_tag_list_new" :key="hash">#{{ hash }}</div>
           </div>
           <div class="study_content">
             <span>스터디 소개</span>
@@ -94,8 +88,8 @@ export default {
     },
   },
 
-  setup(props) {
-    const store = useStore();
+  setup(props, {emit}){
+    const store = useStore()
     const state = reactive({
       info: computed(() => {
         return store.state.studyInfo;
@@ -131,36 +125,10 @@ export default {
       state.profile_image = url;
     }
 
-    const onEnter = function () {
-      hash_tag_list_new.value.push("#" + hash_tag.value);
-      hash_tag.value = "";
-    };
-
-    // const onClickEditStudy = function () {
-    //   const frm = new FormData();
-    //   const photoFile = document.getElementById("edit_file");
-    //   if (photoFile.files[0]) {
-    //     frm.append("files", photoFile.files[0]);
-    //   }
-    //   frm.append(
-    //     "jsonData",
-    //     JSON.stringify({
-    //       studyId: props.studyId,
-    //       studyName: study_name.value,
-    //       studyIntro: study_content.value,
-    //       security: study_security.value,
-    //       themes: hash_tag_list_new.value,
-    //     })
-    //   );
-    //   console.log(frm);
-    // };
-    // const data = {
-    //   studyId: props.studyId,
-    //   studyName: study_name.value,
-    //   studyIntro: study_content.value,
-    //   security: study_security.value,
-    //   themes: hash_tag_list_new.value
-    // }
+    const onEnter = function() {
+      hash_tag_list_new.value.push(hash_tag.value)
+      hash_tag.value = ''
+    }
 
     const onClickEditStudy = function () {
       const frm = new FormData();
@@ -178,28 +146,22 @@ export default {
           themes: hash_tag_list_new.value,
         })
       );
-      console.log(frm);
       $axios({
         method: "patch",
         url: server_url + "study",
         data: frm,
         headers: {
           "Content-Type": "multipart/form-data",
-        },
+        }
       })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log({
-            studyId: props.studyId,
-            studyName: study_name.value,
-            studyIntro: study_content.value,
-            security: study_security.value,
-            themes: hash_tag_list_new.value,
-          });
-          console.log(err);
-        });
+      .then(() => {
+        emit('onClickClose')
+        store.dispatch('getStudyInfo', props.studyId)
+      })
+      .catch(err => {
+        console.log(err)
+        alert('스터디 수정에 실패했습니다.')
+      })
     };
     // store.dispatch('editStudyInfo', frm)
 

@@ -57,7 +57,6 @@ export default {
       const frm = new FormData();
       const studyData = document.getElementById("file");
       if (studyData.files[0]) {
-        console.log(studyData.files[0]);
         frm.append("files", studyData.files[0]);
       }
       frm.append(
