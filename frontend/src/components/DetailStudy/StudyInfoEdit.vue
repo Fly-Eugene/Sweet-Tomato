@@ -46,6 +46,7 @@
 
 <script>
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { ref, computed, reactive} from 'vue'
 import $axios from 'axios'
 
@@ -58,8 +59,9 @@ export default {
     }
   },
 
-  setup(props){
+  setup(props, {emit}){
     const store = useStore()
+    const router = useRouter()
     const state = reactive({
       info: computed(() => {
         return store.state.studyInfo
@@ -99,18 +101,14 @@ export default {
       hash_tag.value = ''
     }
 
-    // const data = {
-    //   studyId: props.studyId,
-    //   studyName: study_name.value,
-    //   studyIntro: study_content.value,
-    //   security: study_security.value,
-    //   themes: hash_tag_list_new.value
-    // }
-
     const onClickEditStudy = function(){
       const frm = new FormData()
       const photoFile = document.getElementById("edit_file")
-      frm.append('files', photoFile.files[0])
+      if (photoFile.files.length === 0) {
+        frm.append('files', null)
+      } else {
+        frm.append('files', photoFile.files[0])
+      }
       frm.append('jsonData', JSON.stringify({ studyId: props.studyId, studyName: study_name.value, studyIntro: study_content.value, security: study_security.value, themes: hash_tag_list_new.value }))
       console.log(frm)
       $axios({
@@ -121,12 +119,14 @@ export default {
           'Content-Type': 'multipart/form-data'
         }
       })
-      .then(res => {
-        console.log(res)
+      .then(() => {
+        emit('onClickClose')
+        router.go()
+
       })
       .catch(err => {
-        console.log({ studyId: props.studyId, studyName: study_name.value, studyIntro: study_content.value, security: study_security.value, themes: hash_tag_list_new.value })
         console.log(err)
+        alert('스터디 수정에 실패했습니다.')
       })
 
       

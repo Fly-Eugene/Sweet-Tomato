@@ -21,7 +21,7 @@
 <script>
 import '@/assets/style/Room/Pomodoro/pomodoro_state.scss'
 import { useStore } from 'vuex'
-import { computed, reactive, ref } from 'vue'
+import { computed, onUpdated, reactive, ref } from 'vue'
 
 export default {
   name: 'PomodoroState',
@@ -78,8 +78,11 @@ export default {
 
     console.log(state.participants_pomodoro, '여기여기여기')
 
-    
+    onUpdated(() => {
+      console.log('업데이트 된대!!!!!')
+    })
 
+    
     return {
       state,
       study_today_goal,

@@ -1,10 +1,10 @@
 <template>
-  <div class="card_data">
+  <div class="card_data" v-if="state.studies !== null">
     <div class="card" v-for="study in state.studies" :key="study">
       <StudyCard :study="study"/>
     </div>
   </div>
-  <div class="page_nation">
+  <div class="page_nation" v-if="state.studies !== null">
     <div>이전</div>
     <div v-for="i in state.pages" :key="i">
       <p @click="movePage(i)">{{ i }}</p>
@@ -22,7 +22,6 @@ import { computed } from '@vue/runtime-core'
 
 export default {
   name: 'StudyCards',
-
   
   components: {
     StudyCard
@@ -32,12 +31,17 @@ export default {
     const store = useStore()
     const state = reactive({
       studies: computed(() => {
-        return store.state.searchedStudies
+        if (store.state.searchedStudies.length === 0) {
+          return null
+        } else {
+          return store.state.searchedStudies
+        }
       }),
       pages: computed(() => {
         return store.state.totalPage
       })
     })
+
     function movePage(pageNum) {
       emit('movePage', pageNum)
     }

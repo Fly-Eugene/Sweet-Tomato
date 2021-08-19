@@ -207,6 +207,7 @@ public class StudyService {
                 .id(studyMember.getId())
                 .nickname(studyMember.getNickname())
                 .connected(false)
+                .recentlyConnectionTime(studyMember.getRecentlyConnectionTime())
                 .member(studyMember.getMember())
                 .study(studyMember.getStudy()).build()).entityToRefDto();
     }
