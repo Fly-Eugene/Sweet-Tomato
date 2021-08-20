@@ -15,7 +15,7 @@ import MypageStudyTime from '@/components/Mypage/MypageStudyTime'
 import MypageStudyList from '@/components/Mypage/MypageStudyList'
 import '@/assets/style/mypage.scss'
 import { useStore } from 'vuex'
-import { onBeforeMount, onMounted, reactive } from 'vue'
+import { computed, onBeforeMount, onMounted, reactive } from 'vue'
 
 export default {
   name: 'Mypage',
@@ -34,6 +34,19 @@ export default {
       myStudyList: store.state.myRecentStudy ? store.state.myRecentStudy : false,
       myStudyTime: store.state.myStudyTime !== null ? store.state.myStudyTime :  [{"studyTimeId": 0, "studyDate": "2021-08-18", "studyTime": 0, "memberId": 0}],
       myTomato: store.state.myTomato !== null ? store.state.myTomato : 0,
+
+      // ========== 토마토 =============
+      // myTomato: computed(() => {
+      //   return store.state.myTomato
+      // }),
+      // everyTomato: computed(() => {
+      //   return store.state.everyTomato ? store.state.everyTomato : 0
+      // })
+
+      // ============ 최근 스터디 리스트 ============
+      // recentStudies: computed(() => {
+      //   return store.state.myRecentStudy
+      // })
     })
 
     onBeforeMount(() => {
