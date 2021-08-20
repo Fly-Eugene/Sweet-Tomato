@@ -1,0 +1,152 @@
+.study_modal_mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  transition: opacity 0.3s ease;
+}
+
+.study_modal_container {
+  position: relative;
+  width: 988px;
+  height: 848px;
+
+  background: #FFFFFF;;
+  border-radius: 10px;
+  padding: 30px 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+
+
+  .study_modal_header{
+    position: absolute;
+    width: 90%;
+    height: 15%;
+    
+    .modal_title {
+      position: absolute;
+      font-family: 'Godo', sans-serif;
+      font-size: 25px;
+      padding: 7px;
+    }
+
+    .modal_title_input {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      left: 0%;
+      top: 40%;
+
+      font-family: "Godo", sans-serif;
+      color: black;
+      font-size: 17px;
+
+      border: 1px solid #000000;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+  }
+
+  .study_modal_file {
+    position: absolute;
+    width: 90%;
+    height: 15%;
+    top: 20%;
+
+    .modal_file {
+      position: absolute;
+      font-family: 'Godo', sans-serif;
+      font-size: 25px;
+      padding: 7px;
+    }
+    
+    .modal_file_input {
+      position: absolute;
+      // width: 100%;
+      // height: 50%;
+      top: 30%;
+      left: 0%;
+
+      font-family: "Godo", sans-serif;
+      color: black;
+      font-size: 17px;
+
+      // border: 1px solid #000000;
+      // box-sizing: border-box;
+      // border-radius: 10px;
+  }
+  }
+
+  .study_modal_content {
+    position: absolute;
+    width: 90%;
+    height: 40%;
+    top: 40%;
+
+    .modal_content {
+      position: absolute;
+      font-family: 'Godo', sans-serif;
+      font-size: 25px;
+      padding: 7px;
+    }
+
+    .modal_content_input {
+      position: absolute;
+      width: 100%;
+      height: 70%;
+      top: 13%;
+      left: 0%;
+      font-family: "Godo", sans-serif;
+      color: black;
+      font-size: 17px;
+      border: 1px solid #000000;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+
+  }
+
+
+  .cancle_btn {
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    right: 18%;
+    bottom: 3%;
+  
+    font-family: "Godo", sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+    
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+  }
+
+  .save_btn {
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    right: 3%;
+    bottom: 3%;
+  
+    font-family: "Godo", sans-serif;
+    font-size: 20px;
+    cursor: pointer;
+
+    background: #FF6262;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 10px;
+  }
+    
+}

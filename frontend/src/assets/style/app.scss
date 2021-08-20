@@ -1,0 +1,68 @@
+* {margin: 0;padding: 0;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, tbody, tfoot, thead, tr, th, td{margin:0;padding:0;}
+h1, h2, h3, h4, h5, h6 {font-weight: 700; font-size: inherit;}
+a {color: inherit; text-decoration: inherit;}
+img {vertical-align: middle;}
+a img {border: none;}
+li {list-style: none;}
+address, em, i {font-style: normal;}
+
+@font-face {
+  font-family: 'Godo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff2') format('woff2'), url('//cdn.jsdelivr.net/korean-webfonts/1/corps/godo/Godo/GodoM.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'ELAND_Choice_M';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/ELAND_Choice_M.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+html {
+  position: relative;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  // overflow: hidden;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.innerHeader {
+  width: 90vw;
+  margin: auto;
+  border-bottom: 3px solid black;
+}
+
+.startPageTomato {
+  width: 50%;
+  height: 50%;
+}
+
+.footer {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  left: 0;
+  bottom: -8%;
+  margin: auto;
+  background-color: rgb(167, 167, 167);
+}
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+
+  width: 100%;
+  height: 100%;
+}

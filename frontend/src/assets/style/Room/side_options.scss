@@ -1,0 +1,20 @@
+.side_option_container {
+  position: absolute;
+  width: 23%;
+  height: 83%;
+  border-radius: 50px;
+  background-color: #fff;
+  font-family: 'Godo', sans-serif;
+  right: 2%;
+  top: 2%;
+  text-align: left;
+}
+.chat_header {
+  margin: 25px 40px;
+  font-size: 35px;
+  display: flex;
+  justify-content: space-between;    
+  span:last-child  {      
+    cursor: pointer;
+  };
+}

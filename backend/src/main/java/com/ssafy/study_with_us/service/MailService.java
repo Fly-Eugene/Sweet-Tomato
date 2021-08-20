@@ -13,9 +13,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-    @Autowired
-    private JavaMailSenderImpl mailSender;
-//    private int size;
+    private final JavaMailSenderImpl mailSender;
+
+    public MailService(JavaMailSenderImpl mailSender) {
+        this.mailSender = mailSender;
+    }
+    //    private int size;
 
     //인증키 생성
 //    private String getKey(int size) {
@@ -62,7 +65,7 @@ public class MailService {
                             "        감사합니다.<br/>"                                                                                                                                                                           +
                             "	</p>"																																																	+
                             "	<a style=\"color: #FFF; text-decoration: none; text-align: center;\""																																	+
-                            "	href='http://localhost:5001\" 'target=\"_blank\">"																							+
+                            "	href='http://i5b106.p.ssafy.io:5001\" 'target=\"_blank\">"																							+
                             "		<p"																																																	+
                             "			style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: red; line-height: 45px; vertical-align: middle; font-size: 16px;\">"							+
                             "			Sweet Tomato 바로가기</p>"																																												+

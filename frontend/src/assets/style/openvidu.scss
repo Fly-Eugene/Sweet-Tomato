@@ -1,0 +1,100 @@
+.container {
+  // position: relative;
+  // width: 100vw;
+  // height: 100vh;
+  background-color: black;
+
+  .join_container {
+    position: absolute;
+    width: 700px;
+    height: 400px;
+    top: 15%;
+    left: 30%;
+    background: #FFFFFF;
+
+    .join_phrase {
+      font-family: 'Godo', sans-serif;
+      font-size: 40px;
+
+      margin-top: 15px;
+    }
+
+
+    .participant_input {
+      position: absolute;
+      width: 356px;
+      height: 77px;
+      top: 35%;
+      left: 25%;
+      font-size: 20px;
+      padding: 15px;
+      border: 2px solid #000000;
+      box-sizing: border-box;
+    }
+
+    .session_input {
+      position: absolute;
+      width: 356px;
+      height: 77px;
+      top: 40%;
+      left: 30%;
+
+      padding: 15px;
+      border: 2px solid #000000;
+      box-sizing: border-box;
+    }
+
+
+
+    .join_btn{
+      position: absolute;
+      width: 174px;
+      height: 59px;
+      left: 37%;
+      bottom: 7%;
+
+      font-family: 'Godo', sans-serif;
+      font-size: 20px;
+
+      background: #FFA5A5;
+      border: 2px solid #000000;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+  }
+}
+.leave_btn{
+  width: 174px;
+  height: 59px;
+
+  font-family: 'Godo', sans-serif;
+  font-size: 20px;
+
+  background: #FFA5A5;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.user_name{
+  font-size: 20px;
+  color: rgb(201, 201, 201);
+  font-family: 'Godo', sans-serif;
+}
+#session-header{
+  margin: 100px;
+}
+.chat_box{
+  position: absolute;
+  right: 3.5%;
+  bottom: 17%;
+}
+#chat_value{
+  font-family: 'Godo', sans-serif;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  width: 70%;
+  font-size: 15px;
+}

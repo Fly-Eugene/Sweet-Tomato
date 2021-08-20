@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+$head-font: 'Godo', sans-serif;
+$content-font: 'Didact Gothic', sans-serif;
+
+.card_data {
+  position: relative;
+  width: 1050px;
+  height: 750px;  
+  border-radius: 30px;
+  margin-top: 7%;
+  font-family: $head-font;
+  float: left;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  // background-color: rgb(248, 247, 247);
+  // padding: 20px 0;
+  .card {
+    width: 25%;
+    margin: 0 30px;
+    margin-bottom: 45px;
+    height: 48%;
+    background-color: #F3F1F1;
+    border-radius: 30px;
+  }
+}
+.page_nation {
+  font-weight: 600;
+  font-size: 15px;
+  margin-top: 70px;
+  font-family: $head-font;
+  display: flex;
+  margin: 10px;
+  margin-top: 70px;
+  
+  div {
+    cursor: pointer;
+    margin: 0px 5px;
+    padding: 5px 10px;
+    border: 1px solid;
+    border-radius: 5px;
+
+    &:nth-child(1) {
+      background-color: black;
+      border-radius: 20px 0 0 20px;
+      // margin-left: 10px;
+    }
+    &:last-child {
+      background-color: black;
+      border-radius: 0 20px 20px 0;
+      // margin-right: 10px;
+    }
+  }
+
+}

@@ -1,0 +1,37 @@
+.study_info_header {
+  height: 5%;
+  margin-left: 5%;
+  font-size: 30px;
+  text-align: start;
+}
+
+.study_info_img {
+  max-height: 30%;
+  margin-left: 5%;
+  margin-bottom: 20px;
+  width: 90%;
+}
+
+.study_info_intro {
+  height: 25%;
+  margin: 15px;
+  font-family: 'ELAND_Choice_M';
+  font-size: 20px;
+  text-align: start;
+}
+
+.study_info_themes {
+  position: absolute;
+  bottom: 3%;
+  margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'ELAND_Choice_M';
+  font-size: 18px;
+
+  .study_info_theme {
+    margin-right: 15px;
+    margin-bottom: 5px;
+    color: #6682E3;
+  }
+}

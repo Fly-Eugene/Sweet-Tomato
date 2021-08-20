@@ -1,0 +1,26 @@
+.pomodoro_box {
+  position: absolute;
+  width: 23%;
+  height: 85%;
+  top: 2%;
+  border-radius: 50px;
+  background-color: #fff;
+  font-family: 'Godo', sans-serif;
+
+  .pomodoro_header {
+    margin: 25px 40px;
+    font-size: 35px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Godo', sans-serif;
+    span:last-child  {      
+      cursor: pointer;
+    };
+  }
+  .pomodoro_content {
+    position: absolute;
+    height: 90%;
+    width: 100%;
+
+  }
+}

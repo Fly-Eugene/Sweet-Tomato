@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Dosis:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap');
+
+$head-font: 'Godo', sans-serif;
+$content-font: 'Didact Gothic', sans-serif;
+
+.mypage_info {
+  position: relative;
+  width: 1050px;
+  height: 500px;  
+  background: rgba(243, 241, 241, 0.8);
+  border-radius: 30px;
+  
+  .mypage_left {
+    position: absolute;
+    width: 33%;
+    height: 99%;    
+    left: 3px;
+    top: 3px;
+    background: #FFFFFF;
+    box-shadow: 4px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    
+    .recent_access {
+      position: absolute;
+      width: 100%;
+      height: 20%;
+      top: 13%;
+      p {
+        font-family: $head-font;
+        &:nth-child(1) {
+          font-size: 25px;
+          font-weight: 600;
+        }
+        &:nth-child(2) {
+          margin-top: 10px;
+          font-size: 15px;
+          letter-spacing: 1.5px;
+        }
+      }
+    }
+    .studyname {
+      position: absolute;
+      width: 100%;
+      height: 40%;
+      left: 50%;
+      top: 50%;
+      // line-height: 130px;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      p {
+        font-family: $head-font;
+        font-size: 60px;
+        font-weight: 600;
+      }
+    }
+    .enterBtn {
+      position: absolute;
+      width: 100%;
+      height: 20%;
+      top: 70%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      p {
+        display: inline-block;
+        width: 35%;
+        height: 35%;
+        line-height: 37px;
+        border-radius: 30px;
+        background-color: #E94846;
+        cursor: pointer;            
+        font-size: 18px;
+        font-family: $head-font;
+        color: #fff;
+      }
+    }
+  }
+  .mypage_right {
+    position: absolute;
+    width: 60%;
+    height: 84%;
+    left: 36.5%;    
+    top: 8%;
+  }
+  i {
+    position: absolute;
+    font-size: 30px;
+    top: -4%;
+    right: 0%;
+    cursor: pointer;
+  }
+  .right_top {
+    position: absolute;
+    width: 100%;
+    height: 45%;
+    top: 10%;
+
+    .profile_img {
+      position: absolute;
+      height: 100%;
+      width: 40%;
+      border-radius: 30px;
+      overflow: hidden;
+      img {         
+        width: 100%;
+        height: 100%;
+        object-fit: cover;                   
+        background-repeat : no-repeat;
+        background-size : cover;
+      }
+    }
+    .profile_welcome {
+      position: absolute;
+      height: 100%;
+      width: 40%;
+      left: 50%;
+      font-size: 40px;
+      font-family: $head-font;
+      padding-top: 10%;
+      letter-spacing: 5px;
+      font-weight: 600;
+    }
+  }
+  .right_bottom {
+    position: absolute;
+    width: 100%;
+    height: 30%;
+    top: 68%; 
+    left: 10%;   
+    font-family: $head-font;
+    font-size: 30px;
+      .email {
+        position: absolute;
+        width: 80%;
+        height: 20%;
+        left: 10%;
+        top: 20%;
+        text-align: left;
+        span {
+          &:nth-child(1) {
+            font-weight: 600;
+          }
+          &:nth-child(2) {
+            margin-left: 15%;
+            font-size: 25px;
+          }
+        }
+      }
+      .group {
+        position: absolute;
+        width: 80%;
+        height: 20%;
+        top: 55%;
+        left: 10%;
+        text-align: left;
+        span {
+          &:nth-child(1) {
+            font-weight: 600;
+          }
+          &:nth-child(2) {
+            margin-left: 30%;
+            font-size: 25px;
+          }
+        }
+      }
+  }
+}

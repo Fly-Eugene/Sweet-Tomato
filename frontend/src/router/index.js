@@ -1,13 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
-import AccountLogin from '@/components/Account/AccountLogin.vue'
-import AccountSignup from '@/components/AccountSignup'
-import AccountProfile from '@/components/Account/AccountProfile'
+import AccountLogin from '@/components/ModalContent/AccountLogin.vue'
+import AccountSignup from '@/components/ModalContent/AccountSignup'
 import StudyMain from '@/views/StudyMain'
-import MakeStudy from '@/views/MakeStudy'
-import RoomTest from '@/components/RoomTest'
+import Mypage from '@/views/Mypage'
+import ErrorPage from '@/views/ErrorPage.vue'
+import Modal from '@/views/Modal'
+import DetailStudy from '@/views/DetailStudy'
+import OpenVidu from '@/views/Openvidu'
+import Room from '@/views/Room'
 
 const routes = [
+  {
+    path: '/mypage',
+    name: 'Mypage',
+    component: Mypage
+  },
   {
     path: '/',
     name: 'Home',
@@ -24,42 +32,40 @@ const routes = [
     component: AccountSignup
   },
   {
-    path: '/account/profile',
-    name: 'AccountProfile',
-    component: AccountProfile
-  },
-  {
     path: '/study/main',
     name: 'StudyMain',
     component: StudyMain
   },
+
   {
-    path: '/study',
-    name: 'MakeStudy',
-    component: MakeStudy
+    path: '/modaltest',
+    name: 'Modal',
+    component: Modal,
+  },
+
+  {
+    path: '/study/:id',
+    name: 'DetailStudy',
+    component: DetailStudy,
+    props: true
   },
   {
-    path: '/roomtest',
-    name: 'RoomTest',
-    component: RoomTest
-  }
- 
-  // {
-  //   path: '/account',
-  //   name: 'Account',
-  //   component: Account,
-
-  //   children: [
-  //     { path: 'logintemp',
-  //       component: LoginTemp,  
-  //     },
-  //     { path: 'signuptemp',
-  //       component: SignupTemp
-  //     }
-  //   ]
-  // }
-
-
+    path: '/error',
+    name: 'ErrorPage',
+    component: ErrorPage,
+  },
+  {
+    path: '/openvidu',
+    name: 'OpenVidu',
+    component: OpenVidu,
+    props: true
+  },
+  {
+    path: '/Room',
+    name: 'Room',
+    component: Room,
+    props: true
+  },
 ]
 
 const router = createRouter({

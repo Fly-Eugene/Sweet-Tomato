@@ -1,0 +1,25 @@
+.tomato_section {
+  position: relative;
+  
+  width: 1050px;
+  height: 435px;
+  margin-top: 150px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  .tomato_header{
+    width: 346px;
+    height: 51px;
+
+    font-family: 'Godo', sans-serif;
+    font-size: 45px;
+    line-height: 51px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #000000;
+  }
+}

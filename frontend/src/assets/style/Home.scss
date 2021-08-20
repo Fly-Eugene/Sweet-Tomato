@@ -1,0 +1,52 @@
+.home {  
+  // position: absolute;
+  // width: 100%;
+  // height: 100%;
+  overflow: hidden;
+
+  .circle {
+    z-index: -1;
+    position: absolute;
+    width: 400px;
+    height: 400px; 
+    left: -10%;
+    top: 20%;
+    border-radius: 70%;
+    background-color: #ECFF76;
+  }
+
+  .rectangle {
+    z-index: -1;
+    position: absolute;
+    width: 700px;
+    height: 450px;
+    top: 60%;
+    right: -10%;
+    background-color: #F49E79;
+    transform: rotate(20deg);
+  }
+
+  .HomeMain {
+    display: block;
+    width: 80%;
+    height: 500px;
+    margin: auto;
+    margin-top: 2%;
+  }
+  .HomeMiddle {
+    display: block;
+    width: 80%;
+    height: 500px;
+    margin: auto;
+    margin-top: 3%;
+  }
+  .HomeBottom {
+    display: block;
+    width: 80%;
+    height: 800px;
+    left: 25%;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+}

@@ -1,47 +1,61 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link :to="{name: 'AccountLogin'}">AccountLogin</router-link> |
-    <router-link :to="{name: 'AccountSignup'}">Signup</router-link> |
-    <router-link :to="{name: 'AccountProfile'}">Profile</router-link> | 
-    <router-link :to="{name: 'StudyMain'}">StudyMain</router-link>
-    <router-link :to="{name: 'MakeStudy'}">MakeStudy</router-link> |
-    <router-link :to="{name: 'RoomTest'}">Room</router-link>
+  <div>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <div v-if="state.nav_show" class="innerHeader">
+      <Navbar/>
+    </div>
+
+
+      <!-- <div class="startPageTomato">
+        <img src="@/assets/img/tomato1.svg" alt="">
+        <button @click="$router.push({name: 'Home'})">시작하기</button>
+      </div> -->
+
+    <router-view/>
+    <div v-if="state.nav_show" class="footer">      
+    </div>
   </div>
-  <router-view/>
+
 </template>
 
-<style>
+<script>
+import '@/assets/style/app.scss'
+import Navbar from '@/views/Navbar.vue'
+import { useStore } from 'vuex'
+import { computed, onMounted, reactive} from 'vue'
+import router from '@/router'
 
-body {
-  background: #FFD0BB;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
+export default {
+  name: 'App',
+
+  components: {
+    Navbar
+  },
+
+  setup() {
+    const store = useStore()
+
+    const state = reactive({
+      nav_show : computed(()=> {
+        return store.state.nav_show
+      }),
+    })
+    function move() {
+      store.dispatch('getRecentStudy')
+      store.dispatch('getMyTomato')
+      store.dispatch('getMyStudyTime')
+      router.push({name: 'Mypage'})
+    }
+    onMounted(() => {
+      store.dispatch('checkLogin')
+    })
+
+
+    
+    return {
+      state,
+      move
+    }
+  }
 }
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-
-  width: 100%;
-  height: 100%;
-}
-
-#nav {
-  padding: 0px;
-  /* padding: 30px; */
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>

@@ -1,57 +1,52 @@
 <template>
-  <section class="study_main_body">
-    <section class="study_main_card">
-      <header>
-        <h2>스터디 찾기</h2>
-        <button>만들기</button>
-      </header>
-      <nav>
-        <div class="nav_btn_wrapper">
-          <button class="home_btn" href="#none">H</button>
-          <button class="search_btn" href="#none">S</button>
-          <button class="profile_btn" href="#none">P</button>
-        </div>
-      </nav>    
-      <section class="input_wrapper">
-        <form class="serach_form" action="">
-          <div>
-            <input type="text" placeholder="원하는 스터디를 찾아보세요.">
-          </div>
-        </form>
-        <button>검색</button>
-      </section>
-      <section class="hashtags">
-        <div class="hashtag">
-          <p># 코딩</p>
-          <a href="#none">X</a>
-        </div>
-      </section>
-      <section class="study_cards">
-        <div class="card_wrapper">
-          <div class="card">
-
-          </div>
-        </div>
-
-        <footer class="pagination">
-          <span>이전</span>
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>이후</span>
-        </footer>
-      </section>
-    </section>
+  <section class="study_main">
+    <StudySearch @studySearch='onSearch'/>
+    <StudyCards @movePage='onMove'/>
   </section>
 </template>
 
 <script>
 
 import '../assets/style/study_main.scss'
+import StudySearch from '@/components/StudyMain/StudySearch.vue'
+import StudyCards from '@/components/StudyMain/StudyCards.vue'
+import { useStore } from 'vuex'
+import { onMounted, reactive } from 'vue'
 
 export default {
   name: "StudyMain",
   
+  components: {
+    StudySearch,
+    StudyCards
+  },
+
+
+  setup(){
+    const store = useStore()
+    const state = reactive({
+      hash: []
+    })
+
+    function onSearch(value) {
+      store.dispatch('searchStudy', {themes: value, page: 1})
+      state.hash = value
+    }
+    function onMove(pageNum) {
+      store.dispatch('searchStudy', {themes: store.state.studyHashtag, page: pageNum})
+      state.hash = store.state.studyHashtag
+    }
+    onMounted(() => {
+      store.dispatch('checkLogin')
+      store.dispatch('searchStudy', {themes: [], page: 1})
+    })
+    return {
+      store,
+      state,
+      onSearch,
+      onMove
+    }
+  }
 }
 </script>
 

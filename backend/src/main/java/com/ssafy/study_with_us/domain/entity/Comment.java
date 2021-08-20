@@ -1,5 +1,6 @@
 package com.ssafy.study_with_us.domain.entity;
 
+import com.ssafy.study_with_us.dto.CommentDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -35,7 +36,7 @@ public class Comment {
     public Comment(Long id, String content, LocalDate reg_time, Member member, Study study) {
         this.id = id;
         this.content = content;
-        this.regTime = reg_time;
+        this.regTime = reg_time == null ? LocalDate.now().plusDays(1) : reg_time;
         this.member = member;
         this.study = study;
     }
@@ -49,5 +50,13 @@ public class Comment {
                 ", member=" + member +
                 ", study=" + study +
                 '}';
+    }
+    public CommentDto entityToDto() {
+        return CommentDto.builder().commentId(id)
+                .content(content)
+                .memberId(member.getId())
+                .studyId(study.getId())
+                .regTime(regTime)
+                .build();
     }
 }
