@@ -14,7 +14,10 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 
 ## 1. 팀원 정보 및 업무 분담 내역
 
-| <img src="C:\Users\multicampus\Desktop\test\혜민.PNG" style="zoom:50%;" /> | <img src="C:\Users\multicampus\Desktop\test\종혁.PNG" style="zoom:50%;" /> | <img src="C:\Users\multicampus\Desktop\test\유진.PNG" style="zoom:50%;" /> | <img src="C:\Users\multicampus\Desktop\test\근일.PNG" style="zoom:50%;" /> |
+| ![혜민](https://user-images.githubusercontent.com/75067702/135885502-0402b3fa-b756-41a4-ad1e-9897a8c421a9.PNG)
+ | ![종혁](https://user-images.githubusercontent.com/75067702/135885557-46f01af2-aa77-469a-ab10-bcae1d74d0f5.PNG) | ![유진](https://user-images.githubusercontent.com/75067702/135885622-9d6e925b-00b4-49c9-b06a-70d07ded2989.PNG)
+ | ![근일](https://user-images.githubusercontent.com/75067702/135885650-9f95d77e-8efe-42ef-b637-7bd352943004.PNG)
+ |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 전혜민                                                       | 김종혁                                                       | 이유진                                                       | 박근일                                                       |
 | BE, 배포, Openvidu 관련                                      | BE                                                           | FE                                                           | FE, 기획, 디자인, 영상제작                                   |
@@ -29,7 +32,8 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 
 ### 2-1. 프로젝트 아키텍처
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20211005003148510.png" alt="image-20211005003148510" style="zoom:67%;" />
+![image-20211005003148510](https://user-images.githubusercontent.com/75067702/135885800-14c70617-1657-4e68-ac29-93af343c3e34.png)
+
 
 ### 2-2. 브랜치 관리 전략
 
@@ -48,8 +52,7 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 ---
 
 ### 3-1. 화상회의
-
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20211005003610423.png" alt="image-20211005003610423" style="zoom: 67%;" />
+![image-20211005003610423](https://user-images.githubusercontent.com/75067702/135885825-f94a8e5f-7bdf-4fb1-9f04-ec7477abf2b8.png)
 
 - 캠, 오디오 on/ off 
 - 웹 소켓 채팅
@@ -63,7 +66,7 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 
 > 뽀모도로란, 본인이 정한 시간만큼은 최대한 집중할 수 있도록 하는 집중 기법입니다.
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20211005003750619.png" alt="image-20211005003750619" style="zoom:67%;" />
+![image-20211005003750619](https://user-images.githubusercontent.com/75067702/135885846-f266d42b-819e-423d-80aa-ef3099942dba.png)
 
 - 원하는 뽀모도로 시간 및 개수 설정
 - 토마토 익기 버튼 클릭시, 집중시간 시작!
@@ -72,7 +75,7 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 
 ### 3-3. 공부시간 시각화
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20211005003922111.png" alt="image-20211005003922111" style="zoom:67%;" />
+![image-20211005003922111](https://user-images.githubusercontent.com/75067702/135885881-ecf5ac49-cce6-4c65-9388-2da480866485.png)
 
 - Piechart, HeatMap 등을 이용한 개인 및 스터디의 공부량을 확인 가능
 
@@ -80,7 +83,7 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 
 ### 3-4. 스터디 커뮤니티
 
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20211005004015460.png" alt="image-20211005004015460" style="zoom:67%;" />
+![image-20211005004015460](https://user-images.githubusercontent.com/75067702/135885909-bf33f5fa-d038-4b01-be49-deca569e6808.png)
 
 - 댓글 기능
 - 자료실 첨부파일 등록 및 다운로드 가능
@@ -99,10 +102,8 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 ## 4. 화면 설계
 
 ---
+![image-20211005004800663](https://user-images.githubusercontent.com/75067702/135885941-c4808daf-ace1-4a64-8683-75ca1b68f43b.png)
 
-
-
-<img src="C:\Users\multicampus\AppData\Roaming\Typora\typora-user-images\image-20211005004800663.png" alt="image-20211005004800663" style="zoom:67%;" />
 
 - [Figma 링크 참조](https://www.figma.com/file/n0U0H4rmLrkFV9bUBuFQqS/UI-리뉴얼?node-id=0%3A1)
 
@@ -114,7 +115,7 @@ Sweet Tomato는 WebRTC 기술을 기반으로 한 온라인 화상 스터디 프
 
 ---
 
-<img src="C:\Users\multicampus\Desktop\test\ERD.png" style="zoom: 50%;" />
+![ERD](https://user-images.githubusercontent.com/75067702/135885978-977051c6-d5e9-4d74-9ff7-a15ccbfd77a8.png)
 
 
 
